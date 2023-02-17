@@ -16,7 +16,7 @@ public class MainActivity extends AppCompatActivity {
         btnMovie.setOnClickListener(v -> openActivityMovie());
     }
     public void openActivityMovie() {
-        Intent intentAboutMe = new Intent(this, MovieActivity.class);
-        startActivity(intentAboutMe);
+        Intent intent = new Intent(this, MovieActivity.class);
+        startActivity(intent);
     }
 }
