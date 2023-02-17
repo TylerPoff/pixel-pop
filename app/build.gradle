@@ -7,6 +7,10 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
+    buildFeatures {
+        viewBinding true
+    }
+
     signingConfigs {
         release {
             storeFile file(System.getenv("android_team26_store_path"))
