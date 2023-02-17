@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">NUMAD23Sp_Team26</string>
+    <string name="team_26">Team 26</string>
+    <string name="movie">Movie</string>
 </resources>
