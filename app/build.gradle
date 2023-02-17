@@ -3,6 +3,14 @@ plugins {
 }
 
 android {
+    signingConfigs {
+        release {
+            storeFile file(System.getenv("android_team26_store_path"))
+            storePassword System.getenv("android_team26_store_password")
+            keyAlias 'numad23sp team 26 key'
+            keyPassword System.getenv("android_team26_key_password")
+        }
+    }
     namespace 'edu.northeastern.numad23sp_team26'
     compileSdk 33
 
@@ -20,6 +28,7 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            signingConfig signingConfigs.release
         }
     }
     compileOptions {
