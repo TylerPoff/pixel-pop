@@ -35,15 +35,22 @@ public class MovieActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
 
-        Thread webThread = new WebServiceThread();
-        webThread.start();
+        Thread omdbThread = new OMDBWebServiceThread("Top Gun");
+        omdbThread.start();
     }
 
-    private class WebServiceThread extends Thread {
+    private class OMDBWebServiceThread extends Thread {
+
+        private String searchWord;
+
+        public OMDBWebServiceThread(String searchWord) {
+            this.searchWord = searchWord;
+        }
+
         @Override
         public void run() {
             try {
-                URL url = new URL(omdbApiUrl + omdbApiKey + "&t=antman");
+                URL url = new URL(omdbApiUrl + omdbApiKey + "&s=" + searchWord);
                 String res = NetworkUtil.httpResponse(url);
 
                 JSONObject jObject = new JSONObject(res);
