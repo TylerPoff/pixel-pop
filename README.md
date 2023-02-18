@@ -1,5 +1,9 @@
 # NUMAD23Sp_Team26
 
+## Development
+1. Copy `apikey.blank.properties` to the same directory and rename `apikey.properties`
+2. Enter the API secrets in `apikey.properties` file
+
 ## Release Build
 1. Add below variables to user environment variables.
 
