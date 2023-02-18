@@ -56,7 +56,16 @@ public class MovieActivity extends AppCompatActivity {
                 JSONObject jObject = new JSONObject(res);
 
                 resHandler.post(() -> {
-                    binding.webTextView.setText(jObject.toString());
+                    try {
+                        if (jObject.has("Search")) {
+                            binding.webTextView.setText(jObject.getJSONArray("Search").toString());
+                        } else {
+                            binding.webTextView.setText(jObject.getString("Error"));
+                        }
+                    } catch (JSONException e) {
+                        Log.e(TAG,"JSONException");
+                        e.printStackTrace();
+                    }
                 });
             } catch (MalformedURLException e) {
                 Log.e(TAG,"MalformedURLException");
