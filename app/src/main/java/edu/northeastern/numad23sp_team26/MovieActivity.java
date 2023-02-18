@@ -1,6 +1,8 @@
 package edu.northeastern.numad23sp_team26;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +16,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.ArrayList;
 
 import edu.northeastern.numad23sp_team26.databinding.ActivityMovieBinding;
 
@@ -27,6 +30,9 @@ public class MovieActivity extends AppCompatActivity {
 
     private Handler resHandler = new Handler();
 
+    private RecyclerView.LayoutManager layoutManager;
+    private MovieAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,6 +43,13 @@ public class MovieActivity extends AppCompatActivity {
 
         Thread omdbThread = new OMDBWebServiceThread("Top Gun");
         omdbThread.start();
+
+       binding.recyclerView.setHasFixedSize(true);
+       layoutManager = new LinearLayoutManager(this);
+       binding.recyclerView.setLayoutManager(layoutManager);
+       adapter = new MovieAdapter(new ArrayList<>(), this);
+       binding.recyclerView.setAdapter(adapter);
+
     }
 
     private class OMDBWebServiceThread extends Thread {

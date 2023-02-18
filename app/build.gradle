@@ -7,6 +7,9 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
+    dataBinding {
+        enabled true
+    }
     buildFeatures {
         viewBinding true
     }
