@@ -9,6 +9,6 @@ public class MovieActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.movie_card_layout);
+        setContentView(R.layout.activity_movie);
     }
 }
