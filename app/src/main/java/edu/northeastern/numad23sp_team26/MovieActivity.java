@@ -1,7 +1,6 @@
 package edu.northeastern.numad23sp_team26;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -11,6 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
 import android.widget.ProgressBar;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import org.json.JSONArray;
@@ -39,7 +39,8 @@ public class MovieActivity extends AppCompatActivity {
     private TextView progressText;
 
     /** ---------------------------------------------------------------------- */
-//    SearchView searchView; // todo : new
+    private SearchView searchView; // todo : new
+    private String input;
     ListView myListView;  // todo : new
 
     // todo: making the search view functional
@@ -53,42 +54,56 @@ public class MovieActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressText = findViewById(R.id.progressText);
+        layoutManager = new LinearLayoutManager(this);
 
-        Thread omdbThread = new OMDBWebServiceThread("Top Gun");
-        omdbThread.start();
 
+
+
+        // TODO: put search query here
+        searchView = findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                // "    Top Gun    "
+                input = query.trim();
+                Log.v(TAG, input);
+                Thread omdbThread = new OMDBWebServiceThread(input);
+                omdbThread.start();
+
+                recycler();
+                try {
+                    omdbThread.join();
+                    Log.v(TAG, "Thread Alive: " + omdbThread.isAlive());
+                    Log.v(TAG, "Thread Id: " + omdbThread.getId());
+
+
+                } catch (InterruptedException e) {
+                    throw new RuntimeException(e);
+                }
+
+
+                progressBar.setMax(100);
+                progressText.setText("Loading...");
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                Log.v(TAG, "newText " + newText);
+                //movieList = new ArrayList<>();
+                return false;
+            }
+        });
+
+
+    }
+
+    private void recycler() {
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         adapter = new MovieAdapter(movieList, this);
         recyclerView.setAdapter(adapter);
-
-        progressBar.setMax(100);
-        progressText.setText("Loading...");
-
-        /** ---------------------------------------------------------------------- */
-
-        // todo: making the search view functional
-//        searchView = findViewById(R.id.searchView); // todo : new
-//        movieList = findViewById(R.id.movieList); // todo : fix movielist by probably adding movie list to xml file
-//
-//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-//            @Override
-//            public boolean onQueryTextSubmit(String query) {
-//                return false;
-//            }
-//
-//            @Override
-//            public boolean onQueryTextChange(String newText) {
-//                adapter.getFilter().filter( newText);
-//                return false;
-//            }
-//        });
-
-        /** ---------------------------------------------------------------------- */
-
-
     }
 
     private class OMDBWebServiceThread extends Thread {
@@ -115,7 +130,7 @@ public class MovieActivity extends AppCompatActivity {
                         if (jObject.has("Search")) {
                             JSONArray arr = jObject.getJSONArray("Search");
                             //int numMovies = arr.length();
-                            int numMovies = 5;
+                            int numMovies = 100;
                             progressBar.setMax(numMovies);
                             for (int i = 0; i < numMovies; i++) {
                                 JSONObject obj = arr.getJSONObject(i);
