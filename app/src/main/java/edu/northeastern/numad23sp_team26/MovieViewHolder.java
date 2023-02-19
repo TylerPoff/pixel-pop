@@ -40,9 +40,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
         yearTV.setText(context.getString(R.string.release, movie.getYear()));
         typeTV.setText(context.getString(R.string.type, movie.getType()));
         genreTV.setText(context.getString(R.string.genre, movie.getGenre()));
-        if (movie.getPosterURL().isEmpty()) {
-            //default
-        } else {
+        if (!movie.getPosterURL().isEmpty()) {
             new Thread(() -> {
                 try {
                     URL url = new URL(movie.getPosterURL());
