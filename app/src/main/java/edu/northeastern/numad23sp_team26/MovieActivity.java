@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -35,6 +37,9 @@ public class MovieActivity extends AppCompatActivity {
     private MovieAdapter adapter;
     private ArrayList<Movie> movieList = new ArrayList<>();
 
+    private ProgressBar progressBar;
+    private TextView progressText;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +47,9 @@ public class MovieActivity extends AppCompatActivity {
         binding = ActivityMovieBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+
+        progressBar = findViewById(R.id.progressBar);
+        progressText = findViewById(R.id.progressText);
 
         Thread omdbThread = new OMDBWebServiceThread("Top Gun");
         omdbThread.start();
@@ -51,6 +59,8 @@ public class MovieActivity extends AppCompatActivity {
         binding.recyclerView.setLayoutManager(layoutManager);
         adapter = new MovieAdapter(movieList, this);
         binding.recyclerView.setAdapter(adapter);
+        progressBar.setMax(100);
+        progressText.setText("Loading...");
     }
 
     private class OMDBWebServiceThread extends Thread {
@@ -64,22 +74,39 @@ public class MovieActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                URL url = new URL(omdbApiUrl + omdbApiKey + "&s=" + searchWord);
+                //URL url = new URL(omdbApiUrl + omdbApiKey + "&s=" + searchWord);
+                URL url = new URL("https://www.example.com");
                 String res = NetworkUtil.httpResponse(url);
 
                 JSONObject jObject = new JSONObject(res);
 
                 resHandler.post(() -> {
+                    progressBar.setIndeterminate(true);
+                    progressBar.setVisibility(View.VISIBLE);
+                    progressText.setText("Loading...");
                     try {
                         if (jObject.has("Search")) {
                             JSONArray arr = jObject.getJSONArray("Search");
-                            for (int i = 0; i < arr.length(); i++) {
+                            //int numMovies = arr.length();
+                            int numMovies = 5;
+                            progressBar.setMax(numMovies);
+                            for (int i = 0; i < numMovies; i++) {
                                 JSONObject obj = arr.getJSONObject(i);
                                 String name = obj.getString("Title");
                                 int year = Integer.parseInt(obj.getString("Year"));
                                 String type = obj.getString("Type");
                                 String poster = obj.getString("Poster");
                                 movieList.add(new Movie(name, year, type, poster));
+
+                                int progress = i + 1;
+                                progressBar.setProgress(progress);
+                                progressText.setText("Loading " + progress + " of " + numMovies + " movies...");
+                                Log.d(TAG, "Progress text updated to: Loading " + progress + " of " + numMovies + " movies...");
+                                try {
+                                    Thread.sleep(5000);
+                                } catch (InterruptedException e) {
+                                    e.printStackTrace();
+                                }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
@@ -89,6 +116,9 @@ public class MovieActivity extends AppCompatActivity {
                         Log.e(TAG,"JSONException");
                         e.printStackTrace();
                     }
+                    progressBar.setIndeterminate(false);
+                    progressBar.setVisibility(View.GONE);
+                    progressText.setText("");
                 });
             } catch (MalformedURLException e) {
                 Log.e(TAG,"MalformedURLException");
