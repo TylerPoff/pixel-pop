@@ -8,8 +8,10 @@ public class Movie {
     private final String type;
 
 
-    public Movie(String name, int year, String type, String posterURL) {
-        this.genre = "comedy";
+
+
+    public Movie(String name, int year, String type, String posterURL, String genre) {
+        this.genre = genre;
         this.posterURL = posterURL;
         this.name = name;
         this.type = type;

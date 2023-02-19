@@ -80,8 +80,8 @@ public class MovieActivity extends AppCompatActivity {
                 }
 
 
-              //  progressBar.setMax(100);
-              //  progressText.setText("Loading...");
+                //  progressBar.setMax(100);
+                //  progressText.setText("Loading...");
                 return false;
             }
 
@@ -133,11 +133,28 @@ public class MovieActivity extends AppCompatActivity {
                             progressBar.setMax(numMovies);
                             for (int i = 0; i < numMovies; i++) {
                                 JSONObject obj = arr.getJSONObject(i);
+                                String ImdbId = obj.getString("imdbID"); // get unique ID of movie
+
+                                String genre ="";
+                                try {
+                                    URL itemUrl = new URL(omdbApiUrl + omdbApiKey + "&i=" + ImdbId);
+                                    String itemres = NetworkUtil.httpResponse(itemUrl);
+                                    JSONObject resJObject = new JSONObject(itemres);
+                                    genre = resJObject.getString("Genre");
+                                } catch (MalformedURLException e) {
+                                    Log.e(TAG, "MalformedURLException");
+                                    e.printStackTrace();
+                                } catch (IOException e) {
+                                    Log.e(TAG, "IOException");
+                                    e.printStackTrace();
+                                }
+
+
                                 String name = obj.getString("Title");
                                 int year = Integer.parseInt(obj.getString("Year"));
                                 String type = obj.getString("Type");
                                 String poster = obj.getString("Poster");
-                                movieList.add(new Movie(name, year, type, poster));
+                                movieList.add(new Movie(name, year, type, poster, genre));
 
                                 int progress = i + 1;
                                 progressBar.setProgress(progress);
