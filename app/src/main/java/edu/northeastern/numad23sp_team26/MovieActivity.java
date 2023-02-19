@@ -21,11 +21,8 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.ArrayList;
 
-import edu.northeastern.numad23sp_team26.databinding.ActivityMovieBinding;
-
 public class MovieActivity extends AppCompatActivity {
 
-    private ActivityMovieBinding binding;
     private static final String TAG = "MovieActivity";
 
     private final String omdbApiUrl = BuildConfig.OMDB_API_URL;
@@ -44,21 +41,19 @@ public class MovieActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityMovieBinding.inflate(getLayoutInflater());
-        View view = binding.getRoot();
-        setContentView(view);
-
+        setContentView(R.layout.activity_movie);
         progressBar = findViewById(R.id.progressBar);
         progressText = findViewById(R.id.progressText);
 
         Thread omdbThread = new OMDBWebServiceThread("Top Gun");
         omdbThread.start();
 
-        binding.recyclerView.setHasFixedSize(true);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
+        recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(this);
-        binding.recyclerView.setLayoutManager(layoutManager);
+        recyclerView.setLayoutManager(layoutManager);
         adapter = new MovieAdapter(movieList, this);
-        binding.recyclerView.setAdapter(adapter);
+        recyclerView.setAdapter(adapter);
         progressBar.setMax(100);
         progressText.setText("Loading...");
     }
@@ -103,14 +98,15 @@ public class MovieActivity extends AppCompatActivity {
                                 progressText.setText("Loading " + progress + " of " + numMovies + " movies...");
                                 Log.d(TAG, "Progress text updated to: Loading " + progress + " of " + numMovies + " movies...");
                                 try {
-                                    Thread.sleep(5000);
+                                    Thread.sleep(500);
                                 } catch (InterruptedException e) {
                                     e.printStackTrace();
                                 }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
-                            binding.errorTextView.setText("Error: " + jObject.getString("Error"));
+                            TextView errorTextView = findViewById(R.id.errorTextView);
+                            errorTextView.setText("Error: " + jObject.getString("Error"));
                         }
                     } catch (JSONException e) {
                         Log.e(TAG,"JSONException");

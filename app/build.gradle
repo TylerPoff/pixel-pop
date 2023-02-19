@@ -7,13 +7,6 @@ def apikeyProperties = new Properties()
 apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
 
 android {
-    dataBinding {
-        enabled true
-    }
-    buildFeatures {
-        viewBinding true
-    }
-
     signingConfigs {
         release {
             storeFile file(System.getenv("android_team26_store_path"))
@@ -57,7 +50,6 @@ android {
 }
 
 dependencies {
-
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
