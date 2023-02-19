@@ -5,18 +5,15 @@ public class Movie {
     private final String posterURL;
     private final String name;
     private final int year;
-    private final String imdbID;
     private final String type;
 
 
-    public Movie(String name, String genre, int year, String imdbID,
-                 String type, String posterURL) {
-        this.genre = genre;
+    public Movie(String name, int year, String type, String posterURL) {
+        this.genre = "comedy";
         this.posterURL = posterURL;
         this.name = name;
         this.type = type;
         this.year =year;
-        this.imdbID = imdbID;
     }
 
     public String getGenre() {
@@ -30,7 +27,4 @@ public class Movie {
         return this.year;
     }
     public String getType() { return this.type; }
-    public String getImdbID() {
-        return this.imdbID;
-    }
 }

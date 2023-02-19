@@ -2,9 +2,8 @@
     <string name="app_name">NUMAD23Sp_Team26</string>
     <string name="team_26">Team 26</string>
     <string name="movie">Movie</string>
-    <string name="release">Year: 2023</string>
+    <string name="release">Release Year: %1$d</string>
     <string name="movie_title">Movie Title</string>
-    <string name="imdbID">imdbID: xxxxxxxx</string>
-    <string name="type">Type: movie</string>
-    <string name="genre">Genre: N/A</string>
+    <string name="type">Type: %1$s</string>
+    <string name="genre">Genre: %1$s</string>
 </resources>

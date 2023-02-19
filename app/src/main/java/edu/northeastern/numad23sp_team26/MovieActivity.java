@@ -9,6 +9,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -32,6 +33,7 @@ public class MovieActivity extends AppCompatActivity {
 
     private RecyclerView.LayoutManager layoutManager;
     private MovieAdapter adapter;
+    private ArrayList<Movie> movieList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +46,11 @@ public class MovieActivity extends AppCompatActivity {
         Thread omdbThread = new OMDBWebServiceThread("Top Gun");
         omdbThread.start();
 
-       binding.recyclerView.setHasFixedSize(true);
-       layoutManager = new LinearLayoutManager(this);
-       binding.recyclerView.setLayoutManager(layoutManager);
-       adapter = new MovieAdapter(new ArrayList<>(), this);
-       binding.recyclerView.setAdapter(adapter);
-
+        binding.recyclerView.setHasFixedSize(true);
+        layoutManager = new LinearLayoutManager(this);
+        binding.recyclerView.setLayoutManager(layoutManager);
+        adapter = new MovieAdapter(movieList, this);
+        binding.recyclerView.setAdapter(adapter);
     }
 
     private class OMDBWebServiceThread extends Thread {
@@ -71,9 +72,18 @@ public class MovieActivity extends AppCompatActivity {
                 resHandler.post(() -> {
                     try {
                         if (jObject.has("Search")) {
-                            binding.webTextView.setText(jObject.getJSONArray("Search").toString());
+                            JSONArray arr = jObject.getJSONArray("Search");
+                            for (int i = 0; i < arr.length(); i++) {
+                                JSONObject obj = arr.getJSONObject(i);
+                                String name = obj.getString("Title");
+                                int year = Integer.parseInt(obj.getString("Year"));
+                                String type = obj.getString("Type");
+                                String poster = obj.getString("Poster");
+                                movieList.add(new Movie(name, year, type, poster));
+                            }
+                            adapter.notifyDataSetChanged();
                         } else {
-                            binding.webTextView.setText(jObject.getString("Error"));
+                            binding.errorTextView.setText("Error: " + jObject.getString("Error"));
                         }
                     } catch (JSONException e) {
                         Log.e(TAG,"JSONException");

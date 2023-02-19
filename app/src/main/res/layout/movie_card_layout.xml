@@ -43,30 +43,21 @@
         android:id="@+id/yearTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/nameTV"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/posterIV"
         android:text="@string/release" />
 
     <TextView
-        android:id="@+id/imdbIDTV"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginTop="80dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@id/posterIV"
-        android:text="@string/imdbID" />
-
-    <TextView
         android:id="@+id/typeTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/yearTV"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="0dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/posterIV"
@@ -76,8 +67,9 @@
         android:id="@+id/genreTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/typeTV"
         android:layout_marginStart="10dp"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="11dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:layout_toEndOf="@id/posterIV"
@@ -116,7 +108,7 @@
         android:layout_marginTop="50dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        app:srcCompat="@drawable/comedy_genre" />
+        app:srcCompat="@null" />
 
 
 </RelativeLayout>
