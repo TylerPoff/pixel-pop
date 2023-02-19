@@ -42,6 +42,7 @@ public class MovieActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_movie);
+
         progressBar = findViewById(R.id.progressBar);
         progressText = findViewById(R.id.progressText);
 
@@ -54,6 +55,7 @@ public class MovieActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         adapter = new MovieAdapter(movieList, this);
         recyclerView.setAdapter(adapter);
+
         progressBar.setMax(100);
         progressText.setText("Loading...");
     }
@@ -69,8 +71,7 @@ public class MovieActivity extends AppCompatActivity {
         @Override
         public void run() {
             try {
-                //URL url = new URL(omdbApiUrl + omdbApiKey + "&s=" + searchWord);
-                URL url = new URL("https://www.example.com");
+                URL url = new URL(omdbApiUrl + omdbApiKey + "&s=" + searchWord);
                 String res = NetworkUtil.httpResponse(url);
 
                 JSONObject jObject = new JSONObject(res);
@@ -97,11 +98,6 @@ public class MovieActivity extends AppCompatActivity {
                                 progressBar.setProgress(progress);
                                 progressText.setText("Loading " + progress + " of " + numMovies + " movies...");
                                 Log.d(TAG, "Progress text updated to: Loading " + progress + " of " + numMovies + " movies...");
-                                try {
-                                    Thread.sleep(500);
-                                } catch (InterruptedException e) {
-                                    e.printStackTrace();
-                                }
                             }
                             adapter.notifyDataSetChanged();
                         } else {
