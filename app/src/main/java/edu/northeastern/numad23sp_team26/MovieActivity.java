@@ -92,8 +92,6 @@ public class MovieActivity extends AppCompatActivity {
                 return false;
             }
         });
-
-
     }
 
     private void recycler() {
