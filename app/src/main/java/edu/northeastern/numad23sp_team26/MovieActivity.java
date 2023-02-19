@@ -54,7 +54,6 @@ public class MovieActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         progressText = findViewById(R.id.progressText);
-        layoutManager = new LinearLayoutManager(this);
 
 
 
@@ -67,23 +66,22 @@ public class MovieActivity extends AppCompatActivity {
                 // "    Top Gun    "
                 input = query.trim();
                 Log.v(TAG, input);
-                Thread omdbThread = new OMDBWebServiceThread(input);
+                OMDBWebServiceThread omdbThread = new OMDBWebServiceThread(input);
                 omdbThread.start();
-
+                movieList = omdbThread.getMovies();
                 recycler();
                 try {
                     omdbThread.join();
                     Log.v(TAG, "Thread Alive: " + omdbThread.isAlive());
                     Log.v(TAG, "Thread Id: " + omdbThread.getId());
 
-
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
 
 
-                progressBar.setMax(100);
-                progressText.setText("Loading...");
+              //  progressBar.setMax(100);
+              //  progressText.setText("Loading...");
                 return false;
             }
 
@@ -99,6 +97,7 @@ public class MovieActivity extends AppCompatActivity {
     }
 
     private void recycler() {
+        layoutManager = new LinearLayoutManager(this);
         RecyclerView recyclerView = findViewById(R.id.recyclerView);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
@@ -109,6 +108,8 @@ public class MovieActivity extends AppCompatActivity {
     private class OMDBWebServiceThread extends Thread {
 
         private String searchWord;
+        private ArrayList<Movie> movieList = new ArrayList<>();
+
 
         public OMDBWebServiceThread(String searchWord) {
             this.searchWord = searchWord;
@@ -172,5 +173,9 @@ public class MovieActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
+        public ArrayList<Movie> getMovies() {return this.movieList;}
     }
+
+
 }
