@@ -1,6 +1,7 @@
 package edu.northeastern.numad23sp_team26;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -8,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
@@ -33,9 +35,15 @@ public class MovieActivity extends AppCompatActivity {
     private RecyclerView.LayoutManager layoutManager;
     private MovieAdapter adapter;
     private ArrayList<Movie> movieList = new ArrayList<>();
-
     private ProgressBar progressBar;
     private TextView progressText;
+
+    /** ---------------------------------------------------------------------- */
+//    SearchView searchView; // todo : new
+    ListView myListView;  // todo : new
+
+    // todo: making the search view functional
+    /** ---------------------------------------------------------------------- */
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,29 @@ public class MovieActivity extends AppCompatActivity {
 
         progressBar.setMax(100);
         progressText.setText("Loading...");
+
+        /** ---------------------------------------------------------------------- */
+
+        // todo: making the search view functional
+//        searchView = findViewById(R.id.searchView); // todo : new
+//        movieList = findViewById(R.id.movieList); // todo : fix movielist by probably adding movie list to xml file
+//
+//        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//            @Override
+//            public boolean onQueryTextSubmit(String query) {
+//                return false;
+//            }
+//
+//            @Override
+//            public boolean onQueryTextChange(String newText) {
+//                adapter.getFilter().filter( newText);
+//                return false;
+//            }
+//        });
+
+        /** ---------------------------------------------------------------------- */
+
+
     }
 
     private class OMDBWebServiceThread extends Thread {

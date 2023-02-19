@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.Locale;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     private final List<Movie> movies;
@@ -34,4 +35,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieViewHolder> {
     public int getItemCount() {
         return movies.size();
     }
+
+
 }
