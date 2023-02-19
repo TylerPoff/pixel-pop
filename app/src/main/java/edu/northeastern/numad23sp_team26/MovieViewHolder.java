@@ -67,9 +67,19 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
                 return R.drawable.action_genre;
             case "comedy":
                 return R.drawable.comedy_genre;
-            //TODO: complete this
+            case "drama":
+                return R.drawable.drama_genre;
+            case "fantasy":
+                return R.drawable.fantasy_genre;
+            case "horror":
+                return R.drawable.horror_genre;
+            case "romance":
+                return R.drawable.romance_genre;
+            case "science fiction":
+                return R.drawable.sciencefiction_genre;
             default:
                 return null;
         }
     }
+
 }
