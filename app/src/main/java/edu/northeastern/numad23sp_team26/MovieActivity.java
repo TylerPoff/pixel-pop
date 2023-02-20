@@ -65,8 +65,10 @@ public class MovieActivity extends AppCompatActivity {
 
     public void searchMovies(View view) {
         String searchWords = searchEditText.getText().toString();
-        Thread omdbThread = new OMDBWebServiceThread(searchWords);
-        omdbThread.start();
+        if (!searchWords.isEmpty()) {
+            Thread omdbThread = new OMDBWebServiceThread(searchWords);
+            omdbThread.start();
+        }
     }
 
     @Override
@@ -139,7 +141,7 @@ public class MovieActivity extends AppCompatActivity {
                             }
 
                             String name = obj.getString("Title");
-                            int year = Integer.parseInt(obj.getString("Year"));
+                            String year = obj.getString("Year");
                             String type = obj.getString("Type");
                             String poster = obj.getString("Poster");
                             movieList.add(new Movie(name, year, type, poster, genre));
@@ -180,6 +182,4 @@ public class MovieActivity extends AppCompatActivity {
             }
         }
     }
-
-
 }

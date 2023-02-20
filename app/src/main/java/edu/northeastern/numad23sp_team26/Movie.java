@@ -4,18 +4,15 @@ public class Movie {
     private final String genre;
     private final String posterURL;
     private final String name;
-    private final int year;
+    private final String year;
     private final String type;
 
-
-
-
-    public Movie(String name, int year, String type, String posterURL, String genre) {
+    public Movie(String name, String year, String type, String posterURL, String genre) {
         this.genre = genre;
         this.posterURL = posterURL;
         this.name = name;
         this.type = type;
-        this.year =year;
+        this.year = year;
     }
 
     public String getGenre() {
@@ -25,7 +22,7 @@ public class Movie {
     public String getName() {
         return this.name;
     }
-    public int getYear() {
+    public String getYear() {
         return this.year;
     }
     public String getType() { return this.type; }
