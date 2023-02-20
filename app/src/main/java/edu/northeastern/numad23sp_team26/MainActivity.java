@@ -15,6 +15,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnMovie = findViewById(R.id.btnMovie);
         btnMovie.setOnClickListener(v -> openActivityMovie());
     }
+
     public void openActivityMovie() {
         Intent intent = new Intent(this, MovieActivity.class);
         startActivity(intent);
