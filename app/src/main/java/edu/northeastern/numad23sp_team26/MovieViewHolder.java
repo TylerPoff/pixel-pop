@@ -54,14 +54,19 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
                 }
             }).start();
         }
-        String movieGenre = movie.getGenre().split(",")[0];
+        String[] movieGenre = movie.getGenre().split(",\n");
         Integer genreImg = null;
-        if (!movieGenre.isEmpty()) {
-            genreImg = getGenreIMG(movie.getGenre().split(",")[0]);
+        if (movieGenre.length > 0) {
+            int current = 0;
+            while (genreImg == null && current < movieGenre.length) {
+                String currentGenre = movieGenre[current].trim();
+                genreImg = getGenreIMG(currentGenre);
+                current += 1;
+            }
         }
         if (genreImg != null) {
             genreIV.setVisibility(View.VISIBLE);
-            genreIV.setImageResource(getGenreIMG(movieGenre));
+            genreIV.setImageResource(genreImg);
         } else {
             genreIV.setVisibility(View.INVISIBLE);
         }
