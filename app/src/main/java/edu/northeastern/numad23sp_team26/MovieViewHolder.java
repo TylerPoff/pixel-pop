@@ -47,17 +47,23 @@ public class MovieViewHolder extends RecyclerView.ViewHolder {
                     Bitmap bmp = BitmapFactory.decodeStream(url.openConnection().getInputStream());
                     handler.post(() -> posterIV.setImageBitmap(bmp));
                 } catch (MalformedURLException e) {
-                    Log.e(TAG,"MalformedURLException");
-                    e.printStackTrace();
+                    // Sometimes, poster URL returned from the API call could be malformed
                 } catch (IOException e) {
                     Log.e(TAG,"IOException");
                     e.printStackTrace();
                 }
             }).start();
         }
-        Integer genreImg = getGenreIMG(movie.getGenre());
+        String movieGenre = movie.getGenre().split(",")[0];
+        Integer genreImg = null;
+        if (!movieGenre.isEmpty()) {
+            genreImg = getGenreIMG(movie.getGenre().split(",")[0]);
+        }
         if (genreImg != null) {
-            genreIV.setImageResource(getGenreIMG(movie.getGenre()));
+            genreIV.setVisibility(View.VISIBLE);
+            genreIV.setImageResource(getGenreIMG(movieGenre));
+        } else {
+            genreIV.setVisibility(View.INVISIBLE);
         }
     }
 
