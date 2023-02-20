@@ -6,7 +6,7 @@
     <string name="search_movie">Search Movies</string>
     <string name="search">Search</string>
 
-    <string name="release">Release Year: %1$d</string>
+    <string name="release">Release Year: %1$s</string>
     <string name="movie_title">Movie Title</string>
     <string name="type">Type: %1$s</string>
     <string name="genre">Genre: %1$s</string>
