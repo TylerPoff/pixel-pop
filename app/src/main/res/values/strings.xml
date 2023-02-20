@@ -1,3 +1,15 @@
 <resources>
     <string name="app_name">NUMAD23Sp_Team26</string>
+    <string name="team_26">Team 26</string>
+
+    <string name="search_movie_a6">Search Movies (A6)</string>
+    <string name="search_movie">Search Movies</string>
+    <string name="search">Search</string>
+
+    <string name="release">Release Year: %1$d</string>
+    <string name="movie_title">Movie Title</string>
+    <string name="type">Type: %1$s</string>
+    <string name="genre">Genre: %1$s</string>
+
+    <string name="loading">Loading...</string>
 </resources>
