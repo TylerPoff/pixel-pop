@@ -28,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Button btnMovie = findViewById(R.id.btnMovie);
+//        Button btnSticker = findViewById(R.id.btnSticker);
         btnMovie.setOnClickListener(v -> openActivityMovie());
     }
 
