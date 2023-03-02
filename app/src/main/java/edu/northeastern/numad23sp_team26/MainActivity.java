@@ -7,6 +7,10 @@ import android.os.Bundle;
 import android.os.StrictMode;
 import android.widget.Button;
 
+import com.google.firebase.BuildConfig;
+
+import edu.northeastern.numad23sp_team26.a8_stickers.RegisterActivity;
+
 public class MainActivity extends AppCompatActivity {
 
     @Override
@@ -27,12 +31,21 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         Button btnMovie = findViewById(R.id.btnMovie);
         btnMovie.setOnClickListener(v -> openActivityMovie());
+
+        Button btnSticker = findViewById(R.id.btnSticker);
+        btnSticker.setOnClickListener(v -> openActivitySticker());
     }
 
     public void openActivityMovie() {
         Intent intent = new Intent(this, MovieActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivitySticker() {
+        Intent intent = new Intent(this, RegisterActivity.class);
         startActivity(intent);
     }
 }
