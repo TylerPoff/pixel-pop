@@ -12,5 +12,6 @@
     <string name="genre">Genre: %1$s</string>
 
     <string name="loading">Loading...</string>
-    <string name="send_stickers_a8">SEND STICKERS (A8)</string>
+    <string name="send_stickers_a8">Send Stickers (A8)</string>
+    <string name="login">Login</string>
 </resources>
