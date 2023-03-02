@@ -14,10 +14,18 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Button btnMovie = findViewById(R.id.btnMovie);
         btnMovie.setOnClickListener(v -> openActivityMovie());
+
+        Button btnTest = findViewById(R.id.btnTest);
+        btnTest.setOnClickListener(v -> openActivityStickerUser());
     }
 
     public void openActivityMovie() {
         Intent intent = new Intent(this, MovieActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityStickerUser() {
+        Intent intent = new Intent(this, StickerUser.class);
         startActivity(intent);
     }
 }
