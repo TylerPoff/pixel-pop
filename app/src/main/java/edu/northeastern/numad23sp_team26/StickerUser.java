@@ -22,8 +22,7 @@ public class StickerUser extends AppCompatActivity {
         Button btnSendStickers = findViewById(R.id.btnSendStickers);
         Button btnReceivedHistory = findViewById(R.id.btnReceivedHistory);
 
-        btnSendStickers.setOnClickListener(v -> openActivityDirectory());
-
+        //TODO Open Send Stickers activity
         //TODO Open History activity
 
         actionBar = getSupportActionBar();
@@ -48,11 +47,6 @@ public class StickerUser extends AppCompatActivity {
                 }
         }
         );
-    }
-
-    private void openActivityDirectory() {
-        Intent intent = new Intent(this, StickerUserDirectory.class);
-        startActivity(intent);
     }
 
     private void loadStickers() {

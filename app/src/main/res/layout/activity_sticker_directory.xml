@@ -6,4 +6,50 @@
     android:layout_height="match_parent"
     tools:context=".StickerUserDirectory">
 
+
+    <ImageView
+        android:id="@+id/stickerDirectoryIV"
+        android:layout_width="95dp"
+        android:layout_height="68dp"
+        android:src="@drawable/romance_genre"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.046" />
+
+    <ListView
+        android:id="@+id/userListLV"
+        android:layout_width="200dp"
+        android:layout_height="130dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/stickerDirectoryIV"
+        app:layout_constraintVertical_bias="0.099" />
+
+    <Button
+        android:id="@+id/btnSend"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sendingToTV"
+        app:layout_constraintVertical_bias="0.19" />
+
+    <TextView
+        android:id="@+id/sendingToTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/you_re_sending_to"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/userListLV"
+        app:layout_constraintVertical_bias="0.08" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
