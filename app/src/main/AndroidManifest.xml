@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
-    
-<!--    added permission for internet-->
-    <uses-permission android:name="android.permission.INTERNET" />
 
-<!--    updated the parent team for more efficient design of the app-->
-    <!--     l16   android:theme="@style/Theme.NUMAD23Sp_Team26"-->
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -14,12 +9,11 @@
         android:icon="@mipmap/ic_launcher_t26"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Material3.Light"
+        android:theme="@style/Theme.NUMAD23Sp_Team26"
         tools:targetApi="31">
         <activity
             android:name=".a8_stickers.RegisterActivity"
-            android:label="Register"
-            android:theme="@style/Theme.Material3.Light.NoActionBar"/>
+            android:label="Register" />
         <activity
             android:name=".MovieActivity"
             android:exported="false" />
