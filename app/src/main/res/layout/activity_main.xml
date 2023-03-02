@@ -30,6 +30,8 @@
         app:layout_constraintTop_toBottomOf="@+id/teamTV"
         app:layout_constraintVertical_bias="0.25" />
 
+<!--    test-->
+
     <Button
         android:id="@+id/btnSticker"
         android:layout_width="wrap_content"

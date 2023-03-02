@@ -1,10 +1,12 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class Login extends AppCompatActivity {
+import edu.northeastern.numad23sp_team26.R;
+
+public class LoginActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
