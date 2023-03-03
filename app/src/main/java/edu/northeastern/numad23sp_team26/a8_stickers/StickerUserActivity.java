@@ -1,16 +1,18 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
 import java.util.ArrayList;
 
-public class StickerUser extends AppCompatActivity {
+import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerUser;
+
+public class StickerUserActivity extends AppCompatActivity {
 
     private ActionBar actionBar;
     private ViewPager viewPager;
@@ -50,13 +52,13 @@ public class StickerUser extends AppCompatActivity {
     }
 
     private void loadStickers() {
-        ArrayList<StickerUserModel> userStickerList = new ArrayList<>();
+        ArrayList<StickerUser> userStickerList = new ArrayList<>();
         StickerUserAdapter adapter = new StickerUserAdapter(this, userStickerList);
 
         //dummy add
-        userStickerList.add(new StickerUserModel("Cool Sticker","Stickers Sent: 1",R.drawable.fantasy_genre));
-        userStickerList.add(new StickerUserModel("Awesome Sticker","Stickers Sent: 3",R.drawable.action_genre));
-        userStickerList.add(new StickerUserModel("Scary Sticker","Stickers Sent: 100",R.drawable.horror_genre));
+        userStickerList.add(new StickerUser("Cool Sticker","Stickers Sent: 1",R.drawable.fantasy_genre));
+        userStickerList.add(new StickerUser("Awesome Sticker","Stickers Sent: 3",R.drawable.action_genre));
+        userStickerList.add(new StickerUser("Scary Sticker","Stickers Sent: 100",R.drawable.horror_genre));
 
         viewPager.setAdapter(adapter);
         viewPager.setPadding(100,100,100,100);

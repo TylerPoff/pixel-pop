@@ -1,11 +1,11 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers.models;
 
-public class StickerUserModel {
+public class StickerUser {
 
     String name, sent;
     int image;
 
-    public StickerUserModel(String name, String sent, int image) {
+    public StickerUser(String name, String sent, int image) {
         this.name = name;
         this.sent = sent;
         this.image = image;

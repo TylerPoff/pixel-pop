@@ -1,4 +1,4 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,7 +12,9 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-public class StickerUserDirectory extends AppCompatActivity {
+import edu.northeastern.numad23sp_team26.R;
+
+public class StickerUserDirectoryActivity extends AppCompatActivity {
     private String userSelected;
     @Override
     protected void onCreate(Bundle savedInstanceState) {

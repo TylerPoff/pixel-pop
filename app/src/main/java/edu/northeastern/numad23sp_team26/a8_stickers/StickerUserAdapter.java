@@ -1,4 +1,4 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,12 +12,15 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.ArrayList;
 
+import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerUser;
+
 public class StickerUserAdapter extends PagerAdapter {
 
     private final Context context;
-    private final ArrayList<StickerUserModel> StickerList;
+    private final ArrayList<StickerUser> StickerList;
 
-    public StickerUserAdapter(Context context, ArrayList<StickerUserModel> StickerList) {
+    public StickerUserAdapter(Context context, ArrayList<StickerUser> StickerList) {
         this.context = context;
         this.StickerList = StickerList;
     }
@@ -40,7 +43,7 @@ public class StickerUserAdapter extends PagerAdapter {
         TextView nameTV = view.findViewById(R.id.stickerNameTV);
         TextView sentTV = view.findViewById(R.id.stickerSentTV);
 
-        StickerUserModel model = StickerList.get(position);
+        StickerUser model = StickerList.get(position);
         String name = model.getName();
         String sent = model.getSent();
         int image = model.getImage();

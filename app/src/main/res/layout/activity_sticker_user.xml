@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/light_blue"
-    tools:context=".StickerUser">
+    tools:context=".a8_stickers.StickerUserActivity">
 
     <RelativeLayout
         android:id="@+id/relativeLayout"
@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.15"
-        tools:context=".StickerUser">
+        tools:context=".a8_stickers.StickerUserActivity">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
