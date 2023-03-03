@@ -4,42 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:padding="15dp"
+    tools:context=".a8_stickers.LoginActivity">
 
     <TextView
-        android:id="@+id/teamTV"
-        android:layout_width="wrap_content"
+        android:id="@+id/loginTV"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/team_26"
-        android:textSize="20sp"
+        android:gravity="center"
+        android:text="@string/login"
+        android:textSize="25sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/btnMovie"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="packed" />
+        app:layout_constraintVertical_chainStyle="packed"
+        android:layout_marginVertical="10dp" />
 
-    <Button
-        android:id="@+id/btnMovie"
-        android:layout_width="wrap_content"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/username"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/search_movie_a6"
-        app:layout_constraintBottom_toTopOf="@+id/btnSticker"
+        android:hint="@string/username"
+        app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/teamTV"
-        android:layout_marginVertical="20dp" />
-
-    <!--    test-->
+        app:layout_constraintTop_toBottomOf="@+id/loginTV"
+        app:layout_constraintWidth_percent="0.9"
+        android:layout_marginVertical="10dp" />
 
     <Button
-        android:id="@+id/btnSticker"
+        android:id="@+id/btnLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/send_stickers_a8"
+        android:text="@string/login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMovie" />
+        app:layout_constraintTop_toBottomOf="@+id/username"
+        android:layout_marginVertical="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
