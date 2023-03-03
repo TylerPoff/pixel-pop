@@ -7,7 +7,7 @@
     android:padding="15dp"
     tools:context=".a8_stickers.LoginActivity">
 
-<!--    test-->
+<!--    test--->
     <TextView
         android:id="@+id/loginTV"
         android:layout_width="0dp"
