@@ -37,7 +37,7 @@ public class RegisterActivity extends AppCompatActivity {
                 username = String.valueOf(editTextUsername.getText());
                 firstName = String.valueOf(editTextFirstName.getText());
                 lastName = String.valueOf(editTextLastName.getText());
-                /** Checking if Username, FirstName or LastName is empty or not*/
+
                 if (TextUtils.isEmpty(username)){
                     Toast.makeText(RegisterActivity.this, "Please, enter username", Toast.LENGTH_SHORT).show();
                 }
