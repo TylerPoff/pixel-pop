@@ -63,7 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
                 }
 
                 /** implemented the code for creating the user
-                 * create a new account by passing the new user's email address and password to createUserWithEmailAndPassword: */
+                 * create a new account by passing the new user's email address and password to createUserWithEmailAndPassword:
+                 * working on creating the user with username, firstName, lastName instead of email and password */
                 mAuth.createUserWithEmailAndPassword(username, firstName, lastName)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
