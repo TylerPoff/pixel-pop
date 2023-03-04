@@ -3,12 +3,14 @@ package edu.northeastern.numad23sp_team26.a8_stickers;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -20,6 +22,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import edu.northeastern.numad23sp_team26.MainActivity;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
@@ -30,9 +33,23 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressBar progressBar;
 
+    TextView textView;
+
 
     private static final String TAG = "a8_stickers.RegisterActivity";
     private DatabaseReference mDatabase;
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        // Check if user is already logged in - if yes - it will open the main activity
+        FirebaseUser currentUser = mAuth.getCurrentUser();
+        if(currentUser != null){
+            Intent intent = new Intent (getApplicationContext(), MainActivity.class);
+            startActivity(intent);
+            finish();
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +59,15 @@ public class RegisterActivity extends AppCompatActivity {
         editTextUsername = findViewById(R.id.username);
         buttonReg = findViewById(R.id.btnRegister);
         progressBar = findViewById(R.id.progressBar);
-
-
+        textView = findViewById(R.id.loginNow);
+        textView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        });
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,7 +88,7 @@ public class RegisterActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (TextUtils.isEmpty(firstName)){
+                if (TextUtils.isEmpty(lastName)){
                     Toast.makeText(RegisterActivity.this, "Please, enter last name", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -72,23 +96,23 @@ public class RegisterActivity extends AppCompatActivity {
                 /** implemented the code for creating the user
                  * create a new account by passing the new user's email address and password to createUserWithEmailAndPassword:
                  * working on creating the user with username, firstName, lastName instead of email and password */
-//                mAuth.createUserWithEmailAndPassword(username, firstName, lastName)
-//                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-//                            @Override
-//                            public void onComplete(@NonNull Task<AuthResult> task) {
-//                                if (task.isSuccessful()) {
-//                                    // Sign in success, update UI with the signed-in user's information
-//                                    // Log.d(TAG, "createUserWithEmail:success");
-//                                    Toast.makeText(RegisterActivity.this, "Account created.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                } else {
-//                                    // If sign in fails, display a message to the user.
-//                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
-//                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-//                                            Toast.LENGTH_SHORT).show();
-//                                }
-//                            }
-//                        });
+                mAuth.createUserWithEmailAndPassword(username, firstName, lastName)
+                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    // Log.d(TAG, "createUserWithEmail:success");
+                                    Toast.makeText(RegisterActivity.this, "Account created.",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
 
                 /** Creating the user with username and firstname only*/
 
@@ -119,8 +143,6 @@ public class RegisterActivity extends AppCompatActivity {
 
             }
         });
-
-
 
         mDatabase = FirebaseDatabase.getInstance().getReference();
     }
