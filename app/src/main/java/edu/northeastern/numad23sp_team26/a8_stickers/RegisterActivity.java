@@ -84,6 +84,24 @@ public class RegisterActivity extends AppCompatActivity {
 //                            }
 //                        });
 
+                mAuth.createUserWithEmailAndPassword(username, firstName)
+                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                            @Override
+                            public void onComplete(@NonNull Task<AuthResult> task) {
+                                if (task.isSuccessful()) {
+                                    // Sign in success, update UI with the signed-in user's information
+                                    // Log.d(TAG, "createUserWithEmail:success");
+                                    Toast.makeText(RegisterActivity.this, "Account created.",
+                                            Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // If sign in fails, display a message to the user.
+                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
+                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+                                            Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+
                 User user = new User(username, firstName, lastName);
 
                 mDatabase.child("users").child(username).setValue(user);
