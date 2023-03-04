@@ -48,6 +48,7 @@ public class RegisterActivity extends AppCompatActivity {
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar.setVisibility(View.VISIBLE);
                 String username, firstName, lastName;
                 username = String.valueOf(editTextUsername.getText());
                 firstName = String.valueOf(editTextFirstName.getText());
@@ -95,6 +96,9 @@ public class RegisterActivity extends AppCompatActivity {
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
                             public void onComplete(@NonNull Task<AuthResult> task) {
+
+                                progressBar.setVisibility(View.GONE);
+
                                 if (task.isSuccessful()) {
                                     // Sign in success, update UI with the signed-in user's information
                                     // Log.d(TAG, "createUserWithEmail:success");
