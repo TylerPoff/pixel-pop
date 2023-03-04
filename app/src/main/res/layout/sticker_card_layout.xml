@@ -23,7 +23,7 @@
         android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
         android:background="@drawable/stickerborder"
-        app:srcCompat="@drawable/sticker_7_clock" />
+        app:srcCompat="@drawable/sample_sticker" />
 
     <TextView
         android:id="@+id/stickerNameTV"
