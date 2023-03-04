@@ -27,8 +27,8 @@ public class MovieActivity extends AppCompatActivity {
 
     private static final String TAG = "MovieActivity";
 
-    private final String omdbApiUrl = BuildConfig.OMDB_API_URL;
-    private final String omdbApiKey = BuildConfig.OMDB_API_KEY;
+    private final String omdbApiUrl = "https://www.omdbapi.com/?apikey=";
+    private final String omdbApiKey = "8e8bb9a6";
 
     private Handler resHandler = new Handler();
 
