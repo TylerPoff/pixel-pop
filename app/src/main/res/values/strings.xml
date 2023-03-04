@@ -23,4 +23,8 @@
     <string name="Recieved_history">Received History</string>
     <string name="Stickers_list">Stickers</string>
     <string name="Stickers_button">Sticker Button</string>
+
+    <string name="sticker_name">Sticker Name</string>
+    <string name="sticker_from">From: %1$s</string>
+    <string name="sticker_timestamp">Timestamp: %1$s</string>
 </resources>
