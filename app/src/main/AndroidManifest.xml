@@ -28,6 +28,9 @@
             android:label="Login"
             android:exported="false" />
         <activity
+            android:name=".AboutActivity"
+            android:exported="false" />
+        <activity
             android:name=".MovieActivity"
             android:exported="false" />
         <activity

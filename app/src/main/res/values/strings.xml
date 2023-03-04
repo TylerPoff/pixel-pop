@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">NUMAD23Sp_Team26</string>
     <string name="team_26">Team 26</string>
+    <string name="about_button_team_26">About</string>
+    <string name="team_26_member_names">Member 1: Elio Khouri \nMember 2: Phyu Han \nMember 3: Thara Messeroux \nMember 4: Tyler Poff</string>
 
     <string name="search_movie_a6">Search Movies (A6)</string>
     <string name="search_movie">Search Movies</string>
