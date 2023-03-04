@@ -6,51 +6,51 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-<TextView
-    android:id="@+id/teamTV"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/team_26"
-    android:textSize="20sp"
-    android:textStyle="bold"
-    app:layout_constraintBottom_toTopOf="@+id/btnAbout"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent"
-    android:layout_marginBottom="10dp"
-    app:layout_constraintVertical_chainStyle="packed" />
+    <TextView
+        android:id="@+id/teamTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/team_26"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/btnAbout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginBottom="10dp"
+        app:layout_constraintVertical_chainStyle="packed" />
 
-<Button
-    android:id="@+id/btnAbout"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/about_button_team_26"
-    app:layout_constraintBottom_toTopOf="@+id/btnMovie"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/teamTV"
-    android:layout_marginBottom="10dp" />
+    <Button
+        android:id="@+id/btnAbout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_button_team_26"
+        app:layout_constraintBottom_toTopOf="@+id/btnMovie"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/teamTV"
+        android:layout_marginBottom="10dp" />
 
-<Button
-    android:id="@+id/btnMovie"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/search_movie_a6"
-    app:layout_constraintBottom_toTopOf="@+id/btnSticker"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/btnAbout"
-    android:layout_marginBottom="10dp" />
+    <Button
+        android:id="@+id/btnMovie"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/search_movie_a6"
+        app:layout_constraintBottom_toTopOf="@+id/btnSticker"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnAbout"
+        android:layout_marginBottom="10dp" />
 
-<Button
-    android:id="@+id/btnSticker"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="@string/send_stickers_a8"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toBottomOf="@+id/btnMovie"
-    android:layout_marginBottom="10dp" />
+    <Button
+        android:id="@+id/btnSticker"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/send_stickers_a8"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMovie"
+        android:layout_marginBottom="10dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
