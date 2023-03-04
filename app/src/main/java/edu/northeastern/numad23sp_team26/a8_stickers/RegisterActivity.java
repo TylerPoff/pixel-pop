@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -65,23 +66,28 @@ public class RegisterActivity extends AppCompatActivity {
                 /** implemented the code for creating the user
                  * create a new account by passing the new user's email address and password to createUserWithEmailAndPassword:
                  * working on creating the user with username, firstName, lastName instead of email and password */
-                mAuth.createUserWithEmailAndPassword(username, firstName, lastName)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    // Log.d(TAG, "createUserWithEmail:success");
-                                    Toast.makeText(RegisterActivity.this, "Account created.",
-                                            Toast.LENGTH_SHORT).show();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
-                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
+//                mAuth.createUserWithEmailAndPassword(username, firstName, lastName)
+//                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+//                            @Override
+//                            public void onComplete(@NonNull Task<AuthResult> task) {
+//                                if (task.isSuccessful()) {
+//                                    // Sign in success, update UI with the signed-in user's information
+//                                    // Log.d(TAG, "createUserWithEmail:success");
+//                                    Toast.makeText(RegisterActivity.this, "Account created.",
+//                                            Toast.LENGTH_SHORT).show();
+//                                } else {
+//                                    // If sign in fails, display a message to the user.
+//                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
+//                                    Toast.makeText(RegisterActivity.this, "Authentication failed.",
+//                                            Toast.LENGTH_SHORT).show();
+//                                }
+//                            }
+//                        });
+
+                User user = new User(username, firstName, lastName);
+
+                mDatabase.child("users").child(username).setValue(user);
+
             }
         });
 
