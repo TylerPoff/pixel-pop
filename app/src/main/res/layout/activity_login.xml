@@ -28,30 +28,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:hint="@string/username"
+        android:singleLine="true"
         app:layout_constraintBottom_toTopOf="@+id/btnLogin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginTV"
         app:layout_constraintWidth_percent="0.9"
         android:layout_marginVertical="10dp" />
-
-    <!--    To fix red squily line in progress bar-->
-    <ProgressBar
-        android:id="@+id/progressBar"
-        android:visibility="gone"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
-    <TextView
-        android:textStyle="bold"
-        android:textStyle="20sp"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:id="@+id/registerNow"
-        android:text="@string/click_to_login"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        ></TextView>
 
     <Button
         android:id="@+id/btnLogin"
@@ -64,6 +47,42 @@
         app:layout_constraintTop_toBottomOf="@+id/username"
         android:layout_marginVertical="10dp" />
 
+    <TextView
+        android:id="@+id/registerNavTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/register_nav"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/registerNavBtnTV"
+        app:layout_constraintHorizontal_chainStyle="packed"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
+    <TextView
+        android:id="@+id/registerNavBtnTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:textSize="18sp"
+        android:text="@string/register"
+        android:layout_marginLeft="10dp"
+        android:textColor="@color/blue"
+        app:layout_constraintBottom_toBottomOf="@+id/registerNavTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/registerNavTV" />
+
+    <TextView
+        android:id="@+id/loginErrorTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:textColor="@color/red"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

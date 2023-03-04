@@ -5,100 +5,94 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.View;
+import android.util.Log;
 import android.widget.Button;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.firebase.auth.AuthResult;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
-import edu.northeastern.numad23sp_team26.MainActivity;
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class LoginActivity extends AppCompatActivity {
-    TextInputEditText editTextUsername;
-    Button buttonLogin;
-    FirebaseAuth mAuth;
-    ProgressBar progressBar;
 
-    TextView textView;
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is already logged in - if yes - it will open the main activity
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        if(currentUser != null){
-            Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+    private static final String TAG = "a8_stickers.LoginActivity";
+    private DatabaseReference mDatabase;
+    private TextInputEditText editTextUsername;
+    private String loginUsername;
+    private Button buttonLogin;
+    private TextView loginErrorTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
-        mAuth = FirebaseAuth.getInstance();
+
         editTextUsername = findViewById(R.id.username);
         buttonLogin = findViewById(R.id.btnLogin);
-        progressBar = findViewById(R.id.progressBar);
-        textView = findViewById(R.id.registerNow);
-        textView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RegisterActivity.class);
-                startActivity(intent);
-                finish();
+        loginErrorTV = findViewById(R.id.loginErrorTV);
+
+        TextView registerNavBtnTV = findViewById(R.id.registerNavBtnTV);
+        registerNavBtnTV.setOnClickListener(v -> openActivityRegister());
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        buttonLogin.setOnClickListener(v -> {
+            loginErrorTV.setText("");
+            loginUsername = editTextUsername.getText().toString().trim();
+            if (loginUsername.isEmpty()) {
+                loginErrorTV.setText("Please enter username");
+            } else {
+                onLogin(loginUsername);
             }
         });
+    }
 
-        buttonLogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                progressBar.setVisibility(View.VISIBLE);
-                String username, firstName, lastName;
-                username = String.valueOf(editTextUsername.getText());
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
 
-                if (TextUtils.isEmpty(username)){
-                    Toast.makeText(LoginActivity.this, "Please, enter username", Toast.LENGTH_SHORT).show();
-                    return;
+        loginUsername = editTextUsername.getText().toString().trim();
+        outState.putString("loginUsername", loginUsername);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        loginUsername = savedInstanceState.getString("loginUsername");
+        editTextUsername.setText(loginUsername);
+    }
+
+    public void openActivityRegister() {
+        Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
+    // Reference: https://firebase.google.com/docs/database/android/read-and-write#read_once_using_get
+    // We use read once here to check if user exists
+    private void onLogin(String username) {
+        mDatabase.child("users").child(username).get().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                Log.e(TAG, "Error getting firebase data", task.getException());
+            }
+            else {
+                if (task.getResult().getValue() != null) {
+                    User currentUser = task.getResult().getValue(User.class);
+                    Intent intent = new Intent (getApplicationContext(), StickerUserActivity.class);
+
+                    // Send current user
+                    Bundle extras = new Bundle();
+                    extras.putParcelable("currentUser", currentUser);
+                    intent.putExtras(extras);
+
+                    startActivity(intent);
+                    finish();
                 }
-
-                mAuth.createUserWithEmailAndPassword(username)
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                progressBar.setVisibility(View.GONE);
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    // Log.d(TAG, "createUserWithEmail:success");
-                                    Toast.makeText(LoginActivity.this, "Login Successful.",
-                                            Toast.LENGTH_SHORT).show();
-
-                                    /**Connecting the login to the "Hello User" page - temporarily called "Main Activity,
-                                     * while waiting for Tyler's activity */
-
-                                    Intent intent = new Intent (getApplicationContext(), MainActivity.class);
-                                    startActivity(intent);
-                                    finish();
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    // Log.w(TAG, "createUserWithUserName:failure", task.getException());
-                                    Toast.makeText(LoginActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                        });
             }
         });
-
     }
 }
