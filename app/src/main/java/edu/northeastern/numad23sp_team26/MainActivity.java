@@ -37,6 +37,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnSticker = findViewById(R.id.btnSticker);
         btnSticker.setOnClickListener(v -> openActivitySticker());
+
+        Button btnStickerlist = findViewById(R.id.btnStickerList);
+        btnStickerlist.setOnClickListener(v -> openActivityStickerList());
     }
 
     public void openActivityMovie() {
@@ -46,6 +49,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivitySticker() {
         Intent intent = new Intent(this, RegisterActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityStickerList() {
+        Intent intent = new Intent(this, StickersListActivity.class);
         startActivity(intent);
     }
 }

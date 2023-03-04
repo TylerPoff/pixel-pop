@@ -38,6 +38,7 @@
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
         <GridLayout
+            android:id="@+id/stickerGrid"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:alignmentMode="alignMargins"
@@ -45,110 +46,8 @@
             android:columnOrderPreserved="false"
             android:orientation="horizontal"
             android:rowCount="5"
-            app:layout_constraintBottom_toBottomOf="parent">
-
-            <ImageView
-                android:id="@+id/imageView1"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView2"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView3"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView5"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView7"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView8"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView9"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-            <ImageView
-                android:id="@+id/imageView10"
-                android:layout_width="0dp"
-                android:layout_height="100dp"
-                android:layout_rowWeight="1"
-                android:layout_columnWeight="1"
-                android:layout_margin="8dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sample_genre" />
-
-        </GridLayout>
+            android:layout_gravity="center_horizontal"
+            app:layout_constraintBottom_toBottomOf="parent" />
     </ScrollView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
