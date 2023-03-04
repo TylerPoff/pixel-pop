@@ -20,6 +20,12 @@
             android:name=".ReceivedHistoryActivity"
             android:exported="false" />
         <activity
+            android:name=".a8_stickers.RegisterActivity"
+            android:label="Register" />
+        <activity
+            android:name=".a8_stickers.LoginActivity"
+            android:label="Login" />
+        <activity
             android:name=".MovieActivity"
             android:exported="false" />
         <activity
