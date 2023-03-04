@@ -35,6 +35,13 @@
         app:layout_constraintWidth_percent="0.9"
         android:layout_marginVertical="10dp" />
 
+    <!--    To fix red squily line in progress bar-->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:visibility="gone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
+
     <Button
         android:id="@+id/btnLogin"
         android:layout_width="wrap_content"

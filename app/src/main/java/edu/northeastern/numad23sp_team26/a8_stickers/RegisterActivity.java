@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -27,6 +28,7 @@ public class RegisterActivity extends AppCompatActivity {
     TextInputEditText editTextUsername, editTextFirstName, editTextLastName;
     Button buttonReg;
     FirebaseAuth mAuth;
+    ProgressBar progressBar;
 
 
     private static final String TAG = "a8_stickers.RegisterActivity";
@@ -39,6 +41,9 @@ public class RegisterActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         editTextUsername = findViewById(R.id.username);
         buttonReg = findViewById(R.id.btnRegister);
+        progressBar = findViewById(R.id.progressBar);
+
+
 
         buttonReg.setOnClickListener(new View.OnClickListener() {
             @Override
