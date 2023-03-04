@@ -84,6 +84,8 @@ public class RegisterActivity extends AppCompatActivity {
 //                            }
 //                        });
 
+                /** Creating the user with username and firstname only*/
+
                 mAuth.createUserWithEmailAndPassword(username, firstName)
                         .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
                             @Override
