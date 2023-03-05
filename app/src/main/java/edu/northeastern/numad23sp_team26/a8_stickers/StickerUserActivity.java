@@ -18,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
@@ -75,8 +76,10 @@ public class StickerUserActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
 
-                if (!userStickerList.contains(stickerSent)) {
+                if (index == -1) {
                     userStickerList.add(stickerSent);
                     adapter.notifyDataSetChanged();
                 }
@@ -85,9 +88,10 @@ public class StickerUserActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
 
-                if (userStickerList.contains(stickerSent)) {
-                    int index = userStickerList.indexOf(stickerSent);
+                if (index > -1) {
                     userStickerList.set(index, stickerSent);
                     adapter.notifyDataSetChanged();
                 }
@@ -96,9 +100,11 @@ public class StickerUserActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
 
-                if (userStickerList.contains(stickerSent)) {
-                    userStickerList.remove(stickerSent);
+                if (index > -1) {
+                    userStickerList.remove(index);
                     adapter.notifyDataSetChanged();
                 }
             }

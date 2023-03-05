@@ -65,24 +65,12 @@ public class ReceivedHistoryActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                        StickerReceived stickerReceived = snapshot.getValue(StickerReceived.class);
 
-                        if (receivedList.contains(stickerReceived)) {
-                            int index = receivedList.indexOf(stickerReceived);
-                            receivedList.set(index, stickerReceived);
-                            adapter.notifyItemChanged(index);
-                        }
                     }
 
                     @Override
                     public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                        StickerReceived stickerReceived = snapshot.getValue(StickerReceived.class);
 
-                        if (receivedList.contains(stickerReceived)) {
-                            int index = receivedList.indexOf(stickerReceived);
-                            receivedList.remove(stickerReceived);
-                            adapter.notifyItemRemoved(index);
-                        }
                     }
 
                     @Override
