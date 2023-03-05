@@ -58,7 +58,7 @@
         app:layout_constraintEnd_toStartOf="@+id/registerNavBtnTV"
         app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnLogin" />
+        app:layout_constraintTop_toBottomOf="@+id/loginErrorTV" />
 
     <TextView
         android:id="@+id/registerNavBtnTV"

@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
@@ -25,36 +23,45 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/ic_launcher_background"
-                app:layout_constraintBottom_toTopOf="@+id/stickerNameTV"
-                app:layout_constraintDimensionRatio="H, 1:1"
-                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/barrier"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/stickerNameTV"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="4dp"
+                android:layout_marginHorizontal="10dp"
                 android:text="Sticker Name"
                 android:textAlignment="center"
                 android:textColor="@color/black"
                 android:textSize="20sp"
+                app:layout_constraintStart_toStartOf="@+id/barrier"
                 app:layout_constraintBottom_toTopOf="@+id/stickerSentTV"
-                app:layout_constraintTop_toBottomOf="@+id/stickerIV"
-                tools:layout_editor_absoluteX="15dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/stickerSentTV"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
                 android:ellipsize="end"
                 android:text="@string/num_sent"
                 android:textAlignment="center"
                 android:textSize="18sp"
+                app:layout_constraintStart_toStartOf="@+id/barrier"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/stickerNameTV"
-                tools:layout_editor_absoluteX="15dp" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/stickerNameTV" />
+
+            <androidx.constraintlayout.widget.Barrier
+                android:id="@+id/barrier"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:barrierDirection="left"
+                app:constraint_referenced_ids="stickerNameTV, stickerSentTV"/>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
