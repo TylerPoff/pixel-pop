@@ -3,15 +3,19 @@ package edu.northeastern.numad23sp_team26.a8_stickers;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.Manifest;
+import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
@@ -27,10 +31,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
+import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+import edu.northeastern.numad23sp_team26.App;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
@@ -47,14 +53,30 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
     private User sendtoUser;
     private static boolean isSavingSendCount, isSavingReceivedHistory;
     private static boolean isSendCountSaved, isReceivedHistorySaved;
+    private NotificationManagerCompat notiManagerCompat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        createNotificationChannel();
+        // createNotificationChannel();
         setContentView(R.layout.activity_sticker_directory);
 
+        notiManagerCompat = NotificationManagerCompat.from(this);
+        NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        manager.createNotificationChannel(channel);
         mDatabase = FirebaseDatabase.getInstance().getReference();
+        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                sendNotification();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -70,35 +92,18 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         btnSend.setOnClickListener(v -> sendSticker());
     }
 
-    public void createNotificationChannel() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-            CharSequence name = getString(R.string.channel_name);
-            String description = getString(R.string.channel_description);
-            int importance = NotificationManager.IMPORTANCE_DEFAULT;
-            NotificationChannel channel = new NotificationChannel(getString(R.string.channel_id), name, importance);
-            channel.setDescription(description);
-            NotificationManager notificationManager = getSystemService (NotificationManager.class);
-            notificationManager.createNotificationChannel(channel);
-        }
-    }
-
-    public void sendNotification(View view) {
-        Intent intent = new Intent(this, ReceiveNotificationActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
-
-        String channelId = getString(R.string.channel_id);
-        NotificationCompat.Builder notifyBuild = new NotificationCompat.Builder(this, channelId)
-                .setSmallIcon(R.drawable.ic_launcher_t26_foreground)
-                .setContentTitle("You got a sticker!")
-                .setContentText("Check out the sticker?")
+    public void sendNotification() {
+        Notification notification = new NotificationCompat.Builder(this, App.channelName)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setAutoCancel(true)
-                .setContentIntent(pIntent);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(0, notifyBuild.build());
+                .setContentTitle("From Team26 Sticker Sender: ")
+                .setContentText("New Sticker!")
+                .setSmallIcon(R.drawable.ic_launcher_t26_foreground)
+                .build();
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
+            return;
+        }
+        notiManagerCompat.notify(1, notification);
     }
-
     public void updateSendingTo(User toUser) {
         sendtoUser = toUser;
         updateSendingToTV(toUser.firstName + " " + toUser.lastName);
