@@ -91,6 +91,8 @@ public class LoginActivity extends AppCompatActivity {
 
                     startActivity(intent);
                     finish();
+                } else {
+                    loginErrorTV.setText("User does not exist");
                 }
             }
         });

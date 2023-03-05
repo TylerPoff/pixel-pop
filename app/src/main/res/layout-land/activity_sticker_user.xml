@@ -5,30 +5,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/light_blue"
     tools:context=".a8_stickers.StickerUserActivity">
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout2"
-        android:layout_width="320dp"
-        android:layout_height="380dp"
-        android:layout_marginStart="30dp"
+    <TextView
+        android:id="@+id/helloUserTV"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_margin="10dp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/btnLogout"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/logout"
+        android:layout_margin="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="helloUserTV, btnLogout"/>
+
+    <TextView
+        android:id="@+id/sentStickersTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="@string/sent_count"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintStart_toStartOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintWidth_percent="0.5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/sentStickersTV"
         app:layout_constraintVertical_bias="0.5"
         tools:context=".a8_stickers.StickerUserActivity">
 
         <androidx.viewpager.widget.ViewPager
             android:id="@+id/viewPager"
-            android:layout_width="320dp"
-            android:layout_height="380dp"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
             android:clipToPadding="false"
-            android:foregroundGravity="center"
-            android:overScrollMode="never" />
-    </RelativeLayout>
+            android:overScrollMode="never"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <Button
         android:id="@+id/btnSendStickers"
@@ -37,8 +80,8 @@
         android:text="@string/send_stickers"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
         app:layout_constraintVertical_bias="0.3" />
 
     <Button
@@ -48,20 +91,8 @@
         android:text="@string/received_history"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
+        app:layout_constraintStart_toEndOf="@+id/constraintLayout2"
         app:layout_constraintTop_toBottomOf="@+id/btnSendStickers"
         app:layout_constraintVertical_bias="0.1" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/logout"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/relativeLayout2"
-        app:layout_constraintTop_toBottomOf="@+id/btnReceivedHistory"
-        app:layout_constraintVertical_bias="0.2" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

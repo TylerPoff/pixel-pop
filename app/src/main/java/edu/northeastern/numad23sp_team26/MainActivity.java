@@ -9,6 +9,7 @@ import android.widget.Button;
 
 import com.google.firebase.BuildConfig;
 
+import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
 import edu.northeastern.numad23sp_team26.a8_stickers.RegisterActivity;
 
 public class MainActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivitySticker() {
-        Intent intent = new Intent(this, RegisterActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 }
