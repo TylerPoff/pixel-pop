@@ -10,6 +10,5 @@
         <item>@drawable/sticker_7_clock</item>
         <item>@drawable/sticker_8_book</item>
         <item>@drawable/sticker_9_bus</item>
-        <item>@drawable/sample_genre</item>
     </string-array>
 </resources>

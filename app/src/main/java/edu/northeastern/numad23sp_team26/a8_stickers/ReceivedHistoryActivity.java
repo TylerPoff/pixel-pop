@@ -1,8 +1,10 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import edu.northeastern.numad23sp_team26.R;
 
 public class ReceivedHistoryActivity extends AppCompatActivity {
 

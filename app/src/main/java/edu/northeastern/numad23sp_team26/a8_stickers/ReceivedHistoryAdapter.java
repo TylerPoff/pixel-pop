@@ -1,4 +1,4 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+
+import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.ReceivedHistory;
 
 public class ReceivedHistoryAdapter extends RecyclerView.Adapter<ReceivedHistoryViewHolder> {
 

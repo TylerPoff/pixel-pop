@@ -1,4 +1,4 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import android.content.Context;
 import android.os.Handler;
@@ -8,6 +8,9 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.ReceivedHistory;
 
 public class ReceivedHistoryViewHolder  extends RecyclerView.ViewHolder {
 
@@ -24,7 +27,9 @@ public class ReceivedHistoryViewHolder  extends RecyclerView.ViewHolder {
         stickerFromTV = itemView.findViewById(R.id.fromTV);
         stickerTimestampTV = itemView.findViewById(R.id.timestampTV);
         stickerIV = itemView.findViewById(R.id.stickerIV);
-
     }
 
+    public void bindThisData(ReceivedHistory received) {
+
+    }
 }

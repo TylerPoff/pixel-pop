@@ -27,6 +27,11 @@ public class User implements Parcelable {
     }
 
     @Override
+    public String toString() {
+        return firstName + " " + lastName;
+    }
+
+    @Override
     public int describeContents() {
         return 0;
     }

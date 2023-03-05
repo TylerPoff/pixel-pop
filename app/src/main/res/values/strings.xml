@@ -24,13 +24,13 @@
     <string name="login_nav">Already have an account?</string>
     <string name="register_nav">Don\'t have an account?</string>
 
-    <string name="user_greeting">Hello, %1$s %2$s</string>
+    <string name="user_greeting">Hello, %1$s</string>
     <string name="sent_count">Stickers Sent</string>
     <string name="num_sent">Number of stickers sent: %1$s</string>
     <string name="send_stickers">Send Stickers</string>
     <string name="received_history">Received History</string>
     <string name="logout">Logout</string>
-    <string name="you_re_sending_to">You\'re sending to: </string>
+    <string name="you_re_sending_to">You\'re sending to: %1$s</string>
     <string name="send">Send</string>
 
     <string name="Recieved_history">Received History</string>

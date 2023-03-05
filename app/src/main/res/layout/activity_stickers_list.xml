@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".StickersListActivity">
+    tools:context=".a8_stickers.StickersListActivity">
 
     <TextView
         android:id="@+id/textView2"
@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:text="@string/Stickers_list"
         android:textAlignment="center"
-        android:textSize="34sp"
+        android:textSize="25sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -37,17 +37,146 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/guideline">
 
-        <GridLayout
-            android:id="@+id/stickerGrid"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:alignmentMode="alignMargins"
-            android:columnCount="2"
-            android:columnOrderPreserved="false"
-            android:orientation="horizontal"
-            android:rowCount="5"
-            android:layout_gravity="center_horizontal"
-            app:layout_constraintBottom_toBottomOf="parent" />
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/frogImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/boardImageButton"
+                app:layout_constraintEnd_toStartOf="@+id/ribbonImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sticker_1_frog" />
+
+            <ImageButton
+                android:id="@+id/ribbonImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/cupImageButton"
+                app:layout_constraintEnd_toStartOf="@+id/backpackImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/frogImageButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sticker_2_ribbon" />
+
+            <ImageButton
+                android:id="@+id/backpackImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/bulbImageButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/ribbonImageButton"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/sticker_3_backpack" />
+
+            <ImageButton
+                android:id="@+id/boardImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/clockImageButton"
+                app:layout_constraintEnd_toStartOf="@+id/cupImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/frogImageButton"
+                app:srcCompat="@drawable/sticker_4_board" />
+
+            <ImageButton
+                android:id="@+id/cupImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/bookImageButton"
+                app:layout_constraintEnd_toStartOf="@+id/bulbImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/boardImageButton"
+                app:layout_constraintTop_toBottomOf="@+id/ribbonImageButton"
+                app:srcCompat="@drawable/sticker_5_cup" />
+
+            <ImageButton
+                android:id="@+id/bulbImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toTopOf="@+id/busImageButton"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/cupImageButton"
+                app:layout_constraintTop_toBottomOf="@+id/backpackImageButton"
+                app:srcCompat="@drawable/sticker_6_bulb" />
+
+            <ImageButton
+                android:id="@+id/clockImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/bookImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/boardImageButton"
+                app:srcCompat="@drawable/sticker_7_clock" />
+
+            <ImageButton
+                android:id="@+id/bookImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/busImageButton"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/clockImageButton"
+                app:layout_constraintTop_toBottomOf="@+id/cupImageButton"
+                app:srcCompat="@drawable/sticker_8_book" />
+
+            <ImageButton
+                android:id="@+id/busImageButton"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_margin="10dp"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:scaleType="fitCenter"
+                android:onClick="sendSticker"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toEndOf="@+id/bookImageButton"
+                app:layout_constraintTop_toBottomOf="@+id/bulbImageButton"
+                app:srcCompat="@drawable/sticker_9_bus" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
