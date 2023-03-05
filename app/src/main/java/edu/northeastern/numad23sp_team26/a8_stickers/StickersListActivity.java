@@ -27,35 +27,25 @@ public class StickersListActivity extends AppCompatActivity {
     }
 
     public void sendSticker(View v) {
-        String stickerName;
-        int stickerImageResource;
+        Sticker sticker;
         if (v.getId() == R.id.frogImageButton) {
-            stickerName = "Frog";
-            stickerImageResource = R.drawable.sticker_1_frog;
+            sticker = new Sticker("Frog", "sticker_1_frog", R.drawable.sticker_1_frog);
         } else if (v.getId() == R.id.ribbonImageButton) {
-            stickerName = "Ribbon";
-            stickerImageResource = R.drawable.sticker_2_ribbon;
+            sticker = new Sticker("Ribbon", "sticker_2_ribbon", R.drawable.sticker_2_ribbon);
         } else if (v.getId() == R.id.backpackImageButton) {
-            stickerName = "Backpack";
-            stickerImageResource = R.drawable.sticker_3_backpack;
+            sticker = new Sticker("Backpack", "sticker_3_backpack", R.drawable.sticker_3_backpack);
         } else if (v.getId() == R.id.boardImageButton) {
-            stickerName = "Board";
-            stickerImageResource = R.drawable.sticker_4_board;
+            sticker = new Sticker("Board", "sticker_4_board", R.drawable.sticker_4_board);
         } else if (v.getId() == R.id.cupImageButton) {
-            stickerName = "Cup";
-            stickerImageResource = R.drawable.sticker_5_cup;
+            sticker = new Sticker("Cup", "sticker_5_cup", R.drawable.sticker_5_cup);
         } else if (v.getId() == R.id.bulbImageButton) {
-            stickerName = "Bulb";
-            stickerImageResource = R.drawable.sticker_6_bulb;
+            sticker = new Sticker("Bulb", "sticker_6_bulb", R.drawable.sticker_6_bulb);
         } else if (v.getId() == R.id.clockImageButton) {
-            stickerName = "Clock";
-            stickerImageResource = R.drawable.sticker_7_clock;
+            sticker = new Sticker("Clock", "sticker_7_clock", R.drawable.sticker_7_clock);
         } else if (v.getId() == R.id.bookImageButton) {
-            stickerName = "Book";
-            stickerImageResource = R.drawable.sticker_8_book;
+            sticker = new Sticker("Book", "sticker_8_book", R.drawable.sticker_8_book);
         } else if (v.getId() == R.id.busImageButton) {
-            stickerName = "Bus";
-            stickerImageResource = R.drawable.sticker_9_bus;
+            sticker = new Sticker("Bus", "sticker_9_bus", R.drawable.sticker_9_bus);
         } else {
             Log.e(TAG, "Invalid sticker");
             return;
@@ -65,7 +55,7 @@ public class StickersListActivity extends AppCompatActivity {
 
         // Send current sticker
         Bundle extras = new Bundle();
-        extras.putParcelable("sticker", new Sticker(stickerName, stickerImageResource));
+        extras.putParcelable("sticker", sticker);
         extras.putParcelable("currentUser", currentUser);
         intent.putExtras(extras);
 
