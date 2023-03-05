@@ -3,10 +3,6 @@ plugins {
     id 'com.google.gms.google-services'
 }
 
-def apikeyPropertiesFile = rootProject.file("apikey.properties")
-def apikeyProperties = new Properties()
-apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
-
 android {
     signingConfigs {
         release {
@@ -27,9 +23,6 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-
-        buildConfigField("String", "OMDB_API_URL", apikeyProperties['OMDB_API_URL'])
-        buildConfigField("String", "OMDB_API_KEY", apikeyProperties['OMDB_API_KEY'])
     }
 
     buildTypes {

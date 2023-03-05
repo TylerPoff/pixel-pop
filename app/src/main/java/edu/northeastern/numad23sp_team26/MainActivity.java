@@ -32,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        Button btnAbout = findViewById(R.id.btnAbout);
+        btnAbout.setOnClickListener(v -> openActivityAbout());
+
         Button btnMovie = findViewById(R.id.btnMovie);
         btnMovie.setOnClickListener(v -> openActivityMovie());
 
@@ -40,6 +43,11 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnStickerlist = findViewById(R.id.btnStickerList);
         btnStickerlist.setOnClickListener(v -> openActivityStickerList());
+    }
+
+    public void openActivityAbout() {
+        Intent intent = new Intent(this, AboutActivity.class);
+        startActivity(intent);
     }
 
     public void openActivityMovie() {
