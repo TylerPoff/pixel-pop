@@ -11,7 +11,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerUser;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class StickerUserActivity extends AppCompatActivity {
@@ -72,13 +73,12 @@ public class StickerUserActivity extends AppCompatActivity {
     }
 
     private void loadStickers() {
-        ArrayList<StickerUser> userStickerList = new ArrayList<>();
+        ArrayList<StickerSent> userStickerList = new ArrayList<>();
         StickerUserAdapter adapter = new StickerUserAdapter(this, userStickerList);
 
         //dummy add
-        userStickerList.add(new StickerUser("Frog","Stickers Sent: 1",R.drawable.sticker_1_frog));
-        userStickerList.add(new StickerUser("Ribbon","Stickers Sent: 3",R.drawable.sticker_2_ribbon));
-        userStickerList.add(new StickerUser("Backpack","Stickers Sent: 100",R.drawable.sticker_3_backpack));
+        userStickerList.add(new StickerSent(new Sticker("Frog", R.drawable.sticker_1_frog), 0));
+        userStickerList.add(new StickerSent(new Sticker("Ribbon", R.drawable.sticker_2_ribbon), 0));
 
         viewPager.setAdapter(adapter);
         viewPager.setPadding(100,100,100,100);
@@ -86,11 +86,23 @@ public class StickerUserActivity extends AppCompatActivity {
 
     public void openActivitySendSticker() {
         Intent intent = new Intent(this, StickersListActivity.class);
+
+        // Send current user
+        Bundle extras = new Bundle();
+        extras.putParcelable("currentUser", currentUser);
+        intent.putExtras(extras);
+
         startActivity(intent);
     }
 
     public void openActivityReceivedHistory() {
         Intent intent = new Intent(this, ReceivedHistoryActivity.class);
+
+        // Send current user
+        Bundle extras = new Bundle();
+        extras.putParcelable("currentUser", currentUser);
+        intent.putExtras(extras);
+
         startActivity(intent);
     }
 }

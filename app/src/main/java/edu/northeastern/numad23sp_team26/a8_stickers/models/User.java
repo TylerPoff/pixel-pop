@@ -5,25 +5,34 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
+import java.util.List;
+
 public class User implements Parcelable {
     public String username;
     public String firstName;
     public String lastName;
+    public List<StickerSent> stickersSent;
+    public List<StickerReceived> stickersReceived;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
     }
 
-    public User(String username, String firstName, String lastName) {
+    public User(String username, String firstName, String lastName,
+                List<StickerSent> stickersSent, List<StickerReceived> stickersReceived) {
         this.username = username;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.stickersSent = stickersSent;
+        this.stickersReceived = stickersReceived;
     }
 
     private User(Parcel in) {
         username = in.readString();
         firstName = in.readString();
         lastName = in.readString();
+        stickersSent = in.createTypedArrayList(StickerSent.CREATOR);
+        stickersReceived = in.createTypedArrayList(StickerReceived.CREATOR);
     }
 
     @Override

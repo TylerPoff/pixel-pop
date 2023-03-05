@@ -54,8 +54,7 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverViewHolder> {
         if (selectedPosition > -1) {
             if (context instanceof StickerUserDirectoryActivity) {
                 User selectedUser = users.get(selectedPosition);
-                String selectedFullName = selectedUser.firstName + " " + selectedUser.lastName;
-                ((StickerUserDirectoryActivity) context).updateSendingToTV(selectedFullName);
+                ((StickerUserDirectoryActivity) context).updateSendingTo(selectedUser);
             }
         }
     }

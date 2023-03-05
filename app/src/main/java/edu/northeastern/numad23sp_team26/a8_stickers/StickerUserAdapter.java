@@ -13,14 +13,15 @@ import androidx.viewpager.widget.PagerAdapter;
 import java.util.ArrayList;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerUser;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 
 public class StickerUserAdapter extends PagerAdapter {
 
     private final Context context;
-    private final ArrayList<StickerUser> StickerList;
+    private final ArrayList<StickerSent> StickerList;
 
-    public StickerUserAdapter(Context context, ArrayList<StickerUser> StickerList) {
+    public StickerUserAdapter(Context context, ArrayList<StickerSent> StickerList) {
         this.context = context;
         this.StickerList = StickerList;
     }
@@ -43,14 +44,13 @@ public class StickerUserAdapter extends PagerAdapter {
         TextView nameTV = view.findViewById(R.id.stickerNameTV);
         TextView sentTV = view.findViewById(R.id.stickerSentTV);
 
-        StickerUser model = StickerList.get(position);
-        String name = model.getName();
-        String sent = model.getSent();
-        int image = model.getImage();
+        StickerSent model = StickerList.get(position);
+        Sticker sticker = model.getSticker();
+        int totalCount = model.getTotalCount();
 
-        stickerIV.setImageResource(image);
-        nameTV.setText(name);
-        sentTV.setText(sent);
+        stickerIV.setImageResource(sticker.getImageResource());
+        nameTV.setText(sticker.getName());
+        sentTV.setText(context.getString(R.string.num_sent, totalCount));
 
         container.addView(view, position);
 

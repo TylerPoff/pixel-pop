@@ -10,7 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.a8_stickers.models.ReceivedHistory;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
 
 public class ReceivedHistoryViewHolder  extends RecyclerView.ViewHolder {
 
@@ -29,7 +29,7 @@ public class ReceivedHistoryViewHolder  extends RecyclerView.ViewHolder {
         stickerIV = itemView.findViewById(R.id.stickerIV);
     }
 
-    public void bindThisData(ReceivedHistory received) {
+    public void bindThisData(StickerReceived received) {
 
     }
 }
