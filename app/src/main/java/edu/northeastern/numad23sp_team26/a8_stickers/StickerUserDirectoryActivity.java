@@ -13,13 +13,9 @@ import android.Manifest;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -36,7 +32,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-import edu.northeastern.numad23sp_team26.App;
+import edu.northeastern.numad23sp_team26.NotifApp;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
@@ -93,7 +89,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
     }
 
     public void sendNotification() {
-        Notification notification = new NotificationCompat.Builder(this, App.channelName)
+        Notification notification = new NotificationCompat.Builder(this, NotifApp.channelName)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setContentTitle("From Team26 Sticker Sender: ")
                 .setContentText("New Sticker!")

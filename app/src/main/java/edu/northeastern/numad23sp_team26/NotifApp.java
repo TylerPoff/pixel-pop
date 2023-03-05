@@ -1,11 +1,10 @@
 package edu.northeastern.numad23sp_team26;
 
 import android.app.Application;
-import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 
-public class App extends Application {
+public class NotifApp extends Application {
     public static final String channelName="notification";
 
     @Override
