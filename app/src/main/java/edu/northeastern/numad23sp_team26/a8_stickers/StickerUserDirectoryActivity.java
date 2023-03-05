@@ -54,7 +54,6 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // createNotificationChannel();
         setContentView(R.layout.activity_sticker_directory);
 
         notiManagerCompat = NotificationManagerCompat.from(this);

@@ -16,6 +16,5 @@ public class ReceiveNotificationActivity extends AppCompatActivity {
         setContentView(R.layout.activity_receive_notification);
         TextView gotStickerFromTV = findViewById(R.id.gotStickerFromTV);
         ImageView receivedStickerIV = findViewById(R.id.receivedStickerIV);
-
     }
 }
