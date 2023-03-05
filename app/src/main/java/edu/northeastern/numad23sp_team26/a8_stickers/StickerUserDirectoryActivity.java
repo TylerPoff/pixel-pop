@@ -31,6 +31,7 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import edu.northeastern.numad23sp_team26.NotifApp;
 import edu.northeastern.numad23sp_team26.R;
@@ -237,8 +238,9 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User user = snapshot.getValue(User.class);
+                int index = IntStream.range(0, userList.size()).filter(i -> userList.get(i).username.equalsIgnoreCase(user.username)).findFirst().orElse(-1);
 
-                if (!userList.contains(user)) {
+                if (index == -1) {
                     userList.add(user);
                     adapter.notifyItemInserted(userList.size() - 1);
                 }
@@ -247,9 +249,9 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
             @Override
             public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                 User user = snapshot.getValue(User.class);
+                int index = IntStream.range(0, userList.size()).filter(i -> userList.get(i).username.equalsIgnoreCase(user.username)).findFirst().orElse(-1);
 
-                if (userList.contains(user)) {
-                    int index = userList.indexOf(user);
+                if (index > -1) {
                     userList.set(index, user);
                     adapter.notifyItemChanged(index);
                 }
@@ -258,10 +260,10 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
             @Override
             public void onChildRemoved(@NonNull DataSnapshot snapshot) {
                 User user = snapshot.getValue(User.class);
+                int index = IntStream.range(0, userList.size()).filter(i -> userList.get(i).username.equalsIgnoreCase(user.username)).findFirst().orElse(-1);
 
-                if (userList.contains(user)) {
-                    int index = userList.indexOf(user);
-                    userList.remove(user);
+                if (index > -1) {
+                    userList.remove(index);
                     adapter.notifyItemRemoved(index);
                 }
             }
