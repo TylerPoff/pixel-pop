@@ -13,7 +13,11 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
+
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -48,8 +52,8 @@ public class RegisterActivity extends AppCompatActivity {
             lastName = editTextLastName.getText().toString().trim();
             if (registerUsername.isEmpty()) {
                 registerErrorTV.setText("Please enter username");
-            } else if (registerUsername.length() > 15) {
-                registerErrorTV.setText("Username cannot be longer than 15 characters");
+            } else if (registerUsername.length() > 20) {
+                registerErrorTV.setText("Username cannot be longer than 20 characters");
             } else if (firstName.isEmpty()) {
                 registerErrorTV.setText("Please enter first name");
             } else if (lastName.isEmpty()) {
@@ -99,7 +103,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
             else {
                 if (task.getResult().getValue() == null) {
-                    User user = new User(username, firstName, lastName);
+                    User user = new User(username.toLowerCase(), firstName, lastName, new ArrayList<>(), new ArrayList<>());
                     mDatabase.child("users").child(username).setValue(user);
                     Intent intent = new Intent (getApplicationContext(), StickerUserActivity.class);
 

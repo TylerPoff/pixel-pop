@@ -10,14 +10,14 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.a8_stickers.models.ReceivedHistory;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
 
 public class ReceivedHistoryAdapter extends RecyclerView.Adapter<ReceivedHistoryViewHolder> {
 
-    private final List<ReceivedHistory> receivedHistories;
+    private final List<StickerReceived> receivedHistories;
     private final Context context;
 
-    public ReceivedHistoryAdapter(List<ReceivedHistory> receivedHistories, Context context) {
+    public ReceivedHistoryAdapter(List<StickerReceived> receivedHistories, Context context) {
         this.receivedHistories = receivedHistories;
         this.context = context;
     }

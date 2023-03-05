@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,17 +17,28 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
+import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class StickerUserDirectoryActivity extends AppCompatActivity {
 
     private static final String TAG = "a8_stickers.StickerUserDirectoryActivity";
     private DatabaseReference mDatabase;
-    private String currentSticker;
+    private Sticker currentSticker;
+    private ReceiverAdapter adapter;
+    private User currentUser;
+    private User sendtoUser;
+    private static boolean isSavingSendCount, isSavingReceivedHistory;
+    private static boolean isSendCountSaved, isReceivedHistorySaved;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,58 +48,142 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
         if (getIntent().getExtras() != null) {
-            currentSticker = getIntent().getExtras().getString("currentSticker");
+            Bundle bundle = getIntent().getExtras();
+            currentSticker = bundle.getParcelable("sticker");
+            currentUser = bundle.getParcelable("currentUser");
         }
         updateSticker();
 
         loadUsers();
         updateSendingToTV("");
 
-        //TODO Send button functionality
+        Button btnSend = findViewById(R.id.btnSend);
+        btnSend.setOnClickListener(v -> sendSticker());
     }
 
-    public void updateSendingToTV(String toUser) {
+    public void updateSendingTo(User toUser) {
+        sendtoUser = toUser;
+        updateSendingToTV(toUser.firstName + " " + toUser.lastName);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("selectedPosition", adapter.getSelectedPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        adapter.setSelectedPosition(savedInstanceState.getInt("selectedPosition"));
+    }
+
+    private void sendSticker() {
+        // Save send count
+        mDatabase.child("users").child(currentUser.username).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                isSavingSendCount = true;
+                isSendCountSaved = false;
+                updateSendStatus();
+                User u = currentData.getValue(User.class);
+                if (u == null) {
+                    return Transaction.success(currentData);
+                }
+
+                if (u.stickersSent == null) {
+                    u.stickersSent = new ArrayList<>();
+                }
+
+                StickerSent stickerSent = null;
+                for (StickerSent sent : u.stickersSent) {
+                    if (sent.getSticker().getName().equalsIgnoreCase(currentSticker.getName())) {
+                        stickerSent = sent;
+                    }
+                }
+
+                int totalCount = 1;
+                if (stickerSent != null) {
+                    totalCount = stickerSent.getTotalCount() + 1;
+                    u.stickersSent.set(u.stickersSent.indexOf(stickerSent), new StickerSent(currentSticker, totalCount));
+                } else {
+                    u.stickersSent.add(new StickerSent(currentSticker, totalCount));
+                }
+
+                currentData.setValue(u);
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                // Transaction completed
+                isSavingSendCount = false;
+                isSendCountSaved = true;
+                updateSendStatus();
+                Log.d(TAG, "postTransaction:onComplete:" + error);
+            }
+        });
+
+        // Save received history
+        mDatabase.child("users").child(sendtoUser.username).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                isSavingReceivedHistory = true;
+                isReceivedHistorySaved = false;
+                updateSendStatus();
+                User u = currentData.getValue(User.class);
+                if (u == null) {
+                    return Transaction.success(currentData);
+                }
+
+                if (u.stickersReceived == null) {
+                    u.stickersReceived = new ArrayList<>();
+                }
+                u.stickersReceived.add(new StickerReceived(currentSticker, currentUser, LocalDateTime.now().toString()));
+
+                currentData.setValue(u);
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                // Transaction completed
+                isSavingReceivedHistory = false;
+                isReceivedHistorySaved = true;
+                updateSendStatus();
+                Log.d(TAG, "postTransaction:onComplete:" + error);
+            }
+        });
+    }
+
+    private void updateSendStatus() {
+        TextView sendStatus = findViewById(R.id.sendStatus);
+        if (!isSavingSendCount && !isSavingReceivedHistory) {
+            if (isSendCountSaved && isReceivedHistorySaved) {
+                sendStatus.setText("Sticker sent successfully");
+            } else {
+                sendStatus.setText("Failed to send sticker");
+            }
+        } else {
+            sendStatus.setText("");
+        }
+    }
+
+    private void updateSendingToTV(String toUser) {
         TextView sendingToTV = findViewById(R.id.sendingToTV);
-        sendingToTV.setText(getString(R.string.you_re_sending_to, toUser));
+        String textToSet = getString(R.string.you_re_sending_to, toUser);
+        if (!sendingToTV.getText().toString().equalsIgnoreCase(textToSet)) {
+            sendingToTV.setText(getString(R.string.you_re_sending_to, toUser));
+        }
     }
 
     private void updateSticker() {
         ImageView stickerDirectoryIV = findViewById(R.id.stickerDirectoryIV);
-        Integer image = null;
-        switch (currentSticker.toLowerCase()) {
-            case "frog":
-                image = R.drawable.sticker_1_frog;
-                break;
-            case "ribbon":
-                image = R.drawable.sticker_2_ribbon;
-                break;
-            case "backpack":
-                image = R.drawable.sticker_3_backpack;
-                break;
-            case "board":
-                image = R.drawable.sticker_4_board;
-                break;
-            case "cup":
-                image = R.drawable.sticker_5_cup;
-                break;
-            case "bulb":
-                image = R.drawable.sticker_6_bulb;
-                break;
-            case "clock":
-                image = R.drawable.sticker_7_clock;
-                break;
-            case "book":
-                image = R.drawable.sticker_8_book;
-                break;
-            case "bus":
-                image = R.drawable.sticker_9_bus;
-                break;
-            default:
-                break;
-        }
-        if (image != null) {
-            stickerDirectoryIV.setImageResource(image);
-        }
+        stickerDirectoryIV.setImageResource(currentSticker.getImageResource());
     }
 
     private void loadUsers() {
@@ -96,7 +192,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         RecyclerView userListRV = findViewById(R.id.userListRV);
         userListRV.setHasFixedSize(true);
         userListRV.setLayoutManager(new LinearLayoutManager(this));
-        ReceiverAdapter adapter = new ReceiverAdapter(userList, this);
+        adapter = new ReceiverAdapter(userList, this);
         userListRV.setAdapter(adapter);
 
         mDatabase.child("users").addChildEventListener(new ChildEventListener() {
