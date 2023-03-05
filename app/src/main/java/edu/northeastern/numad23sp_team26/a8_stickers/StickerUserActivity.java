@@ -30,11 +30,14 @@ public class StickerUserActivity extends AppCompatActivity {
         btnLogout.setOnClickListener(v -> logout());
 
         Button btnSendStickers = findViewById(R.id.btnSendStickers);
+        btnSendStickers.setOnClickListener(v -> openActivitySendSticker());
+
         Button btnReceivedHistory = findViewById(R.id.btnReceivedHistory);
+        btnReceivedHistory.setOnClickListener(v -> openActivityReceivedHistory());
 
         if (getIntent().getExtras() != null) {
             currentUser = getIntent().getExtras().getParcelable("currentUser");
-            helloUserTV.setText(getString(R.string.user_greeting, currentUser.firstName, currentUser.lastName));
+            helloUserTV.setText(getString(R.string.user_greeting, currentUser.username));
         }
 
         //TODO Open Send Stickers activity
@@ -79,5 +82,15 @@ public class StickerUserActivity extends AppCompatActivity {
 
         viewPager.setAdapter(adapter);
         viewPager.setPadding(100,100,100,100);
+    }
+
+    public void openActivitySendSticker() {
+        Intent intent = new Intent(this, StickersListActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityReceivedHistory() {
+        Intent intent = new Intent(this, ReceivedHistoryActivity.class);
+        startActivity(intent);
     }
 }
