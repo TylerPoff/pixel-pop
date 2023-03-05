@@ -14,7 +14,7 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/StickerIV"
+        android:id="@+id/stickerIV"
         android:layout_width="120dp"
         android:layout_height="120dp"
         android:layout_marginStart="10dp"
@@ -22,7 +22,6 @@
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
         android:scaleType="fitXY"
-        android:background="@drawable/stickerborder"
         app:srcCompat="@drawable/sample_sticker" />
 
     <TextView
@@ -33,7 +32,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@id/StickerIV"
+        android:layout_toEndOf="@id/stickerIV"
         android:text="@string/sticker_name"
         android:textColor="@color/black"
         android:textSize="16sp"
@@ -48,7 +47,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@id/StickerIV"
+        android:layout_toEndOf="@id/stickerIV"
         android:text="@string/sticker_from"
         android:textColor="@color/black" />
 
@@ -61,7 +60,7 @@
         android:layout_marginTop="3dp"
         android:layout_marginEnd="10dp"
         android:layout_marginBottom="10dp"
-        android:layout_toEndOf="@id/StickerIV"
+        android:layout_toEndOf="@id/stickerIV"
         android:text="@string/sticker_timestamp"
         android:textColor="@color/black" />
 

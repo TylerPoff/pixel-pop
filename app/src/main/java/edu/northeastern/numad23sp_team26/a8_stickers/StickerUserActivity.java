@@ -1,22 +1,33 @@
 package edu.northeastern.numad23sp_team26.a8_stickers;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class StickerUserActivity extends AppCompatActivity {
 
+    private static final String TAG = "a8_stickers.StickerUserActivity";
+    private DatabaseReference mDatabase;
     private ViewPager viewPager;
     private User currentUser;
 
@@ -41,28 +52,10 @@ public class StickerUserActivity extends AppCompatActivity {
             helloUserTV.setText(getString(R.string.user_greeting, currentUser.username));
         }
 
-        //TODO Open Send Stickers activity
-        //TODO Open History activity
-
         viewPager = findViewById(R.id.viewPager);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         loadStickers();
-
-        viewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
-            @Override
-            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                 //TODO Link with project to get username
-            }
-
-                @Override
-                public void onPageSelected(int position) {
-                    //Only one page to be included
-                }
-
-                @Override
-                public void onPageScrollStateChanged(int state) {
-                    //Only one way to control scroll
-                }
-        });
     }
 
     private void logout() {
@@ -75,13 +68,57 @@ public class StickerUserActivity extends AppCompatActivity {
     private void loadStickers() {
         ArrayList<StickerSent> userStickerList = new ArrayList<>();
         StickerUserAdapter adapter = new StickerUserAdapter(this, userStickerList);
-
-        //dummy add
-        userStickerList.add(new StickerSent(new Sticker("Frog", R.drawable.sticker_1_frog), 0));
-        userStickerList.add(new StickerSent(new Sticker("Ribbon", R.drawable.sticker_2_ribbon), 0));
-
         viewPager.setAdapter(adapter);
         viewPager.setPadding(100,100,100,100);
+
+        mDatabase.child("users").child(currentUser.username).child("stickersSent")
+                .addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
+
+                if (index == -1) {
+                    userStickerList.add(stickerSent);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
+
+                if (index > -1) {
+                    userStickerList.set(index, stickerSent);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                StickerSent stickerSent = snapshot.getValue(StickerSent.class);
+                int index = IntStream.range(0, userStickerList.size()).filter(i -> userStickerList.get(i).getSticker().getFileName()
+                        .equalsIgnoreCase(stickerSent.getSticker().getFileName())).findFirst().orElse(-1);
+
+                if (index > -1) {
+                    userStickerList.remove(index);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+                Log.e(TAG, "onCancelled:" + error);
+            }
+        });
     }
 
     public void openActivitySendSticker() {
