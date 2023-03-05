@@ -1,10 +1,17 @@
 package edu.northeastern.numad23sp_team26.a8_stickers;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 import androidx.viewpager.widget.ViewPager;
 
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -39,9 +46,6 @@ public class StickerUserActivity extends AppCompatActivity {
             currentUser = getIntent().getExtras().getParcelable("currentUser");
             helloUserTV.setText(getString(R.string.user_greeting, currentUser.username));
         }
-
-        //TODO Open Send Stickers activity
-        //TODO Open History activity
 
         viewPager = findViewById(R.id.viewPager);
         loadStickers();
