@@ -32,4 +32,12 @@
     <string name="logout">Logout</string>
     <string name="you_re_sending_to">You\'re sending to: </string>
     <string name="send">Send</string>
+
+    <string name="Recieved_history">Received History</string>
+    <string name="Stickers_list">Stickers</string>
+    <string name="Stickers_button">Sticker Button</string>
+
+    <string name="sticker_name">Sticker Name</string>
+    <string name="sticker_from">From: %1$s</string>
+    <string name="sticker_timestamp">Timestamp: %1$s</string>
 </resources>

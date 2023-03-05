@@ -14,6 +14,12 @@
         android:theme="@style/Theme.NUMAD23Sp_Team26"
         tools:targetApi="31">
         <activity
+            android:name=".StickersListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ReceivedHistoryActivity"
+            android:exported="false" />
+        <activity
             android:name=".a8_stickers.StickerUserDirectoryActivity"
             android:exported="false" />
         <activity
