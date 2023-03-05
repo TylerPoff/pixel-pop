@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -27,6 +28,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
     private static final String TAG = "a8_stickers.StickerUserDirectoryActivity";
     private DatabaseReference mDatabase;
     private String currentSticker;
+    private ReceiverAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,12 +45,31 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         loadUsers();
         updateSendingToTV("");
 
-        //TODO Send button functionality
+        Button btnSend = findViewById(R.id.btnSend);
+        btnSend.setOnClickListener(v -> sendSticker());
     }
 
     public void updateSendingToTV(String toUser) {
         TextView sendingToTV = findViewById(R.id.sendingToTV);
         sendingToTV.setText(getString(R.string.you_re_sending_to, toUser));
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        outState.putInt("selectedPosition", adapter.getSelectedPosition());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        adapter.setSelectedPosition(savedInstanceState.getInt("selectedPosition"));
+    }
+
+    private void sendSticker() {
+
     }
 
     private void updateSticker() {
@@ -96,7 +117,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         RecyclerView userListRV = findViewById(R.id.userListRV);
         userListRV.setHasFixedSize(true);
         userListRV.setLayoutManager(new LinearLayoutManager(this));
-        ReceiverAdapter adapter = new ReceiverAdapter(userList, this);
+        adapter = new ReceiverAdapter(userList, this);
         userListRV.setAdapter(adapter);
 
         mDatabase.child("users").addChildEventListener(new ChildEventListener() {

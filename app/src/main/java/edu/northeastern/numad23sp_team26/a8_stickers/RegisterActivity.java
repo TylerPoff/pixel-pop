@@ -48,8 +48,8 @@ public class RegisterActivity extends AppCompatActivity {
             lastName = editTextLastName.getText().toString().trim();
             if (registerUsername.isEmpty()) {
                 registerErrorTV.setText("Please enter username");
-            } else if (registerUsername.length() > 15) {
-                registerErrorTV.setText("Username cannot be longer than 15 characters");
+            } else if (registerUsername.length() > 20) {
+                registerErrorTV.setText("Username cannot be longer than 20 characters");
             } else if (firstName.isEmpty()) {
                 registerErrorTV.setText("Please enter first name");
             } else if (lastName.isEmpty()) {

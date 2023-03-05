@@ -1,5 +1,6 @@
 package edu.northeastern.numad23sp_team26.a8_stickers;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
@@ -24,6 +25,16 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverViewHolder> {
         this.context = context;
     }
 
+    public int getSelectedPosition() {
+        return selectedPosition;
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    public void setSelectedPosition(int position) {
+        selectedPosition = position;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ReceiverViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -34,15 +45,19 @@ public class ReceiverAdapter extends RecyclerView.Adapter<ReceiverViewHolder> {
     public void onBindViewHolder(@NonNull ReceiverViewHolder holder, int position) {
         User user = users.get(position);
         String fullName = user.firstName + " " + user.lastName;
+
         holder.userRB.setText(fullName);
-        holder.userRB.setOnClickListener(v -> {
-            selectedPosition = holder.getAdapterPosition();
-            notifyDataSetChanged();
-            if (context instanceof StickerUserDirectoryActivity) {
-                ((StickerUserDirectoryActivity) context).updateSendingToTV(fullName);
-            }
-        });
         holder.userRB.setChecked(position == selectedPosition);
+
+        holder.userRB.setOnClickListener(v -> setSelectedPosition(holder.getAdapterPosition()));
+
+        if (selectedPosition > -1) {
+            if (context instanceof StickerUserDirectoryActivity) {
+                User selectedUser = users.get(selectedPosition);
+                String selectedFullName = selectedUser.firstName + " " + selectedUser.lastName;
+                ((StickerUserDirectoryActivity) context).updateSendingToTV(selectedFullName);
+            }
+        }
     }
 
     @Override

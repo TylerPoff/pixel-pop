@@ -27,14 +27,14 @@
     <string name="user_greeting">Hello, %1$s</string>
     <string name="sent_count">Stickers Sent</string>
     <string name="num_sent">Number of stickers sent: %1$s</string>
-    <string name="send_stickers">Send Stickers</string>
+    <string name="send_stickers">Send Sticker</string>
     <string name="received_history">Received History</string>
     <string name="logout">Logout</string>
     <string name="you_re_sending_to">You\'re sending to: %1$s</string>
     <string name="send">Send</string>
 
     <string name="Recieved_history">Received History</string>
-    <string name="Stickers_list">Stickers</string>
+    <string name="Stickers_list">Select Sticker</string>
     <string name="Stickers_button">Sticker Button</string>
 
     <string name="sticker_name">Sticker Name</string>
