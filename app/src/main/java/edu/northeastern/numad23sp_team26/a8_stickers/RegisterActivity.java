@@ -89,7 +89,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     // Reference: https://firebase.google.com/docs/database/android/read-and-write#read_once_using_get
-    // We use read once here to prevent duplicate usernames
+    // We use read once here to prevent duplicate usernames.
     private void onRegister(String username, String firstName, String lastName) {
         mDatabase.child("users").child(username).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
