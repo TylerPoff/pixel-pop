@@ -3,17 +3,9 @@ package edu.northeastern.numad23sp_team26.a8_stickers;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.app.NotificationManagerCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.Manifest;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
@@ -27,13 +19,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.stream.IntStream;
 
-import edu.northeastern.numad23sp_team26.NotifApp;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.Sticker;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
@@ -50,29 +40,13 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
     private User sendtoUser;
     private static boolean isSavingSendCount, isSavingReceivedHistory;
     private static boolean isSendCountSaved, isReceivedHistorySaved;
-    private NotificationManagerCompat notiManagerCompat;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sticker_directory);
 
-        notiManagerCompat = NotificationManagerCompat.from(this);
-        NotificationChannel channel = new NotificationChannel("myCh", "My Channel", NotificationManager.IMPORTANCE_DEFAULT);
-        NotificationManager manager = getSystemService(NotificationManager.class);
-        manager.createNotificationChannel(channel);
         mDatabase = FirebaseDatabase.getInstance().getReference();
-        mDatabase.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                sendNotification();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -88,18 +62,6 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         btnSend.setOnClickListener(v -> sendSticker());
     }
 
-    public void sendNotification() {
-        Notification notification = new NotificationCompat.Builder(this, NotifApp.channelName)
-                .setPriority(NotificationCompat.PRIORITY_HIGH)
-                .setContentTitle("From Team26 Sticker Sender: ")
-                .setContentText("New Sticker!")
-                .setSmallIcon(R.drawable.ic_launcher_t26_foreground)
-                .build();
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            return;
-        }
-        notiManagerCompat.notify(1, notification);
-    }
     public void updateSendingTo(User toUser) {
         sendtoUser = toUser;
         updateSendingToTV(toUser.firstName + " " + toUser.lastName);
@@ -182,7 +144,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
                 if (u.stickersReceived == null) {
                     u.stickersReceived = new ArrayList<>();
                 }
-                u.stickersReceived.add(new StickerReceived(currentSticker, currentUser, LocalDateTime.now().toString()));
+                u.stickersReceived.add(new StickerReceived(currentSticker, currentUser, LocalDateTime.now().toString(), 0));
 
                 currentData.setValue(u);
                 return Transaction.success(currentData);
