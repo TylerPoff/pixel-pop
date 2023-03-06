@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.stream.IntStream;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
@@ -56,8 +57,10 @@ public class ReceivedHistoryActivity extends AppCompatActivity {
                     @Override
                     public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                         StickerReceived stickerReceived = snapshot.getValue(StickerReceived.class);
+                        int index = IntStream.range(0, receivedList.size()).filter(i -> receivedList.get(i).equals(stickerReceived))
+                                .findFirst().orElse(-1);
 
-                        if (!receivedList.contains(stickerReceived)) {
+                        if (index == -1) {
                             receivedList.add(stickerReceived);
                             adapter.notifyItemInserted(receivedList.size() - 1);
                         }
@@ -65,7 +68,14 @@ public class ReceivedHistoryActivity extends AppCompatActivity {
 
                     @Override
                     public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                        StickerReceived stickerReceived = snapshot.getValue(StickerReceived.class);
+                        int index = IntStream.range(0, receivedList.size()).filter(i -> receivedList.get(i).equals(stickerReceived))
+                                .findFirst().orElse(-1);
 
+                        if (index > -1) {
+                            receivedList.set(index, stickerReceived);
+                            adapter.notifyItemChanged(index);
+                        }
                     }
 
                     @Override

@@ -104,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
             else {
                 if (task.getResult().getValue() == null) {
                     User user = new User(username.toLowerCase(), firstName, lastName, new ArrayList<>(), new ArrayList<>());
-                    mDatabase.child("users").child(username).setValue(user);
+                    mDatabase.child("users").child(username.toLowerCase()).setValue(user);
                     Intent intent = new Intent (getApplicationContext(), StickerUserActivity.class);
 
                     // Send current user
