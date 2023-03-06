@@ -202,7 +202,7 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
                 User user = snapshot.getValue(User.class);
                 int index = IntStream.range(0, userList.size()).filter(i -> userList.get(i).username.equalsIgnoreCase(user.username)).findFirst().orElse(-1);
 
-                if (index == -1) {
+                if (index == -1 && !user.username.equalsIgnoreCase(currentUser.username)) {
                     userList.add(user);
                     adapter.notifyItemInserted(userList.size() - 1);
                 }
