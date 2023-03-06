@@ -14,7 +14,15 @@ public class ReceiveNotificationActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receive_notification);
+
         TextView gotStickerFromTV = findViewById(R.id.gotStickerFromTV);
         ImageView receivedStickerIV = findViewById(R.id.receivedStickerIV);
+
+        if (getIntent().getExtras() != null) {
+            Bundle bundle = getIntent().getExtras();
+            gotStickerFromTV.setText(bundle.getString("stickerReceivedFromFullName"));
+            int imageResource = getResources().getIdentifier(bundle.getString("stickerReceivedFileName"), "drawable", getPackageName());
+            receivedStickerIV.setImageResource(imageResource);
+        }
     }
 }

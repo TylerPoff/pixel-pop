@@ -216,13 +216,20 @@ public class StickerUserActivity extends AppCompatActivity {
     }
 
     public void sendNotification(StickerReceived stickerReceived) {
+        User fromUser = stickerReceived.getFrom();
         Intent intent = new Intent(this, ReceiveNotificationActivity.class);
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, 0);
+
+        // Send current sticker
+        Bundle extras = new Bundle();
+        extras.putString("stickerReceivedFromFullName", fromUser.firstName + " " + fromUser.lastName);
+        extras.putString("stickerReceivedFileName", stickerReceived.getSticker().getFileName());
+        intent.putExtras(extras);
+
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         String channelId = "sticker_received";
         int imageResource = getResources().getIdentifier(stickerReceived.getSticker().getFileName(), "drawable", getPackageName());
         Bitmap stickerIcon = BitmapFactory.decodeResource(getResources(), imageResource);
-        User fromUser = stickerReceived.getFrom();
 
         Notification notification = new NotificationCompat.Builder(this, channelId)
                 .setContentTitle("(Team26) Sticker Received")
