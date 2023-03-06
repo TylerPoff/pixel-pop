@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="sticker_drawables">
+        <item>@drawable/sticker_1_frog</item>
+        <item>@drawable/sticker_2_ribbon</item>
+        <item>@drawable/sticker_3_backpack</item>
+        <item>@drawable/sticker_4_board</item>
+        <item>@drawable/sticker_5_cup</item>
+        <item>@drawable/sticker_6_bulb</item>
+        <item>@drawable/sticker_7_clock</item>
+        <item>@drawable/sticker_8_book</item>
+        <item>@drawable/sticker_9_bus</item>
+    </string-array>
+</resources>
