@@ -225,7 +225,7 @@ public class StickerUserActivity extends AppCompatActivity {
         extras.putString("stickerReceivedFileName", stickerReceived.getSticker().getFileName());
         intent.putExtras(extras);
 
-        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pIntent = PendingIntent.getActivity(this, (int) System.currentTimeMillis(), intent, PendingIntent.FLAG_MUTABLE);
 
         String channelId = "sticker_received";
         int imageResource = getResources().getIdentifier(stickerReceived.getSticker().getFileName(), "drawable", getPackageName());
