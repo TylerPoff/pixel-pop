@@ -16,7 +16,7 @@ public class LevelButtonViewHolder extends RecyclerView.ViewHolder{
     }
 
     public void bindThisData(int level) {
-        this.level.setText(level);
+        this.level.setText(Integer.toString(level));
     }
 }
 
