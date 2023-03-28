@@ -4,7 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.util.Log;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -19,8 +19,8 @@ public class DrawView extends View {
     private Paint fillBrush = new Paint();
     private List<Coordinate> touchedCoordinates;
 
-    public DrawView(Context context) {
-        super(context);
+    public DrawView(Context context, AttributeSet attrs) {
+        super(context, attrs);
 
         strokeBrush.setAntiAlias(true);
         strokeBrush.setColor(Color.BLACK);
