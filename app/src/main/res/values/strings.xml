@@ -42,4 +42,6 @@
     <string name="sticker_timestamp">Timestamp: %1$s</string>
     <string name="you_got_a_sticker_from">You got a sticker from</string>
     <string name="sticker_from_user">User</string>
+
+    <string name="pixel_pop">Pixel Pop</string>
 </resources>

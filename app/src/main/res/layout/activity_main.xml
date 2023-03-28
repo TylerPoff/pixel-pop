@@ -47,10 +47,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/send_stickers_a8"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/btnPixelPop"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnMovie"
         android:layout_marginBottom="10dp" />
+
+    <Button
+        android:id="@+id/btnPixelPop"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/pixel_pop"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnSticker" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

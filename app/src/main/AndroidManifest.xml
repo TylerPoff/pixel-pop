@@ -16,6 +16,10 @@
         android:theme="@style/Theme.NUMAD23Sp_Team26"
         tools:targetApi="31">
         <activity
+            android:name=".pixel_pop.DrawActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
             android:exported="false" />
         <activity
