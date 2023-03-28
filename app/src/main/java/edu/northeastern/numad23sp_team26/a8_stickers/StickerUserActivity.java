@@ -235,7 +235,7 @@ public class StickerUserActivity extends AppCompatActivity {
                 .setContentTitle("(Team26) Sticker Received")
                 .setContentText("You received a sticker from " + fromUser.firstName + " " + fromUser.lastName)
                 .setLargeIcon(stickerIcon)
-                .setSmallIcon(R.drawable.image)
+                .setSmallIcon(R.mipmap.ic_launcher_t26)
                 .setContentIntent(pIntent)
                 .build();
 
