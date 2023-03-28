@@ -35,6 +35,16 @@ public class DrawView extends View {
         touchedCoordinates = new ArrayList<>();
     }
 
+    // TODO: allow multiple colors
+    public void changeFillColor(int color) {
+        fillBrush.setColor(color);
+    }
+
+    public void resetFills() {
+        touchedCoordinates.clear();
+        postInvalidate();
+    }
+
     @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
