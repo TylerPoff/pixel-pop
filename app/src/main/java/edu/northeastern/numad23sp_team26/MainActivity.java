@@ -8,6 +8,8 @@ import android.os.StrictMode;
 import android.widget.Button;
 
 import com.google.firebase.BuildConfig;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
 
@@ -31,6 +33,15 @@ public class MainActivity extends AppCompatActivity {
         }
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize stickers database
+        // Uses stickers name to get further instances
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApplicationId(getString(R.string.firebaseIdStickers))
+                .setApiKey(getString(R.string.firebaseApiKeyStickers))
+                .setDatabaseUrl(getString(R.string.firebaseUrlStickers))
+                .build();
+        FirebaseApp.initializeApp(this, options, "stickers");
 
         Button btnAbout = findViewById(R.id.btnAbout);
         btnAbout.setOnClickListener(v -> openActivityAbout());

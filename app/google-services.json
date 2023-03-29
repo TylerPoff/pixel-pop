@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "1053899572056",
-    "project_id": "a8-stickers",
-    "storage_bucket": "a8-stickers.appspot.com"
+    "project_number": "1048081012259",
+    "project_id": "cs5520-pixel-pop",
+    "storage_bucket": "cs5520-pixel-pop.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1053899572056:android:191a6879e39d52a38ddb2d",
+        "mobilesdk_app_id": "1:1048081012259:android:fc8eb67d8d8bd0db0f8396",
         "android_client_info": {
           "package_name": "edu.northeastern.numad23sp_team26"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1053899572056-gjr5ojegh5o94oujs7b7fd0pit6psm82.apps.googleusercontent.com",
+          "client_id": "1048081012259-3ctl67g47nfodjitlimummh2qb6it1e9.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyARbkX7SUXWmTSc5hDz5hotmyAQD127aog"
+          "current_key": "AIzaSyBw_BDEo1FnMVkiEzrfs1M6p1kEl6yKPQs"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1053899572056-gjr5ojegh5o94oujs7b7fd0pit6psm82.apps.googleusercontent.com",
+              "client_id": "1048081012259-3ctl67g47nfodjitlimummh2qb6it1e9.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
