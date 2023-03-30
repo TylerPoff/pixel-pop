@@ -58,8 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivitySticker() {
       Intent intent = new Intent(this, LoginActivity.class);
-//        Intent intent = new Intent(this, MapLevelsActivity.class);
-
         startActivity(intent);
     }
 
