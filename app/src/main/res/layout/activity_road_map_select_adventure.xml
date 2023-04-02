@@ -9,6 +9,18 @@
     android:textAppearance="?attr/textAppearanceSubtitle1"
     tools:context=".RoadMapSelectAdventureActivity">
 
+    <ImageView
+        android:id="@+id/nature_country_all"
+        android:layout_width="539dp"
+        android:layout_height="1250dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.533"
+        app:srcCompat="@drawable/nature_country_all" />
+
     <TextView
         android:id="@+id/hello_username"
         android:layout_width="wrap_content"
@@ -32,16 +44,15 @@
         app:layout_constraintVertical_bias="0.172" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/hello_username"
+        android:id="@+id/user_profile_avatar"
+        android:layout_width="113dp"
+        android:layout_height="196dp"
+        android:layout_marginTop="36dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:srcCompat="@drawable/user_profile_avatar" />
+
 
     <!--    <com.google.android.material.textfield.TextInputLayout-->
     <!--        android:layout_width="match_parent"-->
@@ -56,6 +67,5 @@
     <!--            android:inputType="none"-->
     <!--            />-->
     <!--    </com.google.android.material.textfield.TextInputLayout>-->
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
