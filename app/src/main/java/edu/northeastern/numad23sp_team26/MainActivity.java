@@ -62,8 +62,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivityLevels() {
-//        Intent intent = new Intent(this, LoginActivityPixelPop.class);
-        Intent intent = new Intent(this, MapLevelsActivity.class);
+        Intent intent = new Intent(this, RoadMapSelectAdventureActivity.class);
         startActivity(intent);
     }
 }
