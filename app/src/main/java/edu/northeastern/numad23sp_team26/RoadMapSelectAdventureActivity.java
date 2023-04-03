@@ -2,6 +2,7 @@ package edu.northeastern.numad23sp_team26;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -32,14 +33,52 @@ public class RoadMapSelectAdventureActivity extends AppCompatActivity {
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                String tutorialsName = parent.getItemAtPosition(position).toString();
-                Toast.makeText(parent.getContext(), "Selected: " + tutorialsName,
-                        Toast.LENGTH_LONG).show();
+                String adventure = parent.getItemAtPosition(position).toString();
+                switch (adventure) {
+                    case "Animals":
+                        openActivityAnimals();
+                        break;
+                    case "Beach":
+                        openActivityBeach();
+                        break;
+                    case "Flowers":
+                        openActivityFlowers();
+                        break;
+                    case "Plants":
+                        openActivityPlants();
+                        break;
+                    case "Sea":
+                        openActivitySea();
+                        break;
+
+                }
             }
             @Override
             public void onNothingSelected(AdapterView <?> parent) {
             }
         });
-
     }
+
+    public void openActivityAnimals() {
+        Intent intent = new Intent(this, RoadMapAnimalsActivity.class);
+        startActivity(intent);
+    }
+    public void openActivityBeach() {
+        Intent intent = new Intent(this, RoadMapBeachActivity.class);
+        startActivity(intent);
+    }
+    public void openActivityFlowers() {
+        Intent intent = new Intent(this, RoadMapFlowersActivity.class);
+        startActivity(intent);
+    }
+    public void openActivityPlants() {
+        Intent intent = new Intent(this, RoadMapPlantsActivity.class);
+        startActivity(intent);
+    }
+    public void openActivitySea() {
+        Intent intent = new Intent(this, RoadMapSeaActivity.class);
+        startActivity(intent);
+    }
+
+
 }
