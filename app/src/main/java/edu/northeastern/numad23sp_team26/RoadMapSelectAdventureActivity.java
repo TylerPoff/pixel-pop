@@ -37,18 +37,23 @@ public class RoadMapSelectAdventureActivity extends AppCompatActivity {
                 switch (adventure) {
                     case "Animals":
                         openActivityAnimals();
+                        spinner.setSelection(0);
                         break;
                     case "Beach":
                         openActivityBeach();
+                        spinner.setSelection(0);
                         break;
                     case "Flowers":
                         openActivityFlowers();
+                        spinner.setSelection(0);
                         break;
                     case "Plants":
                         openActivityPlants();
+                        spinner.setSelection(0);
                         break;
                     case "Sea":
                         openActivitySea();
+                        spinner.setSelection(0);
                         break;
 
                 }
