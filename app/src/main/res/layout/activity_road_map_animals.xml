@@ -35,5 +35,12 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:layout_editor_absoluteY="556dp" />
 
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:cardCornerRadius="100dp"
+        android:id="@+id/button1"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
