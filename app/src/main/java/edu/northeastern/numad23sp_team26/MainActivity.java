@@ -40,6 +40,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnSticker = findViewById(R.id.btnSticker);
         btnSticker.setOnClickListener(v -> openActivitySticker());
+
+        Button btnPixelPop = findViewById(R.id.btnPixelPop);
+        btnSticker.setOnClickListener(v -> openActivityPixelPop());
     }
 
     public void openActivityAbout() {
@@ -54,6 +57,11 @@ public class MainActivity extends AppCompatActivity {
 
     public void openActivitySticker() {
         Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityPixelPop() {
+        Intent intent = new Intent(this, PixelPopLoginActivity.class);
         startActivity(intent);
     }
 }
