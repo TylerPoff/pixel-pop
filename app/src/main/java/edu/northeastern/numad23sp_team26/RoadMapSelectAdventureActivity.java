@@ -17,6 +17,8 @@ public class RoadMapSelectAdventureActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        View layout = findViewById(R.id.root_view);
+//        layout.setBackgroundResource(R.drawable.nature_country_all);
         setContentView(R.layout.activity_road_map_select_adventure);
 
         Spinner spinner = findViewById(R.id.spinner);
