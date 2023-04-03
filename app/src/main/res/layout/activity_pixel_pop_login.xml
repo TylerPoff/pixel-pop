@@ -18,7 +18,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="Login"
+            android:text="@string/pixelpop_login"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -27,23 +27,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="Email"
-            android:inputType="textEmailAddress" />
+            android:hint="@string/pixelpop_login_email"
+            android:inputType="textEmailAddress"
+            android:minHeight="48dp" />
 
         <EditText
             android:id="@+id/login_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="Password"
-            android:inputType="textPassword" />
+            android:hint="@string/pixelpop_login_password"
+            android:inputType="textPassword"
+            android:minHeight="48dp" />
 
         <Button
             android:id="@+id/login_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Login" />
+            android:text="@string/pixelpop_login_button" />
 
         <TextView
             android:id="@+id/login_signup_redirect"
@@ -51,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="Don't have an account? Sign up"
+            android:text="@string/pixelpop_login_dont_have_an_account"
             android:textColor="?attr/colorPrimary" />
 
     </LinearLayout>
