@@ -42,4 +42,11 @@
     <string name="sticker_timestamp">Timestamp: %1$s</string>
     <string name="you_got_a_sticker_from">You got a sticker from</string>
     <string name="sticker_from_user">User</string>
+    <string name="new_level">New Level</string>
+    <string name="retry">Retry</string>
+    <string name="menu">menu</string>
+    <string name="level_123xyz">Level 123XYZ</string>
+    <string name="score_100000">Score: 100000</string>
+    <string name="your_pixels">Your Pixels:</string>
+    <string name="original_pixels">Original Pixels:</string>
 </resources>
