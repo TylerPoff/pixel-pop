@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.util.Log;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -35,7 +37,8 @@ public class ReceivedHistoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_received_history);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseApp stickers = FirebaseApp.getInstance("stickers");
+        mDatabase = FirebaseDatabase.getInstance(stickers).getReference();
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();

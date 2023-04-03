@@ -19,6 +19,8 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -48,7 +50,8 @@ public class StickerUserActivity extends AppCompatActivity {
         createNotificationChannel();
         setContentView(R.layout.activity_sticker_user);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseApp stickers = FirebaseApp.getInstance("stickers");
+        mDatabase = FirebaseDatabase.getInstance(stickers).getReference();
 
         TextView helloUserTV = findViewById(R.id.helloUserTV);
 
