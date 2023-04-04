@@ -15,13 +15,15 @@
 
     <Button
         android:id="@+id/animals_pixel_drawing_1_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_marginStart="248dp"
         android:layout_marginBottom="44dp"
         android:text="@string/_1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:background="@drawable/custom_button"
+      />
 
     <Button
         android:id="@+id/animals_pixel_drawing_2_button"
@@ -67,11 +69,12 @@
         android:id="@+id/Start_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="276dp"
-        android:layout_marginBottom="92dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginBottom="96dp"
         android:text="Start!"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
