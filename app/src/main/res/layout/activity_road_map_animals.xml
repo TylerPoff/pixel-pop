@@ -3,28 +3,34 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
+    android:background="@drawable/nature_animals_all"
+    android:ellipsize="end"
+    android:textAppearance="?attr/textAppearanceSubtitle1"
+
     tools:context=".RoadMapAnimalsActivity">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="493dp"
-        android:layout_height="864dp"
-        android:layout_marginBottom="4dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5"
-        app:srcCompat="@drawable/nature_animals_all" />
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView"-->
+<!--        android:layout_width="493dp"-->
+<!--        android:layout_height="864dp"-->
+<!--        android:layout_marginBottom="4dp"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:layout_constraintVertical_bias="0.5"-->
+<!--        app:srcCompat="@drawable/nature_animals_all" />-->
 
     <Button
         android:id="@+id/animals_pixel_drawing_1_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="88dp"
-        android:layout_marginBottom="108dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginBottom="44dp"
         android:text="@string/_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -33,8 +39,8 @@
         android:id="@+id/animals_pixel_drawing_2_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="296dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginStart="136dp"
+        android:layout_marginBottom="116dp"
         android:text="@string/_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -43,8 +49,8 @@
         android:id="@+id/animals_pixel_drawing_3_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="224dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginBottom="300dp"
         android:text="@string/_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -53,8 +59,8 @@
         android:id="@+id/animals_pixel_drawing_4_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="72dp"
-        android:layout_marginBottom="288dp"
+        android:layout_marginStart="160dp"
+        android:layout_marginBottom="472dp"
         android:text="@string/_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -63,18 +69,18 @@
         android:id="@+id/animals_pixel_drawing_5_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginBottom="436dp"
+        android:layout_marginStart="184dp"
+        android:layout_marginBottom="656dp"
         android:text="@string/_5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/Start_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginStart="276dp"
+        android:layout_marginBottom="92dp"
         android:text="Start!"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

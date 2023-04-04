@@ -9,6 +9,6 @@
     android:ellipsize="end"
     android:textAppearance="?attr/textAppearanceSubtitle1"
 
-    tools:context=".RoadMapSelectAdventureActivity">
+    tools:context=".RoadMapAnimalsActivity">
 
 </androidx.constraintlayout.widget.ConstraintLayout>
