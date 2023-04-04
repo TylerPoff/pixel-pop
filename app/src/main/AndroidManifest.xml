@@ -19,9 +19,11 @@
             android:exported="false" />
         <activity
             android:name=".PixelPopSignUpActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".PixelPopLoginActivity"
+            android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"

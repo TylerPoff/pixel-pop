@@ -47,7 +47,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         // Redirect to LoginActivity
         loginRedirect.setOnClickListener(v -> openActivityPixelPopLogin());
 
-        //Sign up and case handling
+        // Sign up and case handling
         signUpButton.setOnClickListener(v -> {
             signUpErrorTV.setText("");
             email = emailEditText.getText().toString().trim();
@@ -91,7 +91,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
                         addUserToDatabase(user);
                         Toast.makeText(PixelPopSignUpActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
                         // Redirect to main activity or another relevant activity
-                        redirectToMainActivity();
+                        redirectToLevelSelectActivity();
                     } else {
                         // If sign up fails, display a message to the user.
                         Exception exception = task.getException();
@@ -110,7 +110,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         }
     }
 
-    private void redirectToMainActivity() {
+    private void redirectToLevelSelectActivity() {
         Intent PixelPopLevelSelectionActivityIntent = new Intent(this, PixelPopLevelSelectionActivity.class);
         startActivity(PixelPopLevelSelectionActivityIntent);
         finish(); // Optional: to prevent going back to the login/sign-up activity using the back button

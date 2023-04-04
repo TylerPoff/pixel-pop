@@ -1,8 +1,10 @@
 package edu.northeastern.numad23sp_team26;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,7 +42,39 @@ public class PixelPopLoginActivity extends AppCompatActivity {
 
         loginButton.setOnClickListener(v -> logIn());
 
+        // Log in and case handling
+        loginButton.setOnClickListener(v -> {
+            loginErrorTV.setText("");
+            email = emailEditText.getText().toString().trim();
+            password = passwordEditText.getText().toString().trim();
+            if (email.isEmpty()) {
+                loginErrorTV.setText("Please enter your email.");
+            } else if (password.isEmpty()) {
+                loginErrorTV.setText("Please enter your password.");
+            } else {
+                logIn();
+            }
+        });
+    }
 
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+
+        email = emailEditText.getText().toString().trim();
+        password = passwordEditText.getText().toString().trim();
+        outState.putString("email", email);
+        outState.putString("password", password);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+
+        email = savedInstanceState.getString("email");
+        password = savedInstanceState.getString("password");
+        emailEditText.setText(email);
+        passwordEditText.setText(password);
     }
 
     private void logIn() {
@@ -54,15 +88,19 @@ public class PixelPopLoginActivity extends AppCompatActivity {
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                         // Redirect to main activity or another relevant activity
-                        redirectToMainActivity();
+                        redirectToLevelSelectActivity();
                     } else {
                         // If sign in fails, display a message to the user.
-                        Toast.makeText(PixelPopLoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                        Exception exception = task.getException();
+                        String errorMessage = exception != null ? exception.getMessage() : "Registration failed.";
+                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
+                }).addOnFailureListener(this, e -> {
+                    Log.e("PixelPopLogin", "Error: " + e.getMessage());
                 });
     }
 
-    private void redirectToMainActivity() {
+    private void redirectToLevelSelectActivity() {
         Intent PixelPopLevelSelectionActivityIntent = new Intent(this, PixelPopLevelSelectionActivity.class);
         startActivity(PixelPopLevelSelectionActivityIntent);
         finish(); // Optional: to prevent going back to the login/sign-up activity using the back button
