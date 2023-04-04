@@ -31,7 +31,7 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         loginButton = findViewById(R.id.login_button);
         signUpRedirect = findViewById(R.id.login_signup_redirect);
 
-        loginButton.setOnClickListener(v -> signIn());
+        loginButton.setOnClickListener(v -> logIn());
 
         signUpRedirect.setOnClickListener(v -> {
             // Redirect to SignupActivity
@@ -40,7 +40,7 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         });
     }
 
-    private void signIn() {
+    private void logIn() {
         String email = emailEditText.getText().toString();
         String password = passwordEditText.getText().toString();
 
@@ -50,11 +50,19 @@ public class PixelPopLoginActivity extends AppCompatActivity {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
-                        // Redirect to your main activity or another relevant activity
+                        // Redirect to main activity or another relevant activity
+                        redirectToMainActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Toast.makeText(PixelPopLoginActivity.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
+    private void redirectToMainActivity() {
+        Intent PixelPopLevelSelectionActivityIntent = new Intent(this, PixelPopLevelSelectionActivity.class);
+        startActivity(PixelPopLevelSelectionActivityIntent);
+        finish(); // Optional: to prevent going back to the login/sign-up activity using the back button
+    }
+
 }

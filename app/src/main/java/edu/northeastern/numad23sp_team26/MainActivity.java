@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         btnSticker.setOnClickListener(v -> openActivitySticker());
 
         Button btnPixelPop = findViewById(R.id.btnPixelPop);
-        btnSticker.setOnClickListener(v -> openActivityPixelPop());
+        btnPixelPop.setOnClickListener(v -> openActivityPixelPop());
     }
 
     public void openActivityAbout() {
