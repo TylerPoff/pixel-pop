@@ -17,7 +17,10 @@ public class PixelPopLoginActivity extends AppCompatActivity {
     private EditText passwordEditText;
     private Button loginButton;
     private TextView signUpRedirect;
+    private TextView loginErrorTV;
     private FirebaseAuth mAuth;
+
+    private String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,14 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         passwordEditText = findViewById(R.id.login_password);
         loginButton = findViewById(R.id.login_button);
         signUpRedirect = findViewById(R.id.login_signup_redirect);
+        loginErrorTV = findViewById(R.id.login_error_tv);
+
+        // Redirect to Sign Up Activity
+        signUpRedirect.setOnClickListener(v -> openActivityPixelPopSignUp());
 
         loginButton.setOnClickListener(v -> logIn());
 
-        signUpRedirect.setOnClickListener(v -> {
-            // Redirect to SignupActivity
-            Intent signUpIntent = new Intent(PixelPopLoginActivity.this, PixelPopSignUpActivity.class);
-            startActivity(signUpIntent);
-        });
+
     }
 
     private void logIn() {
@@ -63,6 +66,12 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         Intent PixelPopLevelSelectionActivityIntent = new Intent(this, PixelPopLevelSelectionActivity.class);
         startActivity(PixelPopLevelSelectionActivityIntent);
         finish(); // Optional: to prevent going back to the login/sign-up activity using the back button
+    }
+
+    public void openActivityPixelPopSignUp() {
+        Intent loginIntent = new Intent(PixelPopLoginActivity.this, PixelPopSignUpActivity.class);
+        startActivity(loginIntent);
+        finish();
     }
 
 }

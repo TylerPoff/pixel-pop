@@ -57,5 +57,15 @@
             android:text="@string/pixelpop_sign_up_already_have_an_account_login"
             android:textColor="?attr/colorPrimary" />
 
+        <TextView
+            android:id="@+id/signup_error_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="16dp"
+            android:text=""
+            android:textColor="@android:color/holo_red_dark" />
+
+
     </LinearLayout>
 </ScrollView>
