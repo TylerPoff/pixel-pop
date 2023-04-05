@@ -51,4 +51,9 @@
     <string name="_4">4</string>
     <string name="_5">5</string>
     <string name="start">Start!</string>
+    <string name="activity_animals_pixel_drawing1">activity_animals_pixel_drawing1</string>
+    <string name="activity_animals_pixel_drawing2">activity_animals_pixel_drawing2</string>
+    <string name="activity_animals_pixel_drawing3">activity_animals_pixel_drawing3</string>
+    <string name="activity_animals_pixel_drawing4">activity_animals_pixel_drawing4</string>
+    <string name="activity_animals_pixel_drawing5">activity_animals_pixel_drawing5</string>
 </resources>

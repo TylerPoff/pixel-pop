@@ -4,11 +4,11 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class AnimalsPixelDrawing1Activity extends AppCompatActivity {
+public class AnimalsPixelDrawing3Activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animals_pixel_drawing1);
+        setContentView(R.layout.activity_animals_pixel_drawing3);
     }
 }
