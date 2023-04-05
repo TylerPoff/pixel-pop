@@ -2,8 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white">
+    android:layout_height="match_parent">
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/menuBtn"
@@ -34,11 +33,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/redColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/red"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/blackColorBtn"
@@ -47,11 +47,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/blackColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/black"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/blueColorBtn"
@@ -60,11 +61,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/blueColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/blue"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/greenColorBtn"
@@ -73,11 +75,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/greenColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/green"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/yellowColorBtn"
@@ -86,11 +89,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/yellowColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/yellow"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toEndOf="parent"
@@ -99,11 +103,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/orangeColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/orange"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/purpleColorBtn"
@@ -112,11 +117,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/purpleColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/purple"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/brownColorBtn"
@@ -125,11 +131,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/brownColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/brown"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/whiteColorBtn"
@@ -138,11 +145,12 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/whiteColorBtn"
-        style="@style/Widget.MaterialComponents.Button"
+        style="@style/MaterialButtonCustom"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_margin="10dp"
         android:backgroundTint="@color/white"
+        app:strokeWidth="1dp"
         android:onClick="onColorBtnClick"
         app:cornerRadius="10dp"
         app:layout_constraintEnd_toStartOf="@+id/eraserBtn"
