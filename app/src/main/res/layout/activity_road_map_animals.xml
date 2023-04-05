@@ -19,48 +19,51 @@
         android:layout_height="50dp"
         android:layout_marginStart="248dp"
         android:layout_marginBottom="44dp"
+        android:background="@drawable/custom_button"
         android:text="@string/_1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:background="@drawable/custom_button"
-      />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/animals_pixel_drawing_2_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="136dp"
-        android:layout_marginBottom="116dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="104dp"
+        android:background="@drawable/custom_button"
         android:text="@string/_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/animals_pixel_drawing_3_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginBottom="300dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="284dp"
+        android:background="@drawable/custom_button"
         android:text="@string/_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/animals_pixel_drawing_4_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="160dp"
-        android:layout_marginBottom="472dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="188dp"
+        android:layout_marginBottom="536dp"
+        android:background="@drawable/custom_button"
         android:text="@string/_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/animals_pixel_drawing_5_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="184dp"
-        android:layout_marginBottom="656dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginBottom="652dp"
+        android:background="@drawable/custom_button"
         android:text="@string/_5"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
