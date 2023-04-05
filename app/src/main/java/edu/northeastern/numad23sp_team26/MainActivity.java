@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.google.firebase.BuildConfig;
 
 import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
-import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivityPixelPop;
 
 public class MainActivity extends AppCompatActivity {
 
