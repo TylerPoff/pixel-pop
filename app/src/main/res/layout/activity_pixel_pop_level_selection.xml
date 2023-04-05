@@ -6,4 +6,69 @@
     android:layout_height="match_parent"
     tools:context=".PixelPopLevelSelectionActivity">
 
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pixel_pop_level_select_background" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button1"
+        style="@style/LevelSelectButton"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        app:layout_constraintVertical_bias="0.732" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button2"
+        style="@style/LevelSelectButton"
+        android:text="2"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        app:layout_constraintVertical_bias="0.609" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button3"
+        style="@style/LevelSelectButton"
+        android:text="3"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        app:layout_constraintVertical_bias="0.583" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button4"
+        style="@style/LevelSelectButton"
+        android:text="4"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.884"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        app:layout_constraintVertical_bias="0.384" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button5"
+        style="@style/LevelSelectButton"
+        android:text="5"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
+        app:layout_constraintVertical_bias="0.301" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
