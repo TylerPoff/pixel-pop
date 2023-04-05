@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,5 +11,72 @@
     android:textAppearance="?attr/textAppearanceSubtitle1"
 
     tools:context=".RoadMapAnimalsActivity">
+
+    <Button
+        android:id="@+id/animals_pixel_drawing_1_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="328dp"
+        android:layout_marginBottom="76dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/_1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/animals_pixel_drawing_2_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="476dp"
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/_2"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/animals_pixel_drawing_3_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="500dp"
+        android:layout_marginBottom="156dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/animals_pixel_drawing_4_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="208dp"
+        android:layout_marginBottom="160dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/_4"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/animals_pixel_drawing_5_button"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="452dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/_5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.013" />
+
+    <TextView
+        android:id="@+id/Start_Text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="332dp"
+        android:layout_marginBottom="140dp"
+        android:text="@string/start"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
