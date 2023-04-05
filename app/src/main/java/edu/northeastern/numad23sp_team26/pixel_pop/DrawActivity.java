@@ -43,6 +43,8 @@ public class DrawActivity extends AppCompatActivity {
             color = getColor(R.color.brown);
         } else if (view.getId() == R.id.whiteColorBtn) {
             color = getColor(R.color.white);
+        } else if (view.getId() == R.id.eraserBtn) {
+            color = getColor(R.color.white);
         } else {
             throw new IllegalArgumentException("Unsupported color");
         }

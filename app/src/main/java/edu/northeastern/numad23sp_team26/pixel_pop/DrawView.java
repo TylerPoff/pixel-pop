@@ -11,37 +11,43 @@ import android.view.View;
 import java.util.ArrayList;
 import java.util.List;
 
-import edu.northeastern.numad23sp_team26.pixel_pop.models.Coordinate;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
 public class DrawView extends View {
 
-    private Paint strokeBrush = new Paint();
-    private Paint fillBrush = new Paint();
-    private List<Coordinate> touchedCoordinates;
+    private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private Paint fillBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private List<PixelCell> pixelCells;
+    private final int NUM_LINES = 16;
+    private int maxCoordinate;
+    private float cellDim;
+    private int fillBrushColor;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
 
-        strokeBrush.setAntiAlias(true);
-        strokeBrush.setColor(Color.BLACK);
+        strokeBrush.setColor(Color.GRAY);
         strokeBrush.setStyle(Paint.Style.STROKE);
         strokeBrush.setStrokeJoin(Paint.Join.ROUND);
-        strokeBrush.setStrokeWidth(3f);
+        strokeBrush.setStrokeWidth(1f);
 
-        fillBrush.setAntiAlias(true);
-        fillBrush.setColor(Color.BLACK);
-        fillBrush.setStyle(Paint.Style.FILL);
+        thickStrokeBrush.setColor(Color.BLACK);
+        thickStrokeBrush.setStyle(Paint.Style.STROKE);
+        thickStrokeBrush.setStrokeJoin(Paint.Join.ROUND);
+        thickStrokeBrush.setStrokeWidth(1f);
 
-        touchedCoordinates = new ArrayList<>();
+        fillBrushColor = Color.BLACK;
+
+        pixelCells = new ArrayList<>();
     }
 
-    // TODO: allow multiple colors
     public void changeFillColor(int color) {
-        fillBrush.setColor(color);
+        fillBrushColor = color;
     }
 
     public void resetFills() {
-        touchedCoordinates.clear();
+        pixelCells.forEach(PixelCell::reset);
         postInvalidate();
     }
 
@@ -49,30 +55,39 @@ public class DrawView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        float numLines = 16f;
-        int maxCoordinate = getWidth();
-        float cellDim = maxCoordinate / numLines;
+        maxCoordinate = getWidth();
+        cellDim = (float)maxCoordinate / NUM_LINES;
+        float center = (float)maxCoordinate / 2;
+
+        if (pixelCells.isEmpty()) {
+            fillPixelCells();
+        }
 
         float top = 0;
-        for (int row = 0; row < numLines; row++) {
+        for (int row = 0; row < NUM_LINES; row++) {
             float left = 0;
-            for (int col = 0; col < numLines; col++) {
+
+            for (int col = 0; col < NUM_LINES; col++) {
+
+                float right = left + cellDim;
+                float bottom = top + cellDim;
+
                 // draw grid
-                canvas.drawRect(left, top, left + cellDim, top + cellDim, strokeBrush);
+                canvas.drawRect(left, top, right, bottom, strokeBrush);
 
                 // draw fill
-                // TODO: optimize this algorithm
-                for (Coordinate c : touchedCoordinates) {
-                    if (c.getX() > left && c.getX() < left + cellDim
-                            && c.getY() > top && c.getY() < top + cellDim) {
-                        canvas.drawRect(left, top, left + cellDim, top + cellDim, fillBrush);
-                    }
-                }
+                int index = row * NUM_LINES + col;
+                fillBrush.setColor(pixelCells.get(index).getColor());
+                fillBrush.setStyle(Paint.Style.FILL);
+                canvas.drawRect(left, top, right, bottom, fillBrush);
 
                 left = (left + cellDim);
             }
             top = top + cellDim;
         }
+
+        canvas.drawLine(0, center, maxCoordinate, center, thickStrokeBrush);
+        canvas.drawLine(center, 0, center, maxCoordinate, thickStrokeBrush);
     }
 
     @Override
@@ -83,7 +98,11 @@ public class DrawView extends View {
         switch (event.getActionMasked()) {
             case MotionEvent.ACTION_DOWN:
             case MotionEvent.ACTION_MOVE:
-                touchedCoordinates.add(new Coordinate(x, y));
+                for (PixelCell c : pixelCells) {
+                    if (x > c.getLeft() && x < c.getRight() && y > c.getTop() && y < c.getBottom()) {
+                        c.draw(fillBrushColor);
+                    }
+                }
                 break;
             case MotionEvent.ACTION_UP:
                 // do something
@@ -93,5 +112,18 @@ public class DrawView extends View {
         }
         postInvalidate();
         return true;
+    }
+
+    private void fillPixelCells() {
+        float top = 0;
+        for (int row = 0; row < NUM_LINES; row++) {
+            float left = 0;
+
+            for (int col = 0; col < NUM_LINES; col++) {
+                pixelCells.add(new PixelCell(row, col, left, top, left + cellDim, top + cellDim));
+                left = (left + cellDim);
+            }
+            top = top + cellDim;
+        }
     }
 }
