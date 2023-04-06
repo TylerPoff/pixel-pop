@@ -9,7 +9,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
 
-    android:background="@drawable/nature_select_adventures_all"
+    android:background="@drawable/nature_country_all"
     android:ellipsize="end"
     android:textAppearance="?attr/textAppearanceSubtitle1"
 
