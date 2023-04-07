@@ -64,6 +64,7 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    // test
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
