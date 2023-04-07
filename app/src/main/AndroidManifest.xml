@@ -26,6 +26,15 @@
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
+            android:name=".RoadMapAnimalsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoadMapSelectAdventureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapLevelsActivity"
+            android:exported="false" />
+        <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
             android:exported="false" />
         <activity

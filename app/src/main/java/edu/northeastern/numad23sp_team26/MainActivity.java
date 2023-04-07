@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     // .penaltyDeath() uncomment this to crash if policy is violated instead of just logging
                     .build());
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
