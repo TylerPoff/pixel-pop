@@ -43,18 +43,12 @@
     <string name="you_got_a_sticker_from">You got a sticker from</string>
     <string name="sticker_from_user">User</string>
 
-    <string name="pixelpop_sign_up">Sign Up</string>
-    <string name="pixelpop_sign_up_email">Email</string>
-    <string name="pixelpop_sign_up_button">Sign Up</string>
-    <string name="pixelpop_sign_up_already_have_an_account_login">Already have an account? Login</string>
-    <string name="pixelpop_signup_password">Password</string>
+    <string name="pixelpop">PixelPop</string>
 
-    <string name="pixelpop_login">Login</string>
-    <string name="pixelpop_login_button">Login</string>
-    <string name="pixelpop_login_email">Email</string>
-    <string name="pixelpop_login_password">Password</string>
-    <string name="pixelpop_login_dont_have_an_account">Don\'t have an account? Sign up</string>
-    <string name="main_activity_pixelpop_button">PixelPop</string>
-
+    <string name="sign_up">Sign Up</string>
+    <string name="email">Email</string>
+    <string name="password">Password</string>
+    <string name="already_have_an_account_login">Already have an account? Login</string>
+    <string name="dont_have_an_account">Don\'t have an account? Sign up</string>
 
 </resources>

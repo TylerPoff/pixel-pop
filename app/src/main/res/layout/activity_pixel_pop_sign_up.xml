@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -18,7 +17,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
-            android:text="@string/pixelpop_sign_up"
+            android:text="@string/sign_up"
             android:textSize="24sp"
             android:textStyle="bold" />
 
@@ -27,7 +26,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:hint="@string/pixelpop_sign_up_email"
+            android:hint="@string/email"
             android:inputType="textEmailAddress"
             android:minHeight="48dp"
             android:autofillHints="" />
@@ -37,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:hint="@string/pixelpop_signup_password"
+            android:hint="@string/password"
             android:inputType="textPassword"
             android:minHeight="48dp" />
 
@@ -46,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="@string/pixelpop_sign_up_button" />
+            android:text="@string/sign_up" />
 
         <TextView
             android:id="@+id/signup_login_redirect"
@@ -54,7 +53,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="16dp"
-            android:text="@string/pixelpop_sign_up_already_have_an_account_login"
+            android:text="@string/already_have_an_account_login"
             android:textColor="?attr/colorPrimary" />
 
         <TextView
