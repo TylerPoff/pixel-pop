@@ -33,7 +33,6 @@
     <string name="you_re_sending_to">You\'re sending to: %1$s</string>
     <string name="send">Send</string>
 
-    <string name="Recieved_history">Received History</string>
     <string name="Stickers_list">Select Sticker</string>
     <string name="Stickers_button">Sticker Button</string>
 
@@ -42,4 +41,13 @@
     <string name="sticker_timestamp">Timestamp: %1$s</string>
     <string name="you_got_a_sticker_from">You got a sticker from</string>
     <string name="sticker_from_user">User</string>
+    <string name="PixelPop">PixelPop (Final)</string>
+    <string name="Pixel_Pop">Pixel Pop</string>
+    <string name="select_adventure">Select Adventure</string>
+    <string name="_1">1</string>
+    <string name="_2">2</string>
+    <string name="_3">3</string>
+    <string name="_4">4</string>
+    <string name="_5">5</string>
+    <string name="start">Start!</string>
 </resources>

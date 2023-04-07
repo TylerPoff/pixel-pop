@@ -31,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
                     // .penaltyDeath() uncomment this to crash if policy is violated instead of just logging
                     .build());
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -51,6 +52,9 @@ public class MainActivity extends AppCompatActivity {
 
         Button btnSticker = findViewById(R.id.btnSticker);
         btnSticker.setOnClickListener(v -> openActivitySticker());
+
+        Button btnPixelPop = findViewById(R.id.btnPixelPop);
+        btnPixelPop.setOnClickListener(v -> openActivityPixelPop());
     }
 
     public void openActivityAbout() {
@@ -64,7 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivitySticker() {
-        Intent intent = new Intent(this, LoginActivity.class);
+      Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityPixelPop() {
+        Intent intent = new Intent(this, RoadMapSelectAdventureActivity.class);
         startActivity(intent);
     }
 }
