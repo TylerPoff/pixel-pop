@@ -8,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -41,23 +40,6 @@ public class RoadMapSelectAdventureActivity extends AppCompatActivity {
                         openActivityAnimals();
                         spinner.setSelection(0);
                         break;
-                    case "Beach":
-                        openActivityBeach();
-                        spinner.setSelection(0);
-                        break;
-                    case "Flowers":
-                        openActivityFlowers();
-                        spinner.setSelection(0);
-                        break;
-                    case "Plants":
-                        openActivityPlants();
-                        spinner.setSelection(0);
-                        break;
-                    case "Sea":
-                        openActivitySea();
-                        spinner.setSelection(0);
-                        break;
-
                 }
             }
             @Override
@@ -70,22 +52,5 @@ public class RoadMapSelectAdventureActivity extends AppCompatActivity {
         Intent intent = new Intent(this, RoadMapAnimalsActivity.class);
         startActivity(intent);
     }
-    public void openActivityBeach() {
-        Intent intent = new Intent(this, RoadMapBeachActivity.class);
-        startActivity(intent);
-    }
-    public void openActivityFlowers() {
-        Intent intent = new Intent(this, RoadMapFlowersActivity.class);
-        startActivity(intent);
-    }
-    public void openActivityPlants() {
-        Intent intent = new Intent(this, RoadMapPlantsActivity.class);
-        startActivity(intent);
-    }
-    public void openActivitySea() {
-        Intent intent = new Intent(this, RoadMapSeaActivity.class);
-        startActivity(intent);
-    }
-
 
 }

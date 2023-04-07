@@ -10,7 +10,6 @@ import android.widget.Button;
 import com.google.firebase.BuildConfig;
 
 import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
-import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivityPixelPop;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,7 +43,7 @@ public class MainActivity extends AppCompatActivity {
         btnSticker.setOnClickListener(v -> openActivitySticker());
 
         Button btnPixelPop = findViewById(R.id.btnPixelPop);
-        btnPixelPop.setOnClickListener(v -> openActivityLevels());
+        btnPixelPop.setOnClickListener(v -> openActivityPixelPop());
     }
 
     public void openActivityAbout() {
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void openActivityLevels() {
+    public void openActivityPixelPop() {
         Intent intent = new Intent(this, RoadMapSelectAdventureActivity.class);
         startActivity(intent);
     }
