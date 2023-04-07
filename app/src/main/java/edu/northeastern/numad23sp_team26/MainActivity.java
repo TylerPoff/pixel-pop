@@ -68,12 +68,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivitySticker() {
-      Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginActivity.class);
         startActivity(intent);
     }
 
     public void openActivityPixelPop() {
-        Intent intent = new Intent(this, RoadMapSelectAdventureActivity.class);
+        Intent intent = new Intent(this, PixelPopLoginActivity.class);
         startActivity(intent);
     }
 }
