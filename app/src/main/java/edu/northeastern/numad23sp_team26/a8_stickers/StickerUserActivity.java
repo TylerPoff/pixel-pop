@@ -35,7 +35,7 @@ import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
-public class StickerUserActivity extends AppCompatActivity {
+public class  StickerUserActivity extends AppCompatActivity {
 
     private static final String TAG = "a8_stickers.StickerUserActivity";
     private DatabaseReference mDatabase;

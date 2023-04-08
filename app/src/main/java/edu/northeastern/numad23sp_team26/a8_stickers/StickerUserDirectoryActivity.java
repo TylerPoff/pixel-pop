@@ -184,7 +184,8 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
 
     private void updateSticker() {
         ImageView stickerDirectoryIV = findViewById(R.id.stickerDirectoryIV);
-        stickerDirectoryIV.setImageResource(currentSticker.getImageResource());
+        int imageResource = getResources().getIdentifier(currentSticker.getFileName(), "drawable", getPackageName());
+        stickerDirectoryIV.setImageResource(imageResource);
     }
 
     private void loadUsers() {

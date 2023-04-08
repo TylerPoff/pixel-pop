@@ -32,7 +32,7 @@ public class ReceivedHistoryViewHolder  extends RecyclerView.ViewHolder {
     }
 
     public void bindThisData(StickerReceived received) {
-        int imageResource = context.getResources().getIdentifier(received.getSticker().getFileName(), "drawable", this.context.getPackageName());
+        int imageResource = context.getResources().getIdentifier(received.getSticker().getFileName(), "drawable", context.getPackageName());
         stickerIV.setImageResource(imageResource);
         stickerNameTV.setText(received.getSticker().getName());
         User fromUser = received.getFrom();

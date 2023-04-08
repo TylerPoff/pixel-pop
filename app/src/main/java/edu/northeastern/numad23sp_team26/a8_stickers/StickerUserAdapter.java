@@ -49,7 +49,8 @@ public class StickerUserAdapter extends PagerAdapter {
         Sticker sticker = model.getSticker();
         int totalCount = model.getTotalCount();
 
-        stickerIV.setImageResource(sticker.getImageResource());
+        int imageResource = context.getResources().getIdentifier(sticker.getFileName(), "drawable", context.getPackageName());
+        stickerIV.setImageResource(imageResource);
         nameTV.setText(sticker.getName());
         sentTV.setText(context.getString(R.string.num_sent, totalCount));
 
