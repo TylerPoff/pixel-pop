@@ -37,7 +37,7 @@ import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerReceived;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.StickerSent;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
-public class StickerUserActivity extends AppCompatActivity {
+public class  StickerUserActivity extends AppCompatActivity {
 
     private static final String TAG = "a8_stickers.StickerUserActivity";
     private DatabaseReference mDatabase;
@@ -238,7 +238,7 @@ public class StickerUserActivity extends AppCompatActivity {
                 .setContentTitle("(Team26) Sticker Received")
                 .setContentText("You received a sticker from " + fromUser.firstName + " " + fromUser.lastName)
                 .setLargeIcon(stickerIcon)
-                .setSmallIcon(R.drawable.image)
+                .setSmallIcon(R.mipmap.ic_launcher_t26)
                 .setContentIntent(pIntent)
                 .build();
 

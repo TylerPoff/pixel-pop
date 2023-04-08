@@ -57,4 +57,8 @@
     <string name="_4">4</string>
     <string name="_5">5</string>
     <string name="start">Start!</string>
+
+    <string name="menu">Menu</string>
+    <string name="reset">Reset</string>
+    <string name="done">Done</string>
 </resources>

@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/menuBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/secondary_button_custom"
+        android:text="@string/menu"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="menuBtn" />
+
+    <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
+        android:id="@+id/drawView"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/redColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/red"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/orangeColorBtn"
+        app:layout_constraintEnd_toStartOf="@+id/blackColorBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/blackColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/black"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/purpleColorBtn"
+        app:layout_constraintEnd_toStartOf="@+id/blueColorBtn"
+        app:layout_constraintStart_toEndOf="@+id/redColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/blueColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/blue"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/brownColorBtn"
+        app:layout_constraintEnd_toStartOf="@+id/greenColorBtn"
+        app:layout_constraintStart_toEndOf="@+id/blackColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/greenColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/green"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/whiteColorBtn"
+        app:layout_constraintEnd_toStartOf="@+id/yellowColorBtn"
+        app:layout_constraintStart_toEndOf="@+id/blueColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/yellowColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/yellow"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/eraserBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/greenColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/orangeColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/orange"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
+        app:layout_constraintEnd_toStartOf="@+id/purpleColorBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/purpleColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/purple"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
+        app:layout_constraintEnd_toStartOf="@+id/brownColorBtn"
+        app:layout_constraintStart_toEndOf="@+id/orangeColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/brownColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/brown"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
+        app:layout_constraintEnd_toStartOf="@+id/whiteColorBtn"
+        app:layout_constraintStart_toEndOf="@+id/purpleColorBtn"
+        app:strokeWidth="1dp" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/whiteColorBtn"
+        style="@style/MaterialButtonCustom"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:backgroundTint="@color/white"
+        android:onClick="onColorBtnClick"
+        app:cornerRadius="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
+        app:layout_constraintEnd_toStartOf="@+id/eraserBtn"
+        app:layout_constraintStart_toEndOf="@+id/brownColorBtn"
+        app:strokeWidth="1dp" />
+
+    <ImageButton
+        android:id="@+id/eraserBtn"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/eraser_button_custom"
+        android:onClick="onColorBtnClick"
+        android:padding="0dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/eraser"
+        app:layout_constraintBottom_toTopOf="@+id/barrier1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/whiteColorBtn" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/resetBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:background="@drawable/primary_button_custom"
+        android:paddingVertical="20dp"
+        android:text="@string/reset"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/doneBtn"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/doneBtn"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginVertical="20dp"
+        android:paddingVertical="20dp"
+        android:background="@drawable/primary_button_custom"
+        android:text="@string/done"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/resetBtn" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="resetBtn, doneBtn" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="top"
+        app:constraint_referenced_ids="redColorBtn, blackColorBtn, blueColorBtn, greenColorBtn, yellowColorBtn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
