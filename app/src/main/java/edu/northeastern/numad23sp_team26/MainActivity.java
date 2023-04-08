@@ -8,9 +8,10 @@ import android.os.StrictMode;
 import android.widget.Button;
 
 import com.google.firebase.BuildConfig;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 
 import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
-import edu.northeastern.numad23sp_team26.pixel_pop.DrawActivity;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -30,8 +31,18 @@ public class MainActivity extends AppCompatActivity {
                     // .penaltyDeath() uncomment this to crash if policy is violated instead of just logging
                     .build());
         }
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize stickers database
+        // Uses stickers name to get further instances
+        FirebaseOptions options = new FirebaseOptions.Builder()
+                .setApplicationId(getString(R.string.firebaseIdStickers))
+                .setApiKey(getString(R.string.firebaseApiKeyStickers))
+                .setDatabaseUrl(getString(R.string.firebaseUrlStickers))
+                .build();
+        FirebaseApp.initializeApp(this, options, "stickers");
 
         Button btnAbout = findViewById(R.id.btnAbout);
         btnAbout.setOnClickListener(v -> openActivityAbout());
@@ -62,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void openActivityPixelPop() {
-        Intent intent = new Intent(this, DrawActivity.class);
+        Intent intent = new Intent(this, PixelPopLoginActivity.class);
         startActivity(intent);
     }
 }

@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="firebaseIdStickers" translatable="false">1:1053899572056:android:191a6879e39d52a38ddb2d</string>
+    <string name="firebaseApiKeyStickers" translatable="false">AIzaSyARbkX7SUXWmTSc5hDz5hotmyAQD127aog</string>
+    <string name="firebaseUrlStickers" translatable="false">https://a8-stickers-default-rtdb.firebaseio.com/</string>
+</resources>

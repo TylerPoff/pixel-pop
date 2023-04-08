@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
 
     <application
@@ -19,6 +18,26 @@
             android:name=".pixel_pop.DrawActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".PixelPopLevelSelectionActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PixelPopSignUpActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".PixelPopLoginActivity"
+            android:windowSoftInputMode="adjustResize"
+            android:exported="false" />
+        <activity
+            android:name=".RoadMapAnimalsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".RoadMapSelectAdventureActivity"
+            android:exported="false" />
+        <activity
+            android:name=".MapLevelsActivity"
+            android:exported="false" />
         <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
             android:exported="false" />
