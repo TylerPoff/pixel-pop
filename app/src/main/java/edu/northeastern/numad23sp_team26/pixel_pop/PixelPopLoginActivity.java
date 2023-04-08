@@ -1,5 +1,4 @@
-package edu.northeastern.numad23sp_team26;
-
+package edu.northeastern.numad23sp_team26.pixel_pop;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -12,49 +11,49 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-public class PixelPopSignUpActivity extends AppCompatActivity {
+import edu.northeastern.numad23sp_team26.R;
+
+public class PixelPopLoginActivity extends AppCompatActivity {
 
     private EditText emailEditText;
     private EditText passwordEditText;
-    private Button signUpButton;
-    private TextView loginRedirect;
-    private TextView signUpErrorTV;
+    private Button loginButton;
+    private TextView signUpRedirect;
+    private TextView loginErrorTV;
     private FirebaseAuth mAuth;
-    private FirebaseDatabase database;
 
     private String email, password;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_pixel_pop_sign_up);
+        setContentView(R.layout.activity_pixel_pop_login);
 
         mAuth = FirebaseAuth.getInstance();
-        database = FirebaseDatabase.getInstance();
 
-        emailEditText = findViewById(R.id.signup_email);
-        passwordEditText = findViewById(R.id.signup_password);
-        signUpButton = findViewById(R.id.signup_button);
-        loginRedirect = findViewById(R.id.signup_login_redirect);
-        signUpErrorTV = findViewById(R.id.signup_error_tv);
+        emailEditText = findViewById(R.id.login_email);
+        passwordEditText = findViewById(R.id.login_password);
+        loginButton = findViewById(R.id.login_button);
+        signUpRedirect = findViewById(R.id.login_signup_redirect);
+        loginErrorTV = findViewById(R.id.login_error_tv);
 
-        // Redirect to LoginActivity
-        loginRedirect.setOnClickListener(v -> openActivityPixelPopLogin());
+        // Redirect to Sign Up Activity
+        signUpRedirect.setOnClickListener(v -> openActivityPixelPopSignUp());
 
-        // Sign up and case handling
-        signUpButton.setOnClickListener(v -> {
-            signUpErrorTV.setText("");
+        loginButton.setOnClickListener(v -> logIn());
+
+        // Log in and case handling
+        loginButton.setOnClickListener(v -> {
+            loginErrorTV.setText("");
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
-                signUpErrorTV.setText("Please enter your email.");
+                loginErrorTV.setText("Please enter your email.");
             } else if (password.isEmpty()) {
-                signUpErrorTV.setText("Please enter your password.");
+                loginErrorTV.setText("Please enter your password.");
             } else {
-                signUp();
+                logIn();
             }
         });
     }
@@ -79,45 +78,39 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         passwordEditText.setText(password);
     }
 
-    private void signUp() {
-        mAuth.createUserWithEmailAndPassword(email, password)
+    private void logIn() {
+        String email = emailEditText.getText().toString();
+        String password = passwordEditText.getText().toString();
+
+        mAuth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(this, task -> {
                     if (task.isSuccessful()) {
-                        // Sign up success, update UI with the signed-in user's information
+                        // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
-                        addUserToDatabase(user);
-                        Toast.makeText(PixelPopSignUpActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
                         // Redirect to main activity or another relevant activity
-                        redirectToLevelSelectActivity();
+                        redirectToSelectAdventureActivity();
                     } else {
-                        // If sign up fails, display a message to the user.
+                        // If sign in fails, display a message to the user.
                         Exception exception = task.getException();
                         String errorMessage = exception != null ? exception.getMessage() : "Registration failed.";
-                        Toast.makeText(PixelPopSignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
                     }
                 }).addOnFailureListener(this, e -> {
-                    Log.e("PixelPopSignUp", "Error: " + e.getMessage());
+                    Log.e("PixelPopLogin", "Error: " + e.getMessage());
                 });
     }
 
-    private void addUserToDatabase(FirebaseUser user) {
-        if (user != null) {
-            DatabaseReference usersRef = database.getReference("Users");
-            usersRef.child(user.getUid()).setValue(user.getEmail());
-        }
-    }
-
-    private void redirectToLevelSelectActivity() {
-        Intent PixelPopLevelSelectionActivityIntent = new Intent(this, PixelPopLevelSelectionActivity.class);
+    private void redirectToSelectAdventureActivity() {
+        Intent PixelPopLevelSelectionActivityIntent = new Intent(this, SelectAdventureActivity.class);
         startActivity(PixelPopLevelSelectionActivityIntent);
         finish(); // Optional: to prevent going back to the login/sign-up activity using the back button
     }
 
-    public void openActivityPixelPopLogin() {
-        Intent loginIntent = new Intent(PixelPopSignUpActivity.this, PixelPopLoginActivity.class);
+    public void openActivityPixelPopSignUp() {
+        Intent loginIntent = new Intent(this, PixelPopSignUpActivity.class);
         startActivity(loginIntent);
         finish();
     }
 
 }
-

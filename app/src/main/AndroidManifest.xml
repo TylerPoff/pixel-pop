@@ -19,24 +19,21 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PixelPopLevelSelectionActivity"
+            android:name=".pixel_pop.VideoGameAdventureActivity"
             android:exported="false" />
         <activity
-            android:name=".PixelPopSignUpActivity"
+            android:name=".pixel_pop.PixelPopSignUpActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".PixelPopLoginActivity"
+            android:name=".pixel_pop.PixelPopLoginActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />
         <activity
-            android:name=".RoadMapAnimalsActivity"
+            android:name=".pixel_pop.AnimalsAdventureActivity"
             android:exported="false" />
         <activity
-            android:name=".RoadMapSelectAdventureActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MapLevelsActivity"
+            android:name=".pixel_pop.SelectAdventureActivity"
             android:exported="false" />
         <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
