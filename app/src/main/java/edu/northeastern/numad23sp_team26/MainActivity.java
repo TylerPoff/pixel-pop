@@ -12,6 +12,7 @@ import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 
 import edu.northeastern.numad23sp_team26.a8_stickers.LoginActivity;
+import edu.northeastern.numad23sp_team26.pixel_pop.PixelPopLoginActivity;
 
 public class MainActivity extends AppCompatActivity {
 

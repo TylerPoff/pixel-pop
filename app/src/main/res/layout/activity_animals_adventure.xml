@@ -5,78 +5,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".pixel_pop.AnimalsAdventureActivity">
 
-    android:background="@drawable/nature_animals_all"
-    android:ellipsize="end"
-    android:textAppearance="?attr/textAppearanceSubtitle1"
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/nature_animals_all" />
 
-    tools:context=".RoadMapAnimalsActivity">
-
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_1_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="472dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginStart="248dp"
+        android:layout_marginBottom="44dp"
         android:background="@drawable/custom_button"
         android:text="@string/_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_2_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="356dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginStart="148dp"
+        android:layout_marginBottom="104dp"
         android:background="@drawable/custom_button"
         android:text="@string/_2"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_3_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="500dp"
-        android:layout_marginBottom="156dp"
+        android:layout_marginStart="104dp"
+        android:layout_marginBottom="284dp"
         android:background="@drawable/custom_button"
         android:text="@string/_3"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_4_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="208dp"
-        android:layout_marginBottom="160dp"
+        android:layout_marginStart="196dp"
+        android:layout_marginBottom="468dp"
         android:background="@drawable/custom_button"
         android:text="@string/_4"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_5_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        android:layout_marginStart="452dp"
+        android:layout_marginStart="240dp"
+        android:layout_marginBottom="632dp"
         android:background="@drawable/custom_button"
         android:text="@string/_5"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.013" />
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/Start_Text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="480dp"
-        android:layout_marginBottom="80dp"
+        android:layout_marginStart="256dp"
+        android:layout_marginBottom="96dp"
         android:text="@string/start"
-        android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"/>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
