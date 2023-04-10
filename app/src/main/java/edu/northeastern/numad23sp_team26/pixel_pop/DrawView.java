@@ -183,6 +183,18 @@ public class DrawView extends View {
         return jsonArray.toString();
     }
 
+    public void writeJSONToFile(String fileName, String json) {
+        try {
+            FileOutputStream fos = getContext().openFileOutput(fileName, Context.MODE_PRIVATE);
+            OutputStreamWriter osw = new OutputStreamWriter(fos);
+            osw.write(json);
+            osw.close();
+            fos.close();
+        } catch (IOException e) {
+            Log.e("PixelDraw", "Error writing JSON to file", e);
+        }
+    }
+
     public int[][] getPixelGrid() {
         int[][] pixelGrid = new int[NUM_LINES][NUM_LINES];
         int i = 0;

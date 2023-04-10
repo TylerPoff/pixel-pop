@@ -30,6 +30,7 @@ public class DrawActivity extends AppCompatActivity {
             Log.d("PixelCells", pixelCellsText);
             String pixelCellsTextJSON = drawView.pixelCellsToStringJSON();
             Log.d("PixelCellsJSON", pixelCellsTextJSON);
+            drawView.writeJSONToFile("pixelgrid.json", pixelCellsTextJSON);
         });
     }
 
