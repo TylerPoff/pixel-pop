@@ -7,6 +7,8 @@ import android.widget.Button;
 import androidx.appcompat.app.AppCompatActivity;
 
 import edu.northeastern.numad23sp_team26.R;
+import android.util.Log;
+
 
 public class DrawActivity extends AppCompatActivity {
 
@@ -21,6 +23,12 @@ public class DrawActivity extends AppCompatActivity {
 
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
+
+        Button logBtn = findViewById(R.id.logBtn);
+        logBtn.setOnClickListener(v -> {
+            String pixelCellsText = drawView.pixelCellsToString();
+            Log.d("PixelCells", pixelCellsText);
+        });
     }
 
     public void onColorBtnClick(View view) {

@@ -45,11 +45,16 @@ public class PixelCell {
         return right;
     }
 
-    public float getBottom() {
-        return bottom;
-    }
+    public float getBottom() { return bottom; }
 
-    public int getColor() {
-        return color;
-    }
+    public int getColor() { return color; }
+
+    public int getRowNum() { return rowNum; }
+
+    public int getColNum() { return colNum; }
+
+
+    public void setColor(int color) { this.color = color; }
+
+
 }
