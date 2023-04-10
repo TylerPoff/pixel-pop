@@ -20,6 +20,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
@@ -155,6 +159,30 @@ public class DrawView extends View {
         }
         return sb.toString();
     }
+
+    public String pixelCellsToStringJSON() {
+        JSONArray jsonArray = new JSONArray();
+
+        for (int i = 0; i < pixelCells.size(); i++) {
+            PixelCell cell = pixelCells.get(i);
+            JSONObject cellJson = new JSONObject();
+            try {
+                cellJson.put("index", i);
+                cellJson.put("bottom", cell.getBottom());
+                cellJson.put("colNum", cell.getColNum());
+                cellJson.put("color", cell.getColor());
+                cellJson.put("left", cell.getLeft());
+                cellJson.put("right", cell.getRight());
+                cellJson.put("rowNum", cell.getRowNum());
+                cellJson.put("top", cell.getTop());
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            jsonArray.put(cellJson);
+        }
+        return jsonArray.toString();
+    }
+
     public int[][] getPixelGrid() {
         int[][] pixelGrid = new int[NUM_LINES][NUM_LINES];
         int i = 0;

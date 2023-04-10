@@ -28,6 +28,8 @@ public class DrawActivity extends AppCompatActivity {
         logBtn.setOnClickListener(v -> {
             String pixelCellsText = drawView.pixelCellsToString();
             Log.d("PixelCells", pixelCellsText);
+            String pixelCellsTextJSON = drawView.pixelCellsToStringJSON();
+            Log.d("PixelCellsJSON", pixelCellsTextJSON);
         });
     }
 
