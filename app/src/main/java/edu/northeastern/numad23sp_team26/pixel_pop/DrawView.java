@@ -4,6 +4,11 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.hardware.Sensor;
+import android.hardware.SensorEvent;
+import android.hardware.SensorEventListener;
+import android.hardware.SensorListener;
+import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -13,7 +18,7 @@ import java.util.List;
 
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
-public class DrawView extends View {
+public class DrawView extends View implements SensorEventListener {
 
     private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -125,5 +130,15 @@ public class DrawView extends View {
             }
             top = top + cellDim;
         }
+    }
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
     }
 }

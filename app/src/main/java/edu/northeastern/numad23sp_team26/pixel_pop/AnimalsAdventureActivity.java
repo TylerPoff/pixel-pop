@@ -8,7 +8,6 @@ import android.widget.Button;
 
 import edu.northeastern.numad23sp_team26.R;
 
-//  test
 public class AnimalsAdventureActivity extends AppCompatActivity {
 
     @Override
