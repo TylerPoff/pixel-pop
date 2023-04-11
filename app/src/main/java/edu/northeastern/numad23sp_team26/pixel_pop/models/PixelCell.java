@@ -2,7 +2,7 @@ package edu.northeastern.numad23sp_team26.pixel_pop.models;
 
 import android.graphics.Color;
 
-public class PixelCell {
+public class PixelCell implements Cloneable {
 
     private int rowNum;
 
@@ -45,16 +45,29 @@ public class PixelCell {
         return right;
     }
 
-    public float getBottom() { return bottom; }
+    public float getBottom() {
+        return bottom;
+    }
 
-    public int getColor() { return color; }
+    public int getColor() {
+        return color;
+    }
 
-    public int getRowNum() { return rowNum; }
-
-    public int getColNum() { return colNum; }
-
-
-    public void setColor(int color) { this.color = color; }
-
+    @Override
+    public PixelCell clone() {
+        try {
+            PixelCell clone = (PixelCell) super.clone();
+            clone.rowNum = this.rowNum;
+            clone.colNum = this.colNum;
+            clone.left = this.left;
+            clone.top = this.top;
+            clone.right = this.right;
+            clone.bottom = this.bottom;
+            clone.color = this.color;
+            return clone;
+        } catch (CloneNotSupportedException e) {
+            throw new AssertionError();
+        }
+    }
 
 }

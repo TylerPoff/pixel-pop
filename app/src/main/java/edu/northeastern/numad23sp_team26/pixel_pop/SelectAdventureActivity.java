@@ -46,7 +46,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Select Adventure");
-        arrayList.add("Animals (Easy)");
+        arrayList.add("Nature (Easy)");
         arrayList.add("Video Game (Hard)");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -56,7 +56,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 String adventure = parent.getItemAtPosition(position).toString();
                 switch (adventure) {
-                    case "Animals (Easy)":
+                    case "Nature (Easy)":
                         openActivityAnimals();
                         break;
                     case "Video Game (Hard)":
