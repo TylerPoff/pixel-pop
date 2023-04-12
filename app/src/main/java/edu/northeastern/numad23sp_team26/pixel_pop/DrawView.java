@@ -6,10 +6,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.hardware.Sensor;
-import android.hardware.SensorEvent;
-import android.hardware.SensorEventListener;
-import android.hardware.SensorListener;
+
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
 import android.util.Log;
@@ -18,22 +15,15 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.seismic.ShakeDetector;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
-public class DrawView extends View implements SensorEventListener{
-
-    private TextView xTextView, yTextView, zTextView;
-    private SensorManager sensorManager;
-    private Sensor accelerometerSensor;
-
-    private boolean isAccelerometerSensorAvailable;
-    private float currentX, currentY, currentZ, lastX, lastY, lastZ;
-
-    /*************/
+public class DrawView extends View implements ShakeDetector.Listener {
 
     private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -43,6 +33,8 @@ public class DrawView extends View implements SensorEventListener{
     private int maxCoordinate;
     private float cellDim;
     private int fillBrushColor;
+
+    private ShakeDetector shakeDetector;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -60,6 +52,11 @@ public class DrawView extends View implements SensorEventListener{
         fillBrushColor = Color.BLACK;
 
         pixelCells = new ArrayList<>();
+
+        // shake-to-erase
+        shakeDetector = new ShakeDetector(this);
+        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
+        shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
     }
 
     public void changeFillColor(int color) {
@@ -69,25 +66,6 @@ public class DrawView extends View implements SensorEventListener{
     public void resetFills() {
         pixelCells.forEach(PixelCell::reset);
         postInvalidate();
-
-        /*************/
-
-        xTextView = findViewById(R.id.xTextView);
-        yTextView = findViewById(R.id.yTextView);
-        zTextView = findViewById(R.id.zTextView);
-
-        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
-
-        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
-            accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-            isAccelerometerSensorAvailable = true;
-        } else {
-            xTextView.setText("Accelerometer sensor is not available");
-            isAccelerometerSensorAvailable = false;
-        }
-
-
-        /*************/
     }
 
     @Override
@@ -166,45 +144,9 @@ public class DrawView extends View implements SensorEventListener{
         }
     }
 
-    /*************/
-
     @Override
-    public void onSensorChanged(SensorEvent event) {
-        xTextView.setText((sensorEvent.values[0]+"m/s2"));
-        yTextView.setText((sensorEvent.values[1]+"m/s2"));
-        zTextView.setText((sensorEvent.values[2]+"m/s2"));
-
-        currentX = sensorEvent.values[0];
-        currentY = sensorEvent.values[1];
-        currentZ = sensorEvent.values[2];
-
-        lastX = currentX;
-        lastY = currentY;
-        lastZ = currentZ;
+    public void hearShake() {
+        Toast.makeText(getContext(), "I've been shaken!", Toast.LENGTH_SHORT).show();
 
     }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if(isAccelerometerSensorAvailable)
-            sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
-
-    }
-
-    @Override
-    protected void onPause() {
-        super.onPause();
-        if(isAccelerometerSensorAvailable)
-            sensorManager.unregisterListener(this);
-
-    }
-
-    /*************/
-
 }
