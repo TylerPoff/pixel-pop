@@ -14,6 +14,7 @@ import edu.northeastern.numad23sp_team26.R;
 
 public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
 
+    // todo: send toggle argument over
     private ShakeDetector shakeDetector;
 
     private DrawView drawView;
@@ -37,7 +38,10 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     protected void onResume() {
         super.onResume();
         SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        // todo: guards will also make sure the toggle is not off
+        // todo: guard and check to see how many times it asks not to clear
         shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
+
     }
 
     @Override
@@ -49,6 +53,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     public void hearShake() {
 //        Toast.makeText(getContext(), "I've been shaken!", Toast.LENGTH_SHORT).show();
+        // todo: show dialog, if they click ok, call reset fills
+        // todo: add a member variable to keep track how many times they said not to reset (no 3 times in a row.. if yes rest it to 0)
         drawView.resetFills();
     }
 
