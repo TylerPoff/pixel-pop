@@ -1,5 +1,7 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import static android.content.Context.SENSOR_SERVICE;
+
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -13,14 +15,25 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
-public class DrawView extends View {
+public class DrawView extends View implements SensorEventListener{
+
+    private TextView xTextView, yTextView, zTextView;
+    private SensorManager sensorManager;
+    private Sensor accelerometerSensor;
+
+    private boolean isAccelerometerSensorAvailable;
+    private float currentX, currentY, currentZ, lastX, lastY, lastZ;
+
+    /*************/
 
     private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -56,6 +69,25 @@ public class DrawView extends View {
     public void resetFills() {
         pixelCells.forEach(PixelCell::reset);
         postInvalidate();
+
+        /*************/
+
+        xTextView = findViewById(R.id.xTextView);
+        yTextView = findViewById(R.id.yTextView);
+        zTextView = findViewById(R.id.zTextView);
+
+        sensorManager = (SensorManager) getSystemService(SENSOR_SERVICE);
+
+        if (sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER) != null){
+            accelerometerSensor = sensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+            isAccelerometerSensorAvailable = true;
+        } else {
+            xTextView.setText("Accelerometer sensor is not available");
+            isAccelerometerSensorAvailable = false;
+        }
+
+
+        /*************/
     }
 
     @Override
@@ -134,38 +166,45 @@ public class DrawView extends View {
         }
     }
 
-//    @Override
-//    public void onSensorChanged(SensorEvent event) {
-////        if (sensor == SensorManager.SENSOR_ACCELEROMETER) {
-////            long curTime = System.currentTimeMillis();
-////            // only allow one update every 100ms.
-////            if ((curTime - lastUpdate) > 100) {
-////                long diffTime = (curTime - lastUpdate);
-////                lastUpdate = curTime;
-//
-//                float x = event.values[0];
-//                float y = event.values[1];
-//                float z = event.values[2];
-////                lastAcceleration = currentAcceleration;
-//
-//
-//        float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
-//
-//                if (speed > SHAKE_THRESHOLD) {
-//                    Log.d("sensor", "shake detected w/ speed: " + speed);
-//                    Toast.makeText(this, (CharSequence)("shake detected w/ speed: " + speed), Toast.LENGTH_SHORT).show();
-//                }
-//
-//                last_x = x;
-//                last_y = y;
-//                last_z = z;
-//            }
-//        }
-//
-//    }
-//
-//    @Override
-//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-//
-//    }
+    /*************/
+
+    @Override
+    public void onSensorChanged(SensorEvent event) {
+        xTextView.setText((sensorEvent.values[0]+"m/s2"));
+        yTextView.setText((sensorEvent.values[1]+"m/s2"));
+        zTextView.setText((sensorEvent.values[2]+"m/s2"));
+
+        currentX = sensorEvent.values[0];
+        currentY = sensorEvent.values[1];
+        currentZ = sensorEvent.values[2];
+
+        lastX = currentX;
+        lastY = currentY;
+        lastZ = currentZ;
+
+    }
+
+    @Override
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isAccelerometerSensorAvailable)
+            sensorManager.registerListener(this, accelerometerSensor, SensorManager.SENSOR_DELAY_NORMAL);
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if(isAccelerometerSensorAvailable)
+            sensorManager.unregisterListener(this);
+
+    }
+
+    /*************/
+
 }
