@@ -1,14 +1,20 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.content.Context;
+import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.squareup.seismic.ShakeDetector;
+
 import edu.northeastern.numad23sp_team26.R;
 
-public class DrawActivity extends AppCompatActivity {
+public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
+
+    private ShakeDetector shakeDetector;
 
     private DrawView drawView;
 
@@ -21,6 +27,29 @@ public class DrawActivity extends AppCompatActivity {
 
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
+
+        // shake-to-erase
+        shakeDetector = new ShakeDetector(this);
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        shakeDetector.stop();
+    }
+
+    @Override
+    public void hearShake() {
+//        Toast.makeText(getContext(), "I've been shaken!", Toast.LENGTH_SHORT).show();
+        drawView.resetFills();
     }
 
     public void onColorBtnClick(View view) {

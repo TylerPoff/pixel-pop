@@ -23,7 +23,7 @@ import java.util.List;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
-public class DrawView extends View implements ShakeDetector.Listener {
+public class DrawView extends View {
 
     private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -34,7 +34,6 @@ public class DrawView extends View implements ShakeDetector.Listener {
     private float cellDim;
     private int fillBrushColor;
 
-    private ShakeDetector shakeDetector;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -53,23 +52,6 @@ public class DrawView extends View implements ShakeDetector.Listener {
 
         pixelCells = new ArrayList<>();
 
-        // shake-to-erase
-        shakeDetector = new ShakeDetector(this);
-        SensorManager sensorManager = (SensorManager) context.getSystemService(Context.SENSOR_SERVICE);
-        shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Override
-    protected void onAttachedToWindow() {
-        super.onAttachedToWindow();
-        SensorManager sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
-        shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
-    }
-
-    @Override
-    protected void onDetachedFromWindow() {
-        super.onDetachedFromWindow();
-        shakeDetector.stop();
     }
 
     public void changeFillColor(int color) {
@@ -157,9 +139,4 @@ public class DrawView extends View implements ShakeDetector.Listener {
         }
     }
 
-    @Override
-    public void hearShake() {
-        Toast.makeText(getContext(), "I've been shaken!", Toast.LENGTH_SHORT).show();
-
-    }
 }
