@@ -59,6 +59,19 @@ public class DrawView extends View implements ShakeDetector.Listener {
         shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
     }
 
+    @Override
+    protected void onAttachedToWindow() {
+        super.onAttachedToWindow();
+        SensorManager sensorManager = (SensorManager) getContext().getSystemService(Context.SENSOR_SERVICE);
+        shakeDetector.start( sensorManager, SensorManager.SENSOR_DELAY_GAME);
+    }
+
+    @Override
+    protected void onDetachedFromWindow() {
+        super.onDetachedFromWindow();
+        shakeDetector.stop();
+    }
+
     public void changeFillColor(int color) {
         fillBrushColor = color;
     }
