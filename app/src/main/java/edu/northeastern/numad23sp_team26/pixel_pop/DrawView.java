@@ -10,15 +10,17 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorListener;
 import android.hardware.SensorManager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
 
-public class DrawView extends View implements SensorEventListener {
+public class DrawView extends View {
 
     private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -132,13 +134,38 @@ public class DrawView extends View implements SensorEventListener {
         }
     }
 
-    @Override
-    public void onSensorChanged(SensorEvent event) {
-
-    }
-
-    @Override
-    public void onAccuracyChanged(Sensor sensor, int accuracy) {
-
-    }
+//    @Override
+//    public void onSensorChanged(SensorEvent event) {
+////        if (sensor == SensorManager.SENSOR_ACCELEROMETER) {
+////            long curTime = System.currentTimeMillis();
+////            // only allow one update every 100ms.
+////            if ((curTime - lastUpdate) > 100) {
+////                long diffTime = (curTime - lastUpdate);
+////                lastUpdate = curTime;
+//
+//                float x = event.values[0];
+//                float y = event.values[1];
+//                float z = event.values[2];
+////                lastAcceleration = currentAcceleration;
+//
+//
+//        float speed = Math.abs(x+y+z - last_x - last_y - last_z) / diffTime * 10000;
+//
+//                if (speed > SHAKE_THRESHOLD) {
+//                    Log.d("sensor", "shake detected w/ speed: " + speed);
+//                    Toast.makeText(this, (CharSequence)("shake detected w/ speed: " + speed), Toast.LENGTH_SHORT).show();
+//                }
+//
+//                last_x = x;
+//                last_y = y;
+//                last_z = z;
+//            }
+//        }
+//
+//    }
+//
+//    @Override
+//    public void onAccuracyChanged(Sensor sensor, int accuracy) {
+//
+//    }
 }
