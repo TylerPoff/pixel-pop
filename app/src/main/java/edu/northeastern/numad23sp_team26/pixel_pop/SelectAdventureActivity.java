@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
@@ -30,6 +31,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
     private TextView helloUsername;
     private ImageView profileImage;
     private Spinner spinner;
+    private Switch switchShakeErase;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +40,12 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
         helloUsername = findViewById(R.id.hello_username);
         profileImage = findViewById(R.id.profileImage);
+        switchShakeErase = findViewById(R.id.switchShakeErase);
 
         mAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
         getCurrentUser();
+
 
         spinner = findViewById(R.id.spinner);
         ArrayList<String> arrayList = new ArrayList<>();
@@ -78,11 +82,21 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
     public void openActivityAnimals() {
         Intent intent = new Intent(this, AnimalsAdventureActivity.class);
+        //TODO put the boolean value for shake to erase
+        //get the value from the switch
+        boolean shouldShake = switchShakeErase.isChecked();
+        //we can pass data into an activity by setting up a key-value pair
+        //we need a keyword to represent what this value is, we will need to use this
+        //same keyword to get the value out in the other activity
+        //We will use "shouldShake" as the keyword, and put the boolean variable in as the value
+        intent.putExtra("shouldShake", shouldShake);
         startActivity(intent);
     }
 
     public void openActivityVideoGame() {
         Intent intent = new Intent(this, VideoGameAdventureActivity.class);
+        boolean shouldShake = switchShakeErase.isChecked();
+        intent.putExtra("shouldShake", shouldShake);
         startActivity(intent);
     }
 
