@@ -1,11 +1,14 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.hardware.SensorManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.squareup.seismic.ShakeDetector;
@@ -29,8 +32,25 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
 
-        // shake-to-erase
         shakeDetector = new ShakeDetector(this);
+
+        /**********************//**********************//**********************/
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("Reset")
+                .setMessage("Are you sure you want to reset your drawing?")
+                .setPositiveButton("Yes", null)
+                .setNegativeButton("No", null)
+                .show();
+
+        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
+        positiveButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(DrawActivity.this, "Not closing", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        /**********************//**********************//**********************/
 
     }
 
