@@ -36,7 +36,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
         /**********************//**********************//**********************/
         AlertDialog dialog = new AlertDialog.Builder(this)
-                .setTitle("Reset")
+                .setTitle("Shake to Erase")
                 .setMessage("Are you sure you want to reset your drawing?")
                 .setPositiveButton("Yes", null)
                 .setNegativeButton("No", null)
