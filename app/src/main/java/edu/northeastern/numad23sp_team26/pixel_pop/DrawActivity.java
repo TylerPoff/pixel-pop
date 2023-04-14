@@ -115,7 +115,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         /**********************//**********************//**********************/
 
         shakeDetector.stop();
-       AlertDialog.Builder dialog = new AlertDialog.Builder(this)
+       AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Shake to Erase")
                 .setMessage("Are you sure you want to reset your drawing?")
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -134,8 +134,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                             shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                         }
                     }
-                });
-                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                })
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         drawView.resetFills();
@@ -144,14 +144,14 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                         //a yes should reset the no count
                         noCount = 0;
                     }
-                });
-                       dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                })
+                       .setOnCancelListener(new DialogInterface.OnCancelListener() {
                    @Override
                    public void onCancel(DialogInterface dialog) {
                        shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                    }
-               });
-                dialog.show();
+               })
+                .show();
 
 
         /**********************//**********************//**********************/
