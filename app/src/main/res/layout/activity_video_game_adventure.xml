@@ -41,10 +41,10 @@
         android:text="3"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintHorizontal_bias="0.884"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
         app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.583" />
+        app:layout_constraintVertical_bias="0.384"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
@@ -52,10 +52,10 @@
         android:text="4"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.884"
+        app:layout_constraintHorizontal_bias="0.377"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
         app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.384" />
+        app:layout_constraintVertical_bias="0.583"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button5"
