@@ -106,13 +106,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     public void hearShake() {
         Toast.makeText(this, "I've been shaken!", Toast.LENGTH_SHORT).show();
-        // todo: show dialog, if they click ok, call reset fills
-        // todo: add a member variable to keep track how many times they said not to reset (no 3 times in a row.. if yes rest it to 0)
-
-
-//        drawView.resetFills();
-
-        /**********************//**********************//**********************/
 
         shakeDetector.stop();
        AlertDialog dialog = new AlertDialog.Builder(this)
@@ -152,9 +145,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                    }
                })
                 .show();
-
-
-        /**********************//**********************//**********************/
 
     }
 
