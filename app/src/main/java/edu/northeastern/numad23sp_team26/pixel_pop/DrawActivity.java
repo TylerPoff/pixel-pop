@@ -115,7 +115,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         /**********************//**********************//**********************/
 
         shakeDetector.stop();
-       AlertDialog dialog = new AlertDialog.Builder(this)
+       AlertDialog.Builder dialog = new AlertDialog.Builder(this)
                 .setTitle("Shake to Erase")
                 .setMessage("Are you sure you want to reset your drawing?")
                 .setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -129,37 +129,30 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                             if (shakeDetector != null) {
                                 shakeDetector.stop();
                             }
-//                            showSimpleDialog("Shake To Erase","Shake To Erase has been turned off!\nGo to Select Adventure to turn back on.");
+                            showSimpleDialog("Shake To Erase","Shake To Erase has been turned off!\nGo to Select Adventure to turn back on.");
                         } else {
-                            shakeDetector.start(sensorManager);
+                            shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                         }
                     }
-                })
-                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                });
+                dialog.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         drawView.resetFills();
-                        shakeDetector.start(sensorManager);
+                        shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
 
                         //a yes should reset the no count
                         noCount = 0;
                     }
-                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                });
+                       dialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                    @Override
                    public void onCancel(DialogInterface dialog) {
-                       shakeDetector.start(sensorManager);
+                       shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                    }
-               })
-                .show();
+               });
+                dialog.show();
 
-        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-        positiveButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(DrawActivity.this, "Not closing", Toast.LENGTH_SHORT).show();
-                dialog.dismiss();
-            }
-        });
 
         /**********************//**********************//**********************/
 
