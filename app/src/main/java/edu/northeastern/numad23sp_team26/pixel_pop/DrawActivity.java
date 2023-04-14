@@ -19,6 +19,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
     // todo: send toggle argument over
     //TODO make variable to keep track of whether or not we should shake
+
+    private SensorManager sensorManager;
     private boolean shouldShake = false;
     private ShakeDetector shakeDetector;
 
@@ -85,7 +87,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onResume() {
         super.onResume();
-        SensorManager sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         // todo: guards will also make sure the toggle is not off
         // todo: guard and check to see how many times it asks not to clear
         if (shouldShake) {
@@ -97,9 +99,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onPause() {
         super.onPause();
-        if (shouldShake) {
-            shakeDetector.stop();
-        }
+        shakeDetector.stop();
+
     }
 
     @Override
@@ -107,13 +108,13 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         Toast.makeText(this, "I've been shaken!", Toast.LENGTH_SHORT).show();
         // todo: show dialog, if they click ok, call reset fills
         // todo: add a member variable to keep track how many times they said not to reset (no 3 times in a row.. if yes rest it to 0)
-        drawView.resetFills();
 
 
+//        drawView.resetFills();
 
         /**********************//**********************//**********************/
 
-
+        shakeDetector.stop();
        AlertDialog dialog = new AlertDialog.Builder(this)
                 .setTitle("Shake to Erase")
                 .setMessage("Are you sure you want to reset your drawing?")
@@ -128,19 +129,27 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                             if (shakeDetector != null) {
                                 shakeDetector.stop();
                             }
-                            showSimpleDialog("Shake To Erase","Shake To Erase has been turned off!\nGo to Select Adventure to turn back on.");
+//                            showSimpleDialog("Shake To Erase","Shake To Erase has been turned off!\nGo to Select Adventure to turn back on.");
+                        } else {
+                            shakeDetector.start(sensorManager);
                         }
                     }
                 })
                 .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-//                        drawView.resetFills();
+                        drawView.resetFills();
+                        shakeDetector.start(sensorManager);
 
                         //a yes should reset the no count
                         noCount = 0;
                     }
-                })
+                }).setOnCancelListener(new DialogInterface.OnCancelListener() {
+                   @Override
+                   public void onCancel(DialogInterface dialog) {
+                       shakeDetector.start(sensorManager);
+                   }
+               })
                 .show();
 
         Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
