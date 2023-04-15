@@ -61,4 +61,5 @@
     <string name="menu">Menu</string>
     <string name="reset">Reset</string>
     <string name="done">Done</string>
+    <string name="eraser">Eraser</string>
 </resources>

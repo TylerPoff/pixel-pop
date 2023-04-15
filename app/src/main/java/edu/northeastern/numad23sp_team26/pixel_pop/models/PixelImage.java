@@ -8,14 +8,14 @@ public class PixelImage {
     private int levelNum;
     private int displaySecondsTimer;
     private int drawSecondsTimer;
-    private List<PixelCell> pixelCells;
+    private List<PixelCellDisplay> pixelCellsDisplay;
 
-    public PixelImage(String adventure, int levelNum, int displaySecondsTimer, int drawSecondsTimer, List<PixelCell> pixelCells) {
+    public PixelImage(String adventure, int levelNum, int displaySecondsTimer, int drawSecondsTimer, List<PixelCellDisplay> pixelCellsDisplay) {
         this.adventure = adventure;
         this.levelNum = levelNum;
         this.displaySecondsTimer = displaySecondsTimer;
         this.drawSecondsTimer = drawSecondsTimer;
-        this.pixelCells = pixelCells;
+        this.pixelCellsDisplay = pixelCellsDisplay;
     }
 
     public String getAdventure() {
@@ -26,7 +26,7 @@ public class PixelImage {
         return levelNum;
     }
 
-    public List<PixelCell> getPixelCells() {
-        return pixelCells;
+    public List<PixelCellDisplay> getPixelCellsDisplay() {
+        return pixelCellsDisplay;
     }
 }

@@ -12,16 +12,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCell;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCellDisplay;
 
 public class DrawView extends View {
 
-    private Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private Paint fillBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
-    private List<PixelCell> pixelCells;
+    private final Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private final Paint fillBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
+    private List<PixelCellDisplay> pixelCellsDisplay;
+    private final List<PixelCell> pixelCells;
     private final int NUM_LINES = 16;
-    private int maxCoordinate;
-    private float cellDim;
     private int fillBrushColor;
 
     public DrawView(Context context, AttributeSet attrs) {
@@ -39,6 +39,7 @@ public class DrawView extends View {
 
         fillBrushColor = Color.BLACK;
 
+        pixelCellsDisplay = new ArrayList<>();
         pixelCells = new ArrayList<>();
     }
 
@@ -55,12 +56,17 @@ public class DrawView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        maxCoordinate = getWidth();
-        cellDim = (float)maxCoordinate / NUM_LINES;
+        int maxCoordinate = getWidth();
+        float cellDim = (float)maxCoordinate / NUM_LINES;
         float center = (float)maxCoordinate / 2;
 
         if (pixelCells.isEmpty()) {
-            addPixelCells();
+            addBlankPixelCells(cellDim);
+
+            // TODO: change this for the game
+            if (!pixelCellsDisplay.isEmpty()) {
+                drawPixelCellsDisplay();
+            }
         }
 
         float top = 0;
@@ -114,19 +120,25 @@ public class DrawView extends View {
         return true;
     }
 
-    public List<PixelCell> getPixelCellsState() {
-        return pixelCells;
-    }
-
-    public void autoDrawPixelCells(List<PixelCell> pc) {
-        pixelCells = new ArrayList<>();
-        for (PixelCell c : pc) {
-            pixelCells.add(c.clone());
+    public List<PixelCellDisplay> getPixelCellsDisplay() {
+        if (!pixelCellsDisplay.isEmpty()) {
+            return pixelCellsDisplay;
         }
-        postInvalidate();
+
+        for (PixelCell c : pixelCells) {
+            pixelCellsDisplay.add(new PixelCellDisplay(c.getRowNum(), c.getColNum(), c.getColor()));
+        }
+        return pixelCellsDisplay;
     }
 
-    private void addPixelCells() {
+    public void setPixelCellsDisplay(List<PixelCellDisplay> pcd) {
+        pixelCellsDisplay = new ArrayList<>();
+        for (PixelCellDisplay c : pcd) {
+            pixelCellsDisplay.add(c.clone());
+        }
+    }
+
+    private void addBlankPixelCells(float cellDim) {
         float top = 0;
         for (int row = 0; row < NUM_LINES; row++) {
             float left = 0;
@@ -136,6 +148,19 @@ public class DrawView extends View {
                 left = (left + cellDim);
             }
             top = top + cellDim;
+        }
+    }
+
+    private void drawPixelCellsDisplay() {
+        if (pixelCells.size() == pixelCellsDisplay.size()) {
+            for (PixelCell c : pixelCells) {
+                PixelCellDisplay currentCellDisplay = pixelCellsDisplay.stream().filter(item -> item.getRowNum() == c.getRowNum() && item.getColNum() == c.getColNum()).findFirst().orElse(null);
+                if (currentCellDisplay != null) {
+                    c.draw(currentCellDisplay.getColor());
+                } else {
+                    c.draw(Color.WHITE);
+                }
+            }
         }
     }
 

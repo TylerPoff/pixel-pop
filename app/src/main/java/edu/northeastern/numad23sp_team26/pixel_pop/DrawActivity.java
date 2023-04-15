@@ -1,7 +1,6 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +9,7 @@ import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 import android.util.Log;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -25,6 +25,7 @@ public class DrawActivity extends AppCompatActivity {
 
     private DrawView drawView;
     private Gson gson;
+    private ArrayList<Integer> colorList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,16 +37,32 @@ public class DrawActivity extends AppCompatActivity {
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
 
+        Button colorBtn1 = findViewById(R.id.colorBtn1);
+        Button colorBtn2 = findViewById(R.id.colorBtn2);
+        Button colorBtn3 = findViewById(R.id.colorBtn3);
+        Button colorBtn4 = findViewById(R.id.colorBtn4);
+        Button colorBtn5 = findViewById(R.id.colorBtn5);
+        Button colorBtn6 = findViewById(R.id.colorBtn6);
+        Button colorBtn7 = findViewById(R.id.colorBtn7);
+        Button colorBtn8 = findViewById(R.id.colorBtn8);
+
+        Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
+        whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
+
+        ImageButton eraserBtn = findViewById(R.id.eraserBtn);
+        eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
+
         gson = new Gson();
 
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
             String adventure = extras.getString("adventure");
             int levelNum = extras.getInt("levelNum");
+            colorList = extras.getIntegerArrayList("colorList");
 
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
-                PixelImage currentImage = new PixelImage(adventure, levelNum, 600, 600, drawView.getPixelCellsState());
+                PixelImage currentImage = new PixelImage(adventure, levelNum, 600, 600, drawView.getPixelCellsDisplay());
                 String jsonToLog =  gson.toJson(currentImage);
                 int chunkCount = jsonToLog.length() / 4000;
                 for (int i = 0; i <= chunkCount; i++) {
@@ -58,40 +75,30 @@ public class DrawActivity extends AppCompatActivity {
                 }
             });
 
+            colorBtn1.getBackground().setTint(colorList.get(0));
+            colorBtn2.getBackground().setTint(colorList.get(1));
+            colorBtn3.getBackground().setTint(colorList.get(2));
+            colorBtn4.getBackground().setTint(colorList.get(3));
+            colorBtn5.getBackground().setTint(colorList.get(4));
+            colorBtn6.getBackground().setTint(colorList.get(5));
+            colorBtn7.getBackground().setTint(colorList.get(6));
+            colorBtn8.getBackground().setTint(colorList.get(7));
+
+            colorBtn1.setOnClickListener(v -> drawView.changeFillColor(colorList.get(0)));
+            colorBtn2.setOnClickListener(v -> drawView.changeFillColor(colorList.get(1)));
+            colorBtn3.setOnClickListener(v -> drawView.changeFillColor(colorList.get(2)));
+            colorBtn4.setOnClickListener(v -> drawView.changeFillColor(colorList.get(3)));
+            colorBtn5.setOnClickListener(v -> drawView.changeFillColor(colorList.get(4)));
+            colorBtn6.setOnClickListener(v -> drawView.changeFillColor(colorList.get(5)));
+            colorBtn7.setOnClickListener(v -> drawView.changeFillColor(colorList.get(6)));
+            colorBtn8.setOnClickListener(v -> drawView.changeFillColor(colorList.get(7)));
+
             List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
             PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
             if (imageToDisplay != null) {
-                drawView.autoDrawPixelCells(imageToDisplay.getPixelCells());
+                drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
             }
         }
-    }
-
-    public void onColorBtnClick(View view) {
-        int color;
-        if (view.getId() == R.id.redColorBtn) {
-            color = getColor(R.color.red);
-        } else if (view.getId() == R.id.blackColorBtn) {
-            color = getColor(R.color.black);
-        } else if (view.getId() == R.id.blueColorBtn) {
-            color = getColor(R.color.blue);
-        } else if (view.getId() == R.id.greenColorBtn) {
-            color = getColor(R.color.green);
-        } else if (view.getId() == R.id.yellowColorBtn) {
-            color = getColor(R.color.yellow);
-        } else if (view.getId() == R.id.orangeColorBtn) {
-            color = getColor(R.color.orange);
-        } else if (view.getId() == R.id.purpleColorBtn) {
-            color = getColor(R.color.purple);
-        } else if (view.getId() == R.id.brownColorBtn) {
-            color = getColor(R.color.brown);
-        } else if (view.getId() == R.id.whiteColorBtn) {
-            color = getColor(R.color.white);
-        } else if (view.getId() == R.id.eraserBtn) {
-            color = getColor(R.color.white);
-        } else {
-            throw new IllegalArgumentException("Unsupported color");
-        }
-        drawView.changeFillColor(color);
     }
 
     private List<PixelImage> loadPixelImagesFromFile(String fileName) {

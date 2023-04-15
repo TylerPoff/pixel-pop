@@ -6,6 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
 import edu.northeastern.numad23sp_team26.R;
 
 public class AnimalsAdventureActivity extends AppCompatActivity {
@@ -32,11 +34,22 @@ public class AnimalsAdventureActivity extends AppCompatActivity {
     }
 
     public void openActivityPixelDraw(int levelNum) {
+        ArrayList<Integer> colorList = new ArrayList<>();
+        colorList.add(getColor(R.color.black));
+        colorList.add(getColor(R.color.red));
+        colorList.add(getColor(R.color.green));
+        colorList.add(getColor(R.color.maple));
+        colorList.add(getColor(R.color.yellow));
+        colorList.add(getColor(R.color.orange));
+        colorList.add(getColor(R.color.cheese));
+        colorList.add(getColor(R.color.brown));
+
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
         extras.putString("adventure", "animals");
         extras.putInt("levelNum", levelNum);
+        extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
 
         startActivity(intent);

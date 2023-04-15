@@ -16,4 +16,7 @@
     <color name="orange">#FFFFA500</color>
     <color name="purple">#FFA020F0</color>
     <color name="brown">#FF964B00</color>
+
+    <color name="cheese">#FFF0E198</color>
+    <color name="maple">#FFD8A374</color>
 </resources>
