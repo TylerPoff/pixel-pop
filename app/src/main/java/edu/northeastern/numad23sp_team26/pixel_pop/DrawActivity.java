@@ -100,7 +100,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     protected void onPause() {
         super.onPause();
         shakeDetector.stop();
-
     }
 
     @Override
