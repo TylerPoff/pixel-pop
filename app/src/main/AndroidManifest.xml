@@ -20,7 +20,8 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.VideoGameAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.PixelPopSignUpActivity"
             android:windowSoftInputMode="adjustResize"
@@ -31,10 +32,12 @@
             android:exported="false" />
         <activity
             android:name=".pixel_pop.AnimalsAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.SelectAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
             android:exported="false" />

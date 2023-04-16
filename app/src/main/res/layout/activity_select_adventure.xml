@@ -13,23 +13,25 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/eight_bit" />
+        android:background="#E8E4D6" />
 
     <TextView
         android:id="@+id/hello_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="20dp"
+        android:textSize="30sp"
         android:layout_margin="20dp"
-        android:fontFamily="@font/orbitron"
+        android:fontFamily="@font/arcade"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
 
     <androidx.appcompat.widget.AppCompatSpinner
+        style="@style/CustomSpinner"
         android:id="@+id/spinner"
-        android:layout_width="209dp"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:textAlignment="center"
@@ -38,11 +40,17 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hello_username" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"
-        android:layout_width="123dp"
-        android:layout_height="148dp"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:layout_margin="20dp"
+        android:background="#DEB041"
+        app:shapeAppearanceOverlay="@style/RoundedImageView"
+        android:scaleType="fitCenter"
+        app:strokeWidth="2dp"
+        android:padding="5dp"
+        app:strokeColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/hello_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,10 +61,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
-        android:fontFamily="@font/orbitron"
+        android:fontFamily="@font/arcade"
         android:text="@string/pixelpop"
+        android:textColor="#066466"
+        android:gravity="center"
+        android:padding="10dp"
+        android:background="@drawable/rectangle"
         android:textStyle="bold"
-        android:textSize="40dp"
+        android:textSize="70sp"
         app:layout_constraintBottom_toTopOf="@+id/profileImage"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

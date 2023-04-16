@@ -4,6 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:fillViewport="true"
+    android:background="#E8E4D6"
     tools:context=".pixel_pop.PixelPopSignUpActivity">
 
     <LinearLayout
@@ -18,7 +19,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/sign_up"
-            android:textSize="24sp"
+            android:fontFamily="@font/arcade"
+            android:textSize="44sp"
             android:textStyle="bold" />
 
         <EditText
@@ -40,11 +42,12 @@
             android:inputType="textPassword"
             android:minHeight="48dp" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signup_button"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
+            android:background="@drawable/primary_button_custom"
             android:text="@string/sign_up" />
 
         <TextView

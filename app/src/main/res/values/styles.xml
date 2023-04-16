@@ -6,6 +6,19 @@
         <item name="android:background">@drawable/round_white_button</item>
         <item name="android:foreground">@drawable/button_ripple_effect</item>
         <item name="android:textColor">@android:color/black</item>
-        <item name="android:textSize">20dp</item>
+        <item name="android:textSize">20sp</item>
+    </style>
+
+    <style name="RoundedImageView">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
+
+    <style name="CustomSpinner" parent="Widget.AppCompat.DropDownItem.Spinner">
+        <item name="android:paddingStart">0dp</item>
+        <item name="android:paddingEnd">0dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">20sp</item>
+        <item name="android:fontFamily">@font/arcade</item>
     </style>
 </resources>
