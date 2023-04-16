@@ -9,12 +9,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/secondary_button_custom"
+        android:background="@drawable/danger_button_custom"
         android:text="@string/quit"
         android:textAllCaps="false"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <Button
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
@@ -23,6 +24,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quitBtn"
         app:layout_constraintTop_toTopOf="parent" />
+    -->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
@@ -208,5 +210,18 @@
         android:layout_height="wrap_content"
         app:barrierDirection="top"
         app:constraint_referenced_ids="colorBtn1, colorBtn2, colorBtn3, colorBtn4, colorBtn5" />
+
+    <TextView
+        android:id="@+id/displayTimer"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:fontFamily="@font/arcade"
+        android:textColor="@color/black"
+        android:textSize="80sp"
+        android:gravity="center"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

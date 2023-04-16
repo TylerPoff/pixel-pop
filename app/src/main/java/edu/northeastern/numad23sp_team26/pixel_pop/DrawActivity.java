@@ -1,6 +1,8 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,6 +12,7 @@ import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 import android.util.Log;
 import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -23,9 +26,12 @@ import java.util.List;
 
 public class DrawActivity extends AppCompatActivity {
 
+    private static final String TAG = "pixel_pop.DrawActivity";
     private DrawView drawView;
     private Gson gson;
     private ArrayList<Integer> colorList;
+    private TextView displayTimer;
+    private Handler handler = new Handler();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,28 +43,23 @@ public class DrawActivity extends AppCompatActivity {
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
 
-        Button colorBtn1 = findViewById(R.id.colorBtn1);
-        Button colorBtn2 = findViewById(R.id.colorBtn2);
-        Button colorBtn3 = findViewById(R.id.colorBtn3);
-        Button colorBtn4 = findViewById(R.id.colorBtn4);
-        Button colorBtn5 = findViewById(R.id.colorBtn5);
-        Button colorBtn6 = findViewById(R.id.colorBtn6);
-        Button colorBtn7 = findViewById(R.id.colorBtn7);
-        Button colorBtn8 = findViewById(R.id.colorBtn8);
-
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
         ImageButton eraserBtn = findViewById(R.id.eraserBtn);
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
+        displayTimer = findViewById(R.id.displayTimer);
+
         gson = new Gson();
 
         if (getIntent().getExtras() != null) {
+            setPixelImageProperties();
+
+            /*
             Bundle extras = getIntent().getExtras();
             String adventure = extras.getString("adventure");
             int levelNum = extras.getInt("levelNum");
-            colorList = extras.getIntegerArrayList("colorList");
 
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
@@ -74,30 +75,50 @@ public class DrawActivity extends AppCompatActivity {
                     }
                 }
             });
+            */
+        }
+    }
 
-            colorBtn1.getBackground().setTint(colorList.get(0));
-            colorBtn2.getBackground().setTint(colorList.get(1));
-            colorBtn3.getBackground().setTint(colorList.get(2));
-            colorBtn4.getBackground().setTint(colorList.get(3));
-            colorBtn5.getBackground().setTint(colorList.get(4));
-            colorBtn6.getBackground().setTint(colorList.get(5));
-            colorBtn7.getBackground().setTint(colorList.get(6));
-            colorBtn8.getBackground().setTint(colorList.get(7));
+    private void setPixelImageProperties() {
+        Bundle extras = getIntent().getExtras();
+        String adventure = extras.getString("adventure");
+        int levelNum = extras.getInt("levelNum");
+        colorList = extras.getIntegerArrayList("colorList");
 
-            colorBtn1.setOnClickListener(v -> drawView.changeFillColor(colorList.get(0)));
-            colorBtn2.setOnClickListener(v -> drawView.changeFillColor(colorList.get(1)));
-            colorBtn3.setOnClickListener(v -> drawView.changeFillColor(colorList.get(2)));
-            colorBtn4.setOnClickListener(v -> drawView.changeFillColor(colorList.get(3)));
-            colorBtn5.setOnClickListener(v -> drawView.changeFillColor(colorList.get(4)));
-            colorBtn6.setOnClickListener(v -> drawView.changeFillColor(colorList.get(5)));
-            colorBtn7.setOnClickListener(v -> drawView.changeFillColor(colorList.get(6)));
-            colorBtn8.setOnClickListener(v -> drawView.changeFillColor(colorList.get(7)));
+        Button colorBtn1 = findViewById(R.id.colorBtn1);
+        Button colorBtn2 = findViewById(R.id.colorBtn2);
+        Button colorBtn3 = findViewById(R.id.colorBtn3);
+        Button colorBtn4 = findViewById(R.id.colorBtn4);
+        Button colorBtn5 = findViewById(R.id.colorBtn5);
+        Button colorBtn6 = findViewById(R.id.colorBtn6);
+        Button colorBtn7 = findViewById(R.id.colorBtn7);
+        Button colorBtn8 = findViewById(R.id.colorBtn8);
 
-            List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
-            PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
-            if (imageToDisplay != null) {
-                drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
-            }
+        colorBtn1.getBackground().setTint(colorList.get(0));
+        colorBtn2.getBackground().setTint(colorList.get(1));
+        colorBtn3.getBackground().setTint(colorList.get(2));
+        colorBtn4.getBackground().setTint(colorList.get(3));
+        colorBtn5.getBackground().setTint(colorList.get(4));
+        colorBtn6.getBackground().setTint(colorList.get(5));
+        colorBtn7.getBackground().setTint(colorList.get(6));
+        colorBtn8.getBackground().setTint(colorList.get(7));
+
+        colorBtn1.setOnClickListener(v -> drawView.changeFillColor(colorList.get(0)));
+        colorBtn2.setOnClickListener(v -> drawView.changeFillColor(colorList.get(1)));
+        colorBtn3.setOnClickListener(v -> drawView.changeFillColor(colorList.get(2)));
+        colorBtn4.setOnClickListener(v -> drawView.changeFillColor(colorList.get(3)));
+        colorBtn5.setOnClickListener(v -> drawView.changeFillColor(colorList.get(4)));
+        colorBtn6.setOnClickListener(v -> drawView.changeFillColor(colorList.get(5)));
+        colorBtn7.setOnClickListener(v -> drawView.changeFillColor(colorList.get(6)));
+        colorBtn8.setOnClickListener(v -> drawView.changeFillColor(colorList.get(7)));
+
+        List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
+        PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
+        if (imageToDisplay != null) {
+            drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
+            displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
+            DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
+            displayTimerThread.start();
         }
     }
 
@@ -124,6 +145,35 @@ public class DrawActivity extends AppCompatActivity {
             Log.e("DrawActivity", msg, e);
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             return new ArrayList<>();
+        }
+    }
+
+    private class DisplayTimerThread extends Thread {
+        private int displaySecondsTimer;
+
+        public DisplayTimerThread(int displaySecondsTimer) {
+            this.displaySecondsTimer = displaySecondsTimer;
+        }
+
+        @Override
+        public void run() {
+            for (int i = 0; i < displaySecondsTimer; i++) {
+                try {
+                    Thread.sleep(1000);
+                    int currentTime = displaySecondsTimer - i - 1;
+                    handler.post(() -> {
+                        if (currentTime <= 10) {
+                            displayTimer.setTextColor(Color.RED);
+                        }
+                        displayTimer.setText("" + currentTime);
+                    });
+                    if (currentTime == 0) {
+                        // TODO: empty the draw canvas
+                    }
+                } catch (InterruptedException e) {
+                    Log.e(TAG, "InterruptedException");
+                }
+            }
         }
     }
 }
