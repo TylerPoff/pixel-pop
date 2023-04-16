@@ -26,6 +26,10 @@ public class PixelImage {
         return levelNum;
     }
 
+    public int getDisplaySecondsTimer() {
+        return displaySecondsTimer;
+    }
+
     public List<PixelCellDisplay> getPixelCellsDisplay() {
         return pixelCellsDisplay;
     }

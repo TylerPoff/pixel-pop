@@ -58,7 +58,7 @@
     <string name="_5">5</string>
     <string name="start">Start!</string>
 
-    <string name="menu">Menu</string>
+    <string name="quit">Quit level</string>
     <string name="reset">Reset</string>
     <string name="done">Done</string>
     <string name="eraser">Eraser</string>

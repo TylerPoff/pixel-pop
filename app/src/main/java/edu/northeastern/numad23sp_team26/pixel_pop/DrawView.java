@@ -30,12 +30,12 @@ public class DrawView extends View {
         strokeBrush.setColor(Color.GRAY);
         strokeBrush.setStyle(Paint.Style.STROKE);
         strokeBrush.setStrokeJoin(Paint.Join.ROUND);
-        strokeBrush.setStrokeWidth(1f);
+        strokeBrush.setStrokeWidth(1.5f);
 
         thickStrokeBrush.setColor(Color.BLACK);
         thickStrokeBrush.setStyle(Paint.Style.STROKE);
         thickStrokeBrush.setStrokeJoin(Paint.Join.ROUND);
-        thickStrokeBrush.setStrokeWidth(1f);
+        thickStrokeBrush.setStrokeWidth(1.5f);
 
         fillBrushColor = Color.BLACK;
 
@@ -56,7 +56,7 @@ public class DrawView extends View {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        int maxCoordinate = getWidth();
+        int maxCoordinate = Math.min(getWidth(), getHeight());
         float cellDim = (float)maxCoordinate / NUM_LINES;
         float center = (float)maxCoordinate / 2;
 
