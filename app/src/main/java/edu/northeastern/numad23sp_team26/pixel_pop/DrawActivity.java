@@ -182,7 +182,8 @@ public class DrawActivity extends AppCompatActivity {
                         drawView.resetFills();
                         drawView.setIsEditable(true);
                         handler.post(() -> {
-                            displayTimer.setText("");
+                            displayTimer.setTextColor(Color.BLACK);
+                            displayTimer.setText("Draw");
                             memorizeTV.setVisibility(View.INVISIBLE);
                             drawPalette.setVisibility(View.VISIBLE);
                         });
