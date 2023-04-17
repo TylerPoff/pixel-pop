@@ -3,9 +3,11 @@ package edu.northeastern.numad23sp_team26.pixel_pop;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
@@ -31,6 +33,8 @@ public class DrawActivity extends AppCompatActivity {
     private Gson gson;
     private ArrayList<Integer> colorList;
     private TextView displayTimer;
+    private TextView memorizeTV;
+    private ConstraintLayout drawPalette;
     private Handler handler = new Handler();
 
     @Override
@@ -50,6 +54,8 @@ public class DrawActivity extends AppCompatActivity {
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
         displayTimer = findViewById(R.id.displayTimer);
+        memorizeTV = findViewById(R.id.memorizeTV);
+        drawPalette = findViewById(R.id.drawPalette);
 
         gson = new Gson();
 
@@ -115,6 +121,9 @@ public class DrawActivity extends AppCompatActivity {
         List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
+            memorizeTV.setVisibility(View.VISIBLE);
+            drawPalette.setVisibility(View.INVISIBLE);
+            drawView.setIsEditable(false);
             drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
             displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
             DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
@@ -167,8 +176,16 @@ public class DrawActivity extends AppCompatActivity {
                         }
                         displayTimer.setText("" + currentTime);
                     });
+
+                    // Change to draw mode
                     if (currentTime == 0) {
-                        // TODO: empty the draw canvas
+                        drawView.resetFills();
+                        drawView.setIsEditable(true);
+                        handler.post(() -> {
+                            displayTimer.setText("");
+                            memorizeTV.setVisibility(View.INVISIBLE);
+                            drawPalette.setVisibility(View.VISIBLE);
+                        });
                     }
                 } catch (InterruptedException e) {
                     Log.e(TAG, "InterruptedException");

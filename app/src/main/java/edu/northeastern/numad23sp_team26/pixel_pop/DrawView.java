@@ -23,6 +23,7 @@ public class DrawView extends View {
     private final List<PixelCell> pixelCells;
     private final int NUM_LINES = 16;
     private int fillBrushColor;
+    private boolean isEditable = true;
 
     public DrawView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -98,25 +99,27 @@ public class DrawView extends View {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        float x = event.getX();
-        float y = event.getY();
+        if (isEditable) {
+            float x = event.getX();
+            float y = event.getY();
 
-        switch (event.getActionMasked()) {
-            case MotionEvent.ACTION_DOWN:
-            case MotionEvent.ACTION_MOVE:
-                for (PixelCell c : pixelCells) {
-                    if (x > c.getLeft() && x < c.getRight() && y > c.getTop() && y < c.getBottom()) {
-                        c.draw(fillBrushColor);
+            switch (event.getActionMasked()) {
+                case MotionEvent.ACTION_DOWN:
+                case MotionEvent.ACTION_MOVE:
+                    for (PixelCell c : pixelCells) {
+                        if (x > c.getLeft() && x < c.getRight() && y > c.getTop() && y < c.getBottom()) {
+                            c.draw(fillBrushColor);
+                        }
                     }
-                }
-                break;
-            case MotionEvent.ACTION_UP:
-                // do something
-                break;
-            default:
-                return false;
+                    break;
+                case MotionEvent.ACTION_UP:
+                    // do something
+                    break;
+                default:
+                    return false;
+            }
+            postInvalidate();
         }
-        postInvalidate();
         return true;
     }
 
@@ -136,6 +139,10 @@ public class DrawView extends View {
         for (PixelCellDisplay c : pcd) {
             pixelCellsDisplay.add(c.clone());
         }
+    }
+
+    public void setIsEditable(boolean isEditable) {
+        this.isEditable = isEditable;
     }
 
     private void addBlankPixelCells(float cellDim) {
