@@ -1,21 +1,21 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.ArrayList;
 
 import edu.northeastern.numad23sp_team26.R;
 
-public class VideoGameAdventureActivity extends AppCompatActivity {
+public class FruitsAdventureActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_game_adventure);
+        setContentView(R.layout.activity_fruits_adventure);
 
         Button button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> openActivityPixelDraw(1));
@@ -41,7 +41,7 @@ public class VideoGameAdventureActivity extends AppCompatActivity {
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
         colorList.add(getColor(R.color.orange));
-        colorList.add(getColor(R.color.maple));
+        colorList.add(getColor(R.color.purple_500));
         colorList.add(getColor(R.color.brown));
 
         Intent intent = new Intent(this, DrawActivity.class);
