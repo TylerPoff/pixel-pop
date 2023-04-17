@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/nature_animals_all" />
+        android:src="@drawable/nature_animals" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_1_button"
