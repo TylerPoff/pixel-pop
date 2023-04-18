@@ -82,7 +82,6 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
     public void openActivityAnimals() {
         Intent intent = new Intent(this, AnimalsAdventureActivity.class);
-        //TODO put the boolean value for shake to erase
         //get the value from the switch
         boolean shouldShake = switchShakeErase.isChecked();
         //we can pass data into an activity by setting up a key-value pair

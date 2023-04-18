@@ -38,7 +38,17 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         // this should never be null but error check that we actually have values
         if (extras != null){
             shouldShake = extras.getBoolean("shouldShake");
-            Toast.makeText(this, "shouldShake: " + shouldShake, Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "shouldShake: " + shouldShake, Toast.LENGTH_SHORT).show();
+
+            //            Yep, just change "shouldShake: " + shouldShake to if should shake that message will be
+            //            "Shake to erase enabled" otherwise "Shake to erase disabled". Just another if/else statement.
+            if(shouldShake){
+                Toast.makeText(this, "Shake to erase enabled", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Shake to erase disabled", Toast.LENGTH_SHORT).show();
+            }
+
+
         }
 
         if (shouldShake) {
