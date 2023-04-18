@@ -1,10 +1,13 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -18,19 +21,35 @@ public class AnimalsAdventureActivity extends AppCompatActivity {
         setContentView(R.layout.activity_animals_adventure);
 
         Button animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
-        animals_pixel_drawing_1_button.setOnClickListener(v -> openActivityPixelDraw(1));
+        animals_pixel_drawing_1_button.setOnClickListener(v -> createAlertDialog(1));
 
         Button animals_pixel_drawing_2_button = findViewById(R.id.animals_pixel_drawing_2_button);
-        animals_pixel_drawing_2_button.setOnClickListener(v -> openActivityPixelDraw(2));
+        animals_pixel_drawing_2_button.setOnClickListener(v -> createAlertDialog(2));
 
         Button animals_pixel_drawing_3_button = findViewById(R.id.animals_pixel_drawing_3_button);
-        animals_pixel_drawing_3_button.setOnClickListener(v -> openActivityPixelDraw(3));
+        animals_pixel_drawing_3_button.setOnClickListener(v -> createAlertDialog(3));
 
         Button animals_pixel_drawing_4_button = findViewById(R.id.animals_pixel_drawing_4_button);
-        animals_pixel_drawing_4_button.setOnClickListener(v -> openActivityPixelDraw(4));
+        animals_pixel_drawing_4_button.setOnClickListener(v -> createAlertDialog(4));
 
         Button animals_pixel_drawing_5_button = findViewById(R.id.animals_pixel_drawing_5_button);
-        animals_pixel_drawing_5_button.setOnClickListener(v -> openActivityPixelDraw(5));
+        animals_pixel_drawing_5_button.setOnClickListener(v -> createAlertDialog(5));
+    }
+
+    public void createAlertDialog(int levelNum){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View AdventurePopupView = getLayoutInflater().inflate(R.layout.adventure_popup, null);
+        TextView adventure_level_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_level_txt);
+        TextView three_top_scores_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_top_scores_txt2);
+        //TODO: populate the top scores with real user data once it is available
+        Button back_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_back_btn);
+        Button start_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
+        dialogBuilder.setView(AdventurePopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.show();
+        adventure_level_txt.setText("LEVEL "+levelNum);
+        back_btn.setOnClickListener(v -> dialog.dismiss());
+        start_btn.setOnClickListener(v -> openActivityPixelDraw(levelNum));
     }
 
     public void openActivityPixelDraw(int levelNum) {
