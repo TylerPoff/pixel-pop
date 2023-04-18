@@ -1,20 +1,35 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCellDisplay;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelPopUser;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelScore;
 
 public class ResultsActivity extends AppCompatActivity {
 
+    private static final String TAG = "pixel_pop.ResultsActivity";
     private TextView levelName;
     private DrawView originalDrawView;
     private DrawView userDrawView;
@@ -28,6 +43,8 @@ public class ResultsActivity extends AppCompatActivity {
     private Button retryBtn;
     private Button nextLevelBtn;
     private Button levelMenuBtn;
+    private FirebaseAuth mAuth;
+    private DatabaseReference databaseRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +63,9 @@ public class ResultsActivity extends AppCompatActivity {
 
         originalDrawView.setIsEditable(false);
         userDrawView.setIsEditable(false);
+
+        mAuth = FirebaseAuth.getInstance();
+        databaseRef = FirebaseDatabase.getInstance().getReference();
 
         if (getIntent().getExtras() != null) {
             Bundle extras = getIntent().getExtras();
@@ -78,13 +98,42 @@ public class ResultsActivity extends AppCompatActivity {
                 }
                 float percent = ((float)part / whole) * 100;
                 int percent_rounded = Math.round(percent);
-                score.setText(getString(R.string.accuracy, String.valueOf(percent_rounded) + "%"));
+                score.setText(getString(R.string.accuracy, percent_rounded + "%"));
+                saveScore(percent_rounded);
             } else {
                 score.setText(getString(R.string.accuracy, ""));
             }
 
             retryBtn.setOnClickListener(v -> handleRetry());
         }
+    }
+
+    private void saveScore(int accuracyPercent) {
+        String uid = mAuth.getCurrentUser().getUid();
+        databaseRef.child("Users").child(uid).runTransaction(new Transaction.Handler() {
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                PixelPopUser u = currentData.getValue(PixelPopUser.class);
+                if (u == null) {
+                    return Transaction.success(currentData);
+                }
+
+                if (u.pixelScoreList == null) {
+                    u.pixelScoreList = new ArrayList<>();
+                }
+
+                u.pixelScoreList.add(new PixelScore(accuracyPercent, LocalDateTime.now().toString()));
+                currentData.setValue(u);
+
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                Log.d(TAG, "postTransaction:onComplete:" + error);
+            }
+        });
     }
 
     private void handleRetry() {
