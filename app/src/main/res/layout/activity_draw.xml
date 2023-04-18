@@ -16,17 +16,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!-- -->
     <Button
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="150dp"
-        android:text="Log "
+        android:text="Log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quitBtn"
         app:layout_constraintTop_toTopOf="parent" />
-    <!-- -->
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
