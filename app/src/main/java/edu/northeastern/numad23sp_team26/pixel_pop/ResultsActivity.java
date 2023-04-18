@@ -123,7 +123,7 @@ public class ResultsActivity extends AppCompatActivity {
                     u.pixelScoreList = new ArrayList<>();
                 }
 
-                u.pixelScoreList.add(new PixelScore(accuracyPercent, LocalDateTime.now().toString()));
+                u.pixelScoreList.add(new PixelScore(adventure, levelNum, accuracyPercent, LocalDateTime.now().toString()));
                 currentData.setValue(u);
 
                 return Transaction.success(currentData);

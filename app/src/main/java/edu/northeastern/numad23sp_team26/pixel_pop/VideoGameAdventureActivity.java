@@ -1,61 +1,42 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 
-public class VideoGameAdventureActivity extends AppCompatActivity {
+public class VideoGameAdventureActivity extends AdventureActivity {
+
+    private Button button1, button2, button3, button4, button5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
 
-        Button button1 = findViewById(R.id.button1);
+        getUnlockedLevels("video game");
+
+        button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> createAlertDialog(1));
 
-        Button button2 = findViewById(R.id.button2);
+        button2 = findViewById(R.id.button2);
         button2.setOnClickListener(v -> createAlertDialog(2));
 
-        Button button3 = findViewById(R.id.button3);
+        button3 = findViewById(R.id.button3);
         button3.setOnClickListener(v -> createAlertDialog(3));
 
-        Button button4 = findViewById(R.id.button4);
+        button4 = findViewById(R.id.button4);
         button4.setOnClickListener(v -> createAlertDialog(4));
 
-        Button button5 = findViewById(R.id.button5);
+        button5 = findViewById(R.id.button5);
         button5.setOnClickListener(v -> createAlertDialog(5));
     }
 
-    public void createAlertDialog(int levelNum){
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
-        final View AdventurePopupView = getLayoutInflater().inflate(R.layout.adventure_popup, null);
-        TextView adventure_level_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_level_txt);
-        TextView three_top_scores_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_top_scores_txt2);
-        //TODO: populate the top scores with real user data once it is available
-        Button back_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_back_btn);
-        Button start_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
-        dialogBuilder.setView(AdventurePopupView);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.show();
-        adventure_level_txt.setText("LEVEL "+levelNum);
-        back_btn.setOnClickListener(v -> dialog.dismiss());
-        start_btn.setOnClickListener(v -> {
-            dialog.dismiss();
-            openActivityPixelDraw(levelNum);
-        });
-    }
-
+    @Override
     public void openActivityPixelDraw(int levelNum) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
@@ -77,5 +58,28 @@ public class VideoGameAdventureActivity extends AppCompatActivity {
         intent.putExtras(extras);
 
         startActivity(intent);
+    }
+
+    @Override
+    public void updateUnlockLevels(List<Integer> unlockLevels) {
+        for (int l : unlockLevels) {
+            switch (l) {
+                case 1:
+                    button1.setEnabled(true);
+                    break;
+                case 2:
+                    button2.setEnabled(true);
+                    break;
+                case 3:
+                    button3.setEnabled(true);
+                    break;
+                case 4:
+                    button4.setEnabled(true);
+                    break;
+                case 5:
+                    button5.setEnabled(true);
+                    break;
+            }
+        }
     }
 }

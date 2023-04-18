@@ -18,10 +18,11 @@
         android:id="@+id/animals_pixel_drawing_1_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/LevelSelectButton"
+        android:background="@drawable/level_button_custom"
         android:layout_marginStart="248dp"
         android:layout_marginBottom="44dp"
         android:text="@string/_1"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -29,10 +30,11 @@
         android:id="@+id/animals_pixel_drawing_2_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/LevelSelectButton"
+        android:background="@drawable/level_button_custom"
         android:layout_marginStart="148dp"
         android:layout_marginBottom="104dp"
         android:text="@string/_2"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -40,10 +42,11 @@
         android:id="@+id/animals_pixel_drawing_3_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/LevelSelectButton"
+        android:background="@drawable/level_button_custom"
         android:layout_marginStart="104dp"
         android:layout_marginBottom="284dp"
         android:text="@string/_3"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -51,10 +54,11 @@
         android:id="@+id/animals_pixel_drawing_4_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/LevelSelectButton"
+        android:background="@drawable/level_button_custom"
         android:layout_marginStart="196dp"
         android:layout_marginBottom="468dp"
         android:text="@string/_4"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
@@ -62,10 +66,11 @@
         android:id="@+id/animals_pixel_drawing_5_button"
         android:layout_width="50dp"
         android:layout_height="50dp"
-        style="@style/LevelSelectButton"
+        android:background="@drawable/level_button_custom"
         android:layout_marginStart="240dp"
         android:layout_marginBottom="632dp"
         android:text="@string/_5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

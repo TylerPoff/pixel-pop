@@ -15,8 +15,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button1"
-        style="@style/LevelSelectButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
         android:text="1"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.336"
@@ -26,8 +29,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
-        style="@style/LevelSelectButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
         android:text="2"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.919"
@@ -37,8 +43,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
-        style="@style/LevelSelectButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
         android:text="3"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.884"
@@ -48,8 +57,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
-        style="@style/LevelSelectButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
         android:text="4"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.377"
@@ -59,8 +71,11 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button5"
-        style="@style/LevelSelectButton"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
         android:text="5"
+        android:enabled="false"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
         app:layout_constraintHorizontal_bias="0.336"

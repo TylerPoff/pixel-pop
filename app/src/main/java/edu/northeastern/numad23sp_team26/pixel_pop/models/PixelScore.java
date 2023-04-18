@@ -7,6 +7,8 @@ import androidx.annotation.NonNull;
 
 public class PixelScore implements Parcelable {
 
+    public String adventure;
+    public int levelNum;
     public int accuracyPercent;
     public String timeStamp;
 
@@ -14,12 +16,16 @@ public class PixelScore implements Parcelable {
         // Default constructor required for calls to DataSnapshot.getValue(PixelScore.class)
     }
 
-    public PixelScore(int accuracyPercent, String timeStamp) {
+    public PixelScore(String adventure, int levelNum, int accuracyPercent, String timeStamp) {
+        this.adventure = adventure;
+        this.levelNum = levelNum;
         this.accuracyPercent = accuracyPercent;
         this.timeStamp = timeStamp;
     }
 
     private PixelScore(Parcel in) {
+        adventure = in.readString();
+        levelNum = in.readInt();
         accuracyPercent = in.readInt();
         timeStamp = in.readString();
     }
@@ -31,6 +37,8 @@ public class PixelScore implements Parcelable {
 
     @Override
     public void writeToParcel(@NonNull Parcel dest, int flags) {
+        dest.writeString(adventure);
+        dest.writeInt(levelNum);
         dest.writeInt(accuracyPercent);
         dest.writeString(timeStamp);
     }
