@@ -10,17 +10,17 @@ import edu.northeastern.numad23sp_team26.R;
 
 public class AnimalsAdventureActivity extends AppCompatActivity {
 
-    //we have to get the shouldShake from the previous activity and pass it
-    //forward to the draw activity
+    // we have to get the shouldShake from the previous activity and pass it
+    // forward to the draw activity
     private boolean shouldShake = false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_adventure);
 
-        //we passed a boolean value into this intent so grab it out
+        // we passed a boolean value into this intent so grab it out
         Bundle extras = getIntent().getExtras();
-        //this should never be null but error check that we actually have values
+        // this should never be null but error check that we actually have values
         if (extras != null){
             shouldShake = extras.getBoolean("shouldShake");
         }

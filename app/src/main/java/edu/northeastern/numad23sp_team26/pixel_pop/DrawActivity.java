@@ -17,14 +17,9 @@ import edu.northeastern.numad23sp_team26.R;
 
 public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
 
-    // todo: send toggle argument over
-    //TODO make variable to keep track of whether or not we should shake
-
     private SensorManager sensorManager;
     private boolean shouldShake = false;
     private ShakeDetector shakeDetector;
-
-
     private DrawView drawView;
     private int noCount = 0;
 
@@ -38,10 +33,9 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> drawView.resetFills());
 
-        //TODO get the variable out of the intent to see if we should shake
-        //we passed a boolean value into this intent so grab it out
+        // we passed a boolean value into this intent so grab it out
         Bundle extras = getIntent().getExtras();
-        //this should never be null but error check that we actually have values
+        // this should never be null but error check that we actually have values
         if (extras != null){
             shouldShake = extras.getBoolean("shouldShake");
             Toast.makeText(this, "shouldShake: " + shouldShake, Toast.LENGTH_SHORT).show();
@@ -50,50 +44,15 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         if (shouldShake) {
             shakeDetector = new ShakeDetector(this);
         }
-
-        /**********************//**********************//**********************/
-//
-//        AlertDialog dialog = new AlertDialog.Builder(this)
-//                .setTitle("Shake to Erase")
-//                .setMessage("Are you sure you want to reset your drawing?")
-//                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//
-//                    }
-//                })
-//                .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialog, int which) {
-//                        hearShake();
-//                    }
-//                })
-//
-//                .show();
-//
-//        Button positiveButton = dialog.getButton(AlertDialog.BUTTON_POSITIVE);
-//        positiveButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(DrawActivity.this, "Not closing", Toast.LENGTH_SHORT).show();
-//                dialog.dismiss();
-//            }
-//        });
-
-        /**********************//**********************//**********************/
-
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
-        // todo: guards will also make sure the toggle is not off
-        // todo: guard and check to see how many times it asks not to clear
         if (shouldShake) {
             shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
         }
-
     }
 
     @Override
@@ -144,7 +103,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                    }
                })
                 .show();
-
     }
 
     private void  showSimpleDialog(String title, String message){

@@ -19,7 +19,6 @@ import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.a8_stickers.models.User;
 
 public class LoginActivity extends AppCompatActivity {
-
     private static final String TAG = "a8_stickers.LoginActivity";
     private DatabaseReference mDatabase;
     private TextInputEditText editTextUsername;
