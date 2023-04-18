@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
     private TextView helloUsername;
     private ImageView profileImage;
     private Spinner spinner;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +40,8 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
         helloUsername = findViewById(R.id.hello_username);
         profileImage = findViewById(R.id.profileImage);
+        progressBar = findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.INVISIBLE);
 
         mAuth = FirebaseAuth.getInstance();
         databaseRef = FirebaseDatabase.getInstance().getReference();
@@ -87,6 +91,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
     }
 
     private void getCurrentUser() {
+        progressBar.setVisibility(View.VISIBLE);
         String uid = mAuth.getCurrentUser().getUid();
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -103,6 +108,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
                     }
                 }
             }
+            progressBar.setVisibility(View.INVISIBLE);
         });
     }
 }

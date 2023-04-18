@@ -64,7 +64,7 @@ public class DrawView extends View {
         if (pixelCells.isEmpty()) {
             addBlankPixelCells(cellDim);
 
-            // TODO: change this for the game
+            // Draw display pixels
             if (!pixelCellsDisplay.isEmpty()) {
                 drawPixelCellsDisplay();
             }

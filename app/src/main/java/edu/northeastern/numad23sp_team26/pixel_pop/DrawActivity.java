@@ -120,6 +120,7 @@ public class DrawActivity extends AppCompatActivity {
         colorBtn7.setOnClickListener(v -> drawView.changeFillColor(colorList.get(6)));
         colorBtn8.setOnClickListener(v -> drawView.changeFillColor(colorList.get(7)));
 
+        // TODO: I/O in thread
         List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
