@@ -46,10 +46,14 @@ public class VideoGameAdventureActivity extends AppCompatActivity {
         Button start_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
         dialogBuilder.setView(AdventurePopupView);
         AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         adventure_level_txt.setText("LEVEL "+levelNum);
         back_btn.setOnClickListener(v -> dialog.dismiss());
-        start_btn.setOnClickListener(v -> openActivityPixelDraw(levelNum));
+        start_btn.setOnClickListener(v -> {
+            dialog.dismiss();
+            openActivityPixelDraw(levelNum);
+        });
     }
 
     public void openActivityPixelDraw(int levelNum) {

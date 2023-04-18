@@ -40,6 +40,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
         helloUsername = findViewById(R.id.hello_username);
         profileImage = findViewById(R.id.profileImage);
+        spinner = findViewById(R.id.spinner);
         progressBar = findViewById(R.id.progressBar);
         progressBar.setVisibility(View.INVISIBLE);
 
@@ -47,7 +48,6 @@ public class SelectAdventureActivity extends AppCompatActivity {
         databaseRef = FirebaseDatabase.getInstance().getReference();
         getCurrentUser();
 
-        spinner = findViewById(R.id.spinner);
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Select Adventure");
         arrayList.add("Nature (Easy)");
@@ -92,6 +92,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
     private void getCurrentUser() {
         progressBar.setVisibility(View.VISIBLE);
+        spinner.setEnabled(false);
         String uid = mAuth.getCurrentUser().getUid();
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -109,6 +110,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
                 }
             }
             progressBar.setVisibility(View.INVISIBLE);
+            spinner.setEnabled(true);
         });
     }
 }

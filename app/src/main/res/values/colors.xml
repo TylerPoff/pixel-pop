@@ -19,4 +19,5 @@
 
     <color name="cheese">#FFF0E198</color>
     <color name="maple">#FFD8A374</color>
+    <color name="danger_red">#A71609</color>
 </resources>

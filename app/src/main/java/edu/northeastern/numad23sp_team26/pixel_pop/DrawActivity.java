@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -51,6 +52,9 @@ public class DrawActivity extends AppCompatActivity {
         memorizeTV = findViewById(R.id.memorizeTV);
         drawPalette = findViewById(R.id.drawPalette);
 
+        Button quitBtn = findViewById(R.id.quitBtn);
+        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
@@ -90,6 +94,11 @@ public class DrawActivity extends AppCompatActivity {
             });
             */
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        createQuitAlertDialog();
     }
 
     private void setPixelImageProperties() {
@@ -173,6 +182,22 @@ public class DrawActivity extends AppCompatActivity {
             Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
             return new ArrayList<>();
         }
+    }
+
+    private void createQuitAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View QuitPopupView = getLayoutInflater().inflate(R.layout.quit_level_popup, null);
+        Button cancelBtn = QuitPopupView.findViewById(R.id.cancelBtn);
+        Button startBtn = QuitPopupView.findViewById(R.id.startBtn);
+        dialogBuilder.setView(QuitPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        startBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            finish();
+        });
     }
 
     private class DisplayTimerThread extends Thread {

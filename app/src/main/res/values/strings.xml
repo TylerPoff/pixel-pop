@@ -56,9 +56,8 @@
     <string name="_3">3</string>
     <string name="_4">4</string>
     <string name="_5">5</string>
-    <string name="start">Start!</string>
 
-    <string name="quit">Quit level</string>
+    <string name="quit_level">Quit level</string>
     <string name="reset">Reset</string>
     <string name="done">Done</string>
     <string name="eraser">Eraser</string>
@@ -70,4 +69,9 @@
     <string name="original_pixels">Original Pixels:</string>
     <string name="your_pixels">Your Pixels:</string>
     <string name="accuracy">Accuracy: %1$s</string>
+    <string name="quit_msg">Are you sure you want to quit this level?</string>
+    <string name="back">Back</string>
+    <string name="start">Start</string>
+    <string name="cancel">Cancel</string>
+    <string name="quit">Quit</string>
 </resources>
