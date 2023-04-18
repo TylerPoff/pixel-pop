@@ -28,12 +28,12 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.PixelPopSignUpActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".pixel_pop.PixelPopLoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".pixel_pop.AnimalsAdventureActivity"
             android:exported="false"

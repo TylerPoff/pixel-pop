@@ -13,6 +13,7 @@
         android:background="@drawable/danger_button_custom"
         android:text="@string/quit_level"
         android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,12 +28,34 @@
         app:layout_constraintTop_toTopOf="parent" />
     -->
 
+    <TextView
+        android:id="@+id/shakeToEraseTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/shake_to_erase"
+        android:layout_marginTop="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchShakeErase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="0dp"
+        android:paddingVertical="0dp"
+        app:layout_constraintEnd_toEndOf="@+id/shakeToEraseTV"
+        app:layout_constraintStart_toStartOf="@+id/shakeToEraseTV"
+        app:layout_constraintTop_toBottomOf="@+id/shakeToEraseTV" />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="quitBtn" />
+        app:constraint_referenced_ids="quitBtn, switchShakeErase" />
 
     <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
         android:id="@+id/drawView"
@@ -232,12 +255,12 @@
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:fontFamily="@font/arcade"
+        android:gravity="center"
         android:textColor="@color/black"
         android:textSize="80sp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/barrier"/>
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toStartOf="@+id/shakeToEraseTV"
+        app:layout_constraintStart_toEndOf="@+id/quitBtn"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

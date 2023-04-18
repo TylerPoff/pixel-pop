@@ -74,4 +74,5 @@
     <string name="start">Start</string>
     <string name="cancel">Cancel</string>
     <string name="quit">Quit</string>
+    <string name="shake_to_erase">Shake To Erase </string>
 </resources>
