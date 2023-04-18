@@ -141,6 +141,14 @@ public class DrawView extends View {
         }
     }
 
+    public List<PixelCellDisplay> getPixelCellsState() {
+        List<PixelCellDisplay> currentPixelCells = new ArrayList<>();
+        for (PixelCell c : pixelCells) {
+            currentPixelCells.add(new PixelCellDisplay(c.getRowNum(), c.getColNum(), c.getColor()));
+        }
+        return currentPixelCells;
+    }
+
     public void setIsEditable(boolean isEditable) {
         this.isEditable = isEditable;
     }

@@ -37,9 +37,10 @@
 
     <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
         android:id="@+id/drawView"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_margin="10dp"
+        app:layout_constraintWidth_percent="0.9"
         app:layout_constraintBottom_toTopOf="@+id/drawPalette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
