@@ -62,7 +62,7 @@ public class DrawActivity extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             setPixelImageProperties();
 
-            /*
+            /* */
             Bundle extras = getIntent().getExtras();
             String adventure = extras.getString("adventure");
             int levelNum = extras.getInt("levelNum");
@@ -81,7 +81,7 @@ public class DrawActivity extends AppCompatActivity {
                     }
                 }
             });
-            */
+           /* */
         }
     }
 

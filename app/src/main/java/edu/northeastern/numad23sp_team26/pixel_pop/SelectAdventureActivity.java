@@ -60,7 +60,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
                     case "Nature (Easy)":
                         openActivityAnimals();
                         break;
-                    case "Fruit Stand(Hard)":
+                    case "Fruit Stand (Medium)":
                         openActivityFruits();
                         break;
                     case "Video Game (Hard)":

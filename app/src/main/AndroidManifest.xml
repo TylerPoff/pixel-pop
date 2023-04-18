@@ -23,6 +23,10 @@
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
+            android:name=".pixel_pop.FruitsAdventureActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".pixel_pop.PixelPopSignUpActivity"
             android:windowSoftInputMode="adjustResize"
             android:exported="false" />

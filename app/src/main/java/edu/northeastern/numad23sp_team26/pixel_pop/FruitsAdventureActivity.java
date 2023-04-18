@@ -17,20 +17,20 @@ public class FruitsAdventureActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruits_adventure);
 
-        Button button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> openActivityPixelDraw(1));
+        Button fruit_button1 = findViewById(R.id.fruit_button1);
+        fruit_button1.setOnClickListener(v -> openActivityPixelDraw(1));
 
-        Button button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> openActivityPixelDraw(2));
+        Button fruit_button2 = findViewById(R.id.fruit_button2);
+        fruit_button2.setOnClickListener(v -> openActivityPixelDraw(2));
 
-        Button button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> openActivityPixelDraw(3));
+        Button fruit_button3 = findViewById(R.id.fruit_button3);
+        fruit_button3.setOnClickListener(v -> openActivityPixelDraw(3));
 
-        Button button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> openActivityPixelDraw(4));
+        Button fruit_button4 = findViewById(R.id.fruit_button4);
+        fruit_button4.setOnClickListener(v -> openActivityPixelDraw(4));
 
-        Button button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> openActivityPixelDraw(5));
+        Button fruit_button5 = findViewById(R.id.fruit_button5);
+        fruit_button5.setOnClickListener(v -> openActivityPixelDraw(5));
     }
 
     public void openActivityPixelDraw(int levelNum) {
@@ -40,14 +40,14 @@ public class FruitsAdventureActivity extends AppCompatActivity {
         colorList.add(getColor(R.color.nature_green));
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
-        colorList.add(getColor(R.color.orange));
+        colorList.add(getColor(R.color.fruit_orange));
         colorList.add(getColor(R.color.purple_500));
         colorList.add(getColor(R.color.brown));
 
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "video game");
+        extras.putString("adventure", "fruits");
         extras.putInt("levelNum", levelNum);
         extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
