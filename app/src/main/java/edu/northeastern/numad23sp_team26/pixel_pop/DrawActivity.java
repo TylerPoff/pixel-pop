@@ -1,5 +1,6 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.ResultsActivity;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 import android.util.Log;
@@ -36,6 +38,8 @@ public class DrawActivity extends AppCompatActivity {
     private TextView memorizeTV;
     private ConstraintLayout drawPalette;
     private Handler handler = new Handler();
+    private String adventure;
+    private int levelNum;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,9 +47,9 @@ public class DrawActivity extends AppCompatActivity {
         setContentView(R.layout.activity_draw);
 
         drawView = findViewById(R.id.drawView);
-
-        Button resetBtn = findViewById(R.id.resetBtn);
-        resetBtn.setOnClickListener(v -> drawView.resetFills());
+        displayTimer = findViewById(R.id.displayTimer);
+        memorizeTV = findViewById(R.id.memorizeTV);
+        drawPalette = findViewById(R.id.drawPalette);
 
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
@@ -53,20 +57,23 @@ public class DrawActivity extends AppCompatActivity {
         ImageButton eraserBtn = findViewById(R.id.eraserBtn);
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
-        displayTimer = findViewById(R.id.displayTimer);
-        memorizeTV = findViewById(R.id.memorizeTV);
-        drawPalette = findViewById(R.id.drawPalette);
+        Button resetBtn = findViewById(R.id.resetBtn);
+        resetBtn.setOnClickListener(v -> drawView.resetFills());
+
+        Button doneBtn = findViewById(R.id.doneBtn);
+        doneBtn.setOnClickListener(v -> handleDone());
 
         gson = new Gson();
 
         if (getIntent().getExtras() != null) {
+            Bundle extras = getIntent().getExtras();
+            adventure = extras.getString("adventure");
+            levelNum = extras.getInt("levelNum");
+            colorList = extras.getIntegerArrayList("colorList");
+
             setPixelImageProperties();
 
             /*
-            Bundle extras = getIntent().getExtras();
-            String adventure = extras.getString("adventure");
-            int levelNum = extras.getInt("levelNum");
-
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
                 PixelImage currentImage = new PixelImage(adventure, levelNum, 600, 600, drawView.getPixelCellsDisplay());
@@ -86,11 +93,6 @@ public class DrawActivity extends AppCompatActivity {
     }
 
     private void setPixelImageProperties() {
-        Bundle extras = getIntent().getExtras();
-        String adventure = extras.getString("adventure");
-        int levelNum = extras.getInt("levelNum");
-        colorList = extras.getIntegerArrayList("colorList");
-
         Button colorBtn1 = findViewById(R.id.colorBtn1);
         Button colorBtn2 = findViewById(R.id.colorBtn2);
         Button colorBtn3 = findViewById(R.id.colorBtn3);
@@ -129,6 +131,21 @@ public class DrawActivity extends AppCompatActivity {
             DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
             displayTimerThread.start();
         }
+    }
+
+    private void handleDone() {
+        Intent intent = new Intent (getApplicationContext(), ResultsActivity.class);
+
+        Bundle extras = new Bundle();
+        extras.putString("adventure", "animals");
+        extras.putInt("levelNum", levelNum);
+        extras.putIntegerArrayList("colorList", colorList);
+        extras.putParcelableArrayList("originalPixels", new ArrayList<>(drawView.getPixelCellsDisplay()));
+        extras.putParcelableArrayList("drawnPixels", new ArrayList<>(drawView.getPixelCellsState()));
+        intent.putExtras(extras);
+
+        startActivity(intent);
+        finish();
     }
 
     private List<PixelImage> loadPixelImagesFromFile(String fileName) {
