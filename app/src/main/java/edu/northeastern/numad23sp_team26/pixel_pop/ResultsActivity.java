@@ -1,4 +1,4 @@
-package edu.northeastern.numad23sp_team26;
+package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,10 +9,8 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
-import edu.northeastern.numad23sp_team26.pixel_pop.DrawActivity;
-import edu.northeastern.numad23sp_team26.pixel_pop.DrawView;
+import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCellDisplay;
 
 public class ResultsActivity extends AppCompatActivity {
@@ -22,11 +20,14 @@ public class ResultsActivity extends AppCompatActivity {
     private DrawView userDrawView;
     private String adventure;
     private int levelNum;
+    private int maxLevels;
     private ArrayList<Integer> colorList;
     private List<PixelCellDisplay> originalPixels;
     private List<PixelCellDisplay> drawnPixels;
     private TextView score;
     private Button retryBtn;
+    private Button nextLevelBtn;
+    private Button levelMenuBtn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +39,10 @@ public class ResultsActivity extends AppCompatActivity {
         userDrawView = findViewById(R.id.yourDrawingImg);
         score = findViewById(R.id.score);
         retryBtn = findViewById(R.id.retryBtn);
+        nextLevelBtn = findViewById(R.id.nextLevelBtn);
+        levelMenuBtn = findViewById(R.id.menuBtn);
+
+        levelMenuBtn.setOnClickListener(v -> finish());
 
         originalDrawView.setIsEditable(false);
         userDrawView.setIsEditable(false);
@@ -46,6 +51,7 @@ public class ResultsActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             adventure = extras.getString("adventure");
             levelNum = extras.getInt("levelNum");
+            maxLevels = extras.getInt("maxLevels");
             colorList = extras.getIntegerArrayList("colorList");
             originalPixels = extras.getParcelableArrayList("originalPixels");
             drawnPixels = extras.getParcelableArrayList("drawnPixels");
@@ -53,6 +59,12 @@ public class ResultsActivity extends AppCompatActivity {
             levelName.setText(getString(R.string.level_num, levelNum));
             originalDrawView.setPixelCellsDisplay(originalPixels);
             userDrawView.setPixelCellsDisplay(drawnPixels);
+
+            if (levelNum < maxLevels) {
+                nextLevelBtn.setOnClickListener(v -> handleNextLevel());
+            } else {
+                nextLevelBtn.setEnabled(false);
+            }
 
             // TODO: save score to database
             if (originalPixels.size() == drawnPixels.size()) {
@@ -64,8 +76,9 @@ public class ResultsActivity extends AppCompatActivity {
                         part++;
                     }
                 }
-                double percent = ((double)part / whole) * 100;
-                score.setText(getString(R.string.accuracy, String.format(Locale.ENGLISH, "%.2f%%", percent)));
+                float percent = ((float)part / whole) * 100;
+                int percent_rounded = Math.round(percent);
+                score.setText(getString(R.string.accuracy, String.valueOf(percent_rounded) + "%"));
             } else {
                 score.setText(getString(R.string.accuracy, ""));
             }
@@ -78,12 +91,29 @@ public class ResultsActivity extends AppCompatActivity {
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "animals");
+        extras.putString("adventure", adventure);
         extras.putInt("levelNum", levelNum);
+        extras.putInt("maxLevels", maxLevels);
         extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
 
         startActivity(intent);
         finish();
+    }
+
+    private void handleNextLevel() {
+        if (levelNum < maxLevels) {
+            Intent intent = new Intent(this, DrawActivity.class);
+
+            Bundle extras = new Bundle();
+            extras.putString("adventure", adventure);
+            extras.putInt("levelNum", levelNum + 1);
+            extras.putInt("maxLevels", maxLevels);
+            extras.putIntegerArrayList("colorList", colorList);
+            intent.putExtras(extras);
+
+            startActivity(intent);
+            finish();
+        }
     }
 }

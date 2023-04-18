@@ -62,9 +62,9 @@
     <string name="done">Done</string>
     <string name="eraser">Eraser</string>
     <string name="memorize">Memorize</string>
-    <string name="new_level">New Level</string>
+    <string name="next_level">Next Level</string>
     <string name="retry">Retry</string>
-    <string name="menu">Menu</string>
+    <string name="levelMenu">Level menu</string>
     <string name="level_num">Level %1$d</string>
     <string name="original_pixels">Original Pixels:</string>
     <string name="your_pixels">Your Pixels:</string>

@@ -72,6 +72,7 @@ public class VideoGameAdventureActivity extends AppCompatActivity {
         Bundle extras = new Bundle();
         extras.putString("adventure", "video game");
         extras.putInt("levelNum", levelNum);
+        extras.putInt("maxLevels", 5);
         extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
 

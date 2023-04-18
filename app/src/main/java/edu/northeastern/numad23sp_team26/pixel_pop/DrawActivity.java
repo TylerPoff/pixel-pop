@@ -12,7 +12,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.ResultsActivity;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 import android.util.Log;
@@ -41,6 +40,7 @@ public class DrawActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private String adventure;
     private int levelNum;
+    private int maxLevels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +73,7 @@ public class DrawActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             adventure = extras.getString("adventure");
             levelNum = extras.getInt("levelNum");
+            maxLevels = extras.getInt("maxLevels");
             colorList = extras.getIntegerArrayList("colorList");
 
             setPixelImageProperties();
@@ -147,8 +148,9 @@ public class DrawActivity extends AppCompatActivity {
         Intent intent = new Intent (getApplicationContext(), ResultsActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "animals");
+        extras.putString("adventure", adventure);
         extras.putInt("levelNum", levelNum);
+        extras.putInt("maxLevels", maxLevels);
         extras.putIntegerArrayList("colorList", colorList);
         extras.putParcelableArrayList("originalPixels", new ArrayList<>(drawView.getPixelCellsDisplay()));
         extras.putParcelableArrayList("drawnPixels", new ArrayList<>(drawView.getPixelCellsState()));
