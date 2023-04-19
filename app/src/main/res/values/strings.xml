@@ -74,7 +74,7 @@
     <string name="start">Start</string>
     <string name="cancel">Cancel</string>
     <string name="quit">Quit</string>
-    <string name="shake_to_erase">Shake To Erase </string>
+    <string name="shake_to_erase">Shake to erase</string>
     <string name="singleplayer">Singleplayer</string>
     <string name="host_multiplayer">Host multiplayer</string>
     <string name="join_multiplayer">Join multiplayer</string>
