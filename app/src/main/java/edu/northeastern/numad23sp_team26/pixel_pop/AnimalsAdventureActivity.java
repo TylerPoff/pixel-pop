@@ -51,7 +51,7 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "animals");
+        extras.putString("adventure", ADVENTURE_TYPE);
         extras.putInt("levelNum", levelNum);
         extras.putInt("maxLevels", 5);
         extras.putIntegerArrayList("colorList", colorList);

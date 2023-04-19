@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -60,9 +61,27 @@ public class SelectAdventureActivity extends AppCompatActivity {
         arrayList.add("Select Adventure");
         arrayList.add("Nature (Easy)");
         arrayList.add("Video Game (Hard)");
-        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, arrayList);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(arrayAdapter);
+
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (position > 0) {
+                    singlePlayerBtn.setEnabled(true);
+                    hostMultiplayerBtn.setEnabled(true);
+                } else {
+                    singlePlayerBtn.setEnabled(false);
+                    hostMultiplayerBtn.setEnabled(false);
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         singlePlayerBtn.setOnClickListener(v -> {
             String adventure = spinner.getSelectedItem().toString();
@@ -81,6 +100,8 @@ public class SelectAdventureActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         spinner.setSelection(0);
+        singlePlayerBtn.setEnabled(false);
+        hostMultiplayerBtn.setEnabled(false);
     }
 
     public void openActivityAnimals() {

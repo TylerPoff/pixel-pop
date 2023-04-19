@@ -85,8 +85,7 @@ public class ResultsActivity extends AppCompatActivity {
             } else {
                 nextLevelBtn.setEnabled(false);
             }
-
-            // TODO: save score to database
+            
             if (originalPixels.size() == drawnPixels.size()) {
                 int whole = originalPixels.size();
                 int part = 0;

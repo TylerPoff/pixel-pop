@@ -248,7 +248,7 @@
         android:fontFamily="@font/arcade"
         android:gravity="center"
         android:textColor="@color/black"
-        android:textSize="75sp"
+        android:textSize="75dp"
         app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
         app:layout_constraintEnd_toStartOf="@+id/switchShakeErase"
         app:layout_constraintStart_toEndOf="@+id/quitBtn"

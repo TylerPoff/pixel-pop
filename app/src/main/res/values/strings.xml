@@ -78,4 +78,6 @@
     <string name="singleplayer">Singleplayer</string>
     <string name="host_multiplayer">Host multiplayer</string>
     <string name="join_multiplayer">Join multiplayer</string>
+    <string name="your_top_scores">Your top scores:</string>
+    <string name="no_top_score">No top score available.\nCreate one now!</string>
 </resources>

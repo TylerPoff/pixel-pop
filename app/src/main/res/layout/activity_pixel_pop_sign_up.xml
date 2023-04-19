@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:fillViewport="true"
     android:background="#E8E4D6"
     tools:context=".pixel_pop.PixelPopSignUpActivity">
@@ -24,28 +25,36 @@
             android:textSize="44sp"
             android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/signup_email"
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:hint="@string/email"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:inputType="textEmailAddress"
-            android:minHeight="48dp"
-            android:autofillHints="" />
+            app:boxStrokeColor="@color/orange">
 
-        <EditText
-            android:id="@+id/signup_password"
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:minHeight="48dp"
+                android:autofillHints="" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:hint="@string/password"
-            android:backgroundTint="@color/black"
-            android:textColor="@color/black"
-            android:inputType="textPassword"
-            android:minHeight="48dp" />
+            app:boxStrokeColor="@color/orange">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/signup_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textPassword"
+                android:minHeight="48dp" />
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/signup_button"

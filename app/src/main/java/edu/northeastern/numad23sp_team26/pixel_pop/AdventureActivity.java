@@ -68,7 +68,6 @@ public abstract class AdventureActivity extends AppCompatActivity {
         final View AdventurePopupView = getLayoutInflater().inflate(R.layout.adventure_popup, null);
         TextView adventure_level_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_level_txt);
         TextView three_top_scores_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_top_scores_txt2);
-        //TODO: populate the top scores with real user data once it is available
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
         DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         String uid = mAuth.getCurrentUser().getUid();
@@ -87,13 +86,14 @@ public abstract class AdventureActivity extends AppCompatActivity {
                                                                     .filter(p -> (p.adventure.equalsIgnoreCase(adventure)&&p.levelNum==levelNum))
                                                                     .map(p -> p.accuracyPercent)
                                                                     .collect(Collectors.toList());
-                            if(!pixelScoreListFiltered.isEmpty()) {
-                                Collections.sort(pixelScoreListFiltered, Collections.reverseOrder());
-                                pixelScoreListFiltered = pixelScoreListFiltered.subList(0,Math.min(pixelScoreListFiltered.size(),3));
-                                three_top_scores_txt.setText("");
-                                for (int i : pixelScoreListFiltered){
-                                    three_top_scores_txt.append(String.valueOf(i)+" %\n");
+                            if (!pixelScoreListFiltered.isEmpty()) {
+                                pixelScoreListFiltered.sort(Collections.reverseOrder());
+                                pixelScoreListFiltered = pixelScoreListFiltered.subList(0, Math.min(pixelScoreListFiltered.size(), 3));
+                                List<String> outputList = new ArrayList<>();
+                                for (int i = 1; i <= pixelScoreListFiltered.size(); i++) {
+                                    outputList.add(i + ")  " + pixelScoreListFiltered.get(i - 1) + "%");
                                 }
+                                three_top_scores_txt.setText(String.join(" \n", outputList));
                             }
                         }
                     }
@@ -106,7 +106,7 @@ public abstract class AdventureActivity extends AppCompatActivity {
         AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
-        adventure_level_txt.setText("LEVEL " + levelNum);
+        adventure_level_txt.setText(getString(R.string.level_num, levelNum));
         back_btn.setOnClickListener(v -> dialog.dismiss());
         start_btn.setOnClickListener(v -> {
             dialog.dismiss();

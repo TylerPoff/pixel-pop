@@ -19,11 +19,13 @@
         android:id="@+id/hello_username"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:fontFamily="@font/arcade_bold"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="0dp"
+        android:background="@drawable/green_background"
+        android:fontFamily="@font/press_start_2p"
+        android:padding="10dp"
         android:textColor="@color/black"
-        android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/spinner"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/profileImage" />
@@ -33,28 +35,31 @@
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:background="@drawable/orange_border"
         android:paddingVertical="5dp"
+        android:background="@drawable/orange_border"
         android:popupBackground="@drawable/orange_border"
+        android:theme="@style/ThemeOverlay.AppCompat.Light"
+        android:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         android:spinnerMode="dropdown"
         app:layout_constraintBottom_toTopOf="@+id/singlePlayBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/hello_username"
-        tools:listitem="@layout/spinner_item" />
+        app:layout_constraintVertical_chainStyle="packed" />
 
     <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/profileImage"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_margin="10dp"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="0dp"
         android:background="#A0AE95"
         android:padding="5dp"
         android:scaleType="fitCenter"
-        app:layout_constraintBottom_toTopOf="@+id/hello_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/title"
+        app:layout_constraintTop_toBottomOf="@+id/guideline"
         app:shapeAppearanceOverlay="@style/RoundedImageView"
         app:strokeColor="@color/black"
         app:strokeWidth="2dp" />
@@ -65,13 +70,12 @@
         android:layout_height="0dp"
         android:layout_margin="10dp"
         android:padding="5dp"
-        app:layout_constraintBottom_toTopOf="@+id/profileImage"
+        app:layout_constraintBottom_toTopOf="@+id/guideline"
         app:layout_constraintDimensionRatio="2:1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.3"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/pixel_pop_logo" />
 
@@ -96,7 +100,7 @@
         android:text="@string/singleplayer"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/multiHostBtn"
+        app:layout_constraintBottom_toTopOf="@+id/multiHostBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/spinner" />
@@ -105,13 +109,12 @@
         android:id="@+id/multiHostBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
         android:background="@drawable/primary_button_custom"
         android:paddingHorizontal="20dp"
         android:text="@string/host_multiplayer"
         android:textAllCaps="false"
         android:textColor="@color/black"
-        app:layout_constraintBottom_toTopOf="@id/multiJoinBtn"
+        app:layout_constraintBottom_toTopOf="@+id/divider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/singlePlayBtn" />
@@ -127,6 +130,30 @@
         android:textAllCaps="false"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.25" />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="hello_username" />
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginVertical="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/multiJoinBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/multiHostBtn" />
