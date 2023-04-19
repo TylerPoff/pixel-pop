@@ -12,6 +12,7 @@ import edu.northeastern.numad23sp_team26.R;
 public class VideoGameAdventureActivity extends AdventureActivity {
 
     private Button button1, button2, button3, button4, button5;
+    private final String ADVENTURE_TYPE = "video game";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,19 +22,19 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         getUnlockedLevels("video game");
 
         button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> createAlertDialog(1));
+        button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
         button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> createAlertDialog(2));
+        button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
 
         button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> createAlertDialog(3));
+        button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
 
         button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> createAlertDialog(4));
+        button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
 
         button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> createAlertDialog(5));
+        button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
     }
 
     @Override
