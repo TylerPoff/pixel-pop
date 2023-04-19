@@ -19,8 +19,6 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
 
-        getUnlockedLevels("video game");
-
         button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
@@ -35,6 +33,12 @@ public class VideoGameAdventureActivity extends AdventureActivity {
 
         button5 = findViewById(R.id.button5);
         button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUnlockedLevels("video game");
     }
 
     @Override

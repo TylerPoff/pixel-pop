@@ -93,7 +93,7 @@ public abstract class AdventureActivity extends AppCompatActivity {
                                 for (int i = 1; i <= pixelScoreListFiltered.size(); i++) {
                                     outputList.add(i + ")  " + pixelScoreListFiltered.get(i - 1) + "%");
                                 }
-                                three_top_scores_txt.setText(String.join(" \n", outputList));
+                                three_top_scores_txt.setText(String.join("\n\n", outputList));
                             }
                         }
                     }

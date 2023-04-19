@@ -18,8 +18,6 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_adventure);
 
-        getUnlockedLevels(ADVENTURE_TYPE);
-
         animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
         animals_pixel_drawing_1_button.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
@@ -34,6 +32,12 @@ public class AnimalsAdventureActivity extends AdventureActivity {
 
         animals_pixel_drawing_5_button = findViewById(R.id.animals_pixel_drawing_5_button);
         animals_pixel_drawing_5_button.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getUnlockedLevels(ADVENTURE_TYPE);
     }
 
     @Override

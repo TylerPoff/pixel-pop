@@ -66,11 +66,15 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         shakeToEraseSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
             shouldShake = isChecked;
             if (shouldShake) {
-                Toast.makeText(this, "Shake to erase enabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Shake to reset enabled", Toast.LENGTH_SHORT).show();
                 shakeDetector = new ShakeDetector(this);
+                sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
                 shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
             } else {
-                Toast.makeText(this, "Shake to erase disabled", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Shake to reset disabled", Toast.LENGTH_SHORT).show();
+                if (shakeDetector != null) {
+                    shakeDetector.stop();
+                }
             }
         });
 
@@ -122,8 +126,9 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onResume() {
         super.onResume();
-        sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
         if (shouldShake) {
+            shakeDetector = new ShakeDetector(this);
+            sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
             shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
         }
     }
@@ -131,47 +136,71 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onPause() {
         super.onPause();
-        shakeDetector.stop();
+        if (shakeDetector != null) {
+            shakeDetector.stop();
+        }
     }
 
     @Override
     public void hearShake() {
-        shakeDetector.stop();
-        new AlertDialog.Builder(this)
-                .setTitle("Shake to Erase")
-                .setMessage("Are you sure you want to reset your drawing?")
-                .setNegativeButton("No", (dialog, which) -> {
-                    //add to the no count
-                    noCount++;
-                    if (noCount == 3) {
-                        shouldShake = false;
-                        shakeToEraseSwitch.setChecked(false);
-                        //if the shake detector is active, stop it
-                        if (shakeDetector != null) {
-                            shakeDetector.stop();
-                        }
-                        showSimpleDialog("Shake To Erase", "Shake To Erase has been turned off!\nRe-toggle to turn it back on.");
-                    } else {
-                        shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
-                    }
-                })
-                .setPositiveButton("Yes", (dialog, which) -> {
-                    drawView.resetFills();
+        if (shakeDetector != null) {
+            shakeDetector.stop();
+        }
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+                .setOnCancelListener(d -> {
+                    shakeDetector = new ShakeDetector(this);
+                    sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
                     shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+                });
+        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.shake_reset_popup, null);
+        Button noBtn = ShakeResetPopupView.findViewById(R.id.noBtn);
+        Button yesBtn = ShakeResetPopupView.findViewById(R.id.yesBtn);
+        dialogBuilder.setView(ShakeResetPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        noBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Add to the no count
+            noCount++;
+            if (noCount == 3) {
+                // Reset noCount
+                noCount = 0;
+                shouldShake = false;
+                shakeToEraseSwitch.setChecked(false);
+                // If the shake detector is active, stop it
+                if (shakeDetector != null) {
+                    shakeDetector.stop();
+                }
 
-                    //a yes should reset the no count
-                    noCount = 0;
-                })
-                .setOnCancelListener(dialog -> shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME))
-                .show();
+                showSimpleDialog();
+            } else {
+                shakeDetector = new ShakeDetector(this);
+                sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+                shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+            }
+        });
+        yesBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            drawView.resetFills();
+            shakeDetector = new ShakeDetector(this);
+            sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+
+            // A yes should reset the no count
+            noCount = 0;
+        });
     }
 
-    private void  showSimpleDialog(String title, String message){
-        new AlertDialog.Builder(this)
-                .setTitle(title)
-                .setMessage(message)
-                .setPositiveButton("Ok", (dialog, which) -> dialog.dismiss())
-                .show();
+    private void  showSimpleDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View ShakeDisabledPopupView = getLayoutInflater().inflate(R.layout.shake_disabled_popup, null);
+        Button okBtn = ShakeDisabledPopupView.findViewById(R.id.okBtn);
+        dialogBuilder.setView(ShakeDisabledPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        okBtn.setOnClickListener(v -> dialog.dismiss());
     }
     @Override
     public void onBackPressed() {
@@ -266,13 +295,13 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View QuitPopupView = getLayoutInflater().inflate(R.layout.quit_level_popup, null);
         Button cancelBtn = QuitPopupView.findViewById(R.id.cancelBtn);
-        Button startBtn = QuitPopupView.findViewById(R.id.startBtn);
+        Button quitBtn = QuitPopupView.findViewById(R.id.quitBtn);
         dialogBuilder.setView(QuitPopupView);
         AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
         cancelBtn.setOnClickListener(v -> dialog.dismiss());
-        startBtn.setOnClickListener(v -> {
+        quitBtn.setOnClickListener(v -> {
             dialog.dismiss();
             finish();
         });
