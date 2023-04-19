@@ -235,18 +235,19 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         colorBtn7.setOnClickListener(v -> drawView.changeFillColor(colorList.get(6)));
         colorBtn8.setOnClickListener(v -> drawView.changeFillColor(colorList.get(7)));
 
-        // TODO: I/O in thread
-        List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
-        PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
-        if (imageToDisplay != null) {
-            memorizeTV.setVisibility(View.VISIBLE);
-            drawPalette.setVisibility(View.INVISIBLE);
-            drawView.setIsEditable(false);
-            drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
-            displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
-            DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
-            displayTimerThread.start();
-        }
+        new Thread(() -> {
+            List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
+            PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
+            if (imageToDisplay != null) {
+                memorizeTV.setVisibility(View.VISIBLE);
+                drawPalette.setVisibility(View.INVISIBLE);
+                drawView.setIsEditable(false);
+                drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
+                displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
+                DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
+                displayTimerThread.start();
+            }
+        }).start();
     }
 
     private void handleDone() {
