@@ -19,8 +19,6 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
 
-        getUnlockedLevels("video game");
-
         button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
@@ -38,11 +36,17 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getUnlockedLevels("video game");
+    }
+
+    @Override
     public void openActivityPixelDraw(int levelNum) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
-        colorList.add(getColor(R.color.green));
+        colorList.add(getColor(R.color.nature_green));
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
         colorList.add(getColor(R.color.orange));
@@ -52,7 +56,7 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "video game");
+        extras.putString("adventure", ADVENTURE_TYPE);
         extras.putInt("levelNum", levelNum);
         extras.putInt("maxLevels", 5);
         extras.putIntegerArrayList("colorList", colorList);

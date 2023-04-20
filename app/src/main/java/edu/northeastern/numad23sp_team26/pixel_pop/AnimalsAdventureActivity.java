@@ -18,8 +18,6 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_adventure);
 
-        getUnlockedLevels(ADVENTURE_TYPE);
-
         animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
         animals_pixel_drawing_1_button.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
@@ -37,11 +35,17 @@ public class AnimalsAdventureActivity extends AdventureActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        getUnlockedLevels(ADVENTURE_TYPE);
+    }
+
+    @Override
     public void openActivityPixelDraw(int levelNum) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
-        colorList.add(getColor(R.color.green));
+        colorList.add(getColor(R.color.nature_green));
         colorList.add(getColor(R.color.maple));
         colorList.add(getColor(R.color.yellow));
         colorList.add(getColor(R.color.orange));
@@ -51,7 +55,7 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         Intent intent = new Intent(this, DrawActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "animals");
+        extras.putString("adventure", ADVENTURE_TYPE);
         extras.putInt("levelNum", levelNum);
         extras.putInt("maxLevels", 5);
         extras.putIntegerArrayList("colorList", colorList);
