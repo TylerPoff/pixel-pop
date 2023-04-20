@@ -37,7 +37,7 @@ public class VideoGameAdventureActivity extends AppCompatActivity {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
-        colorList.add(getColor(R.color.nature_green));
+        colorList.add(getColor(R.color.green));
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
         colorList.add(getColor(R.color.orange));
