@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,17 +47,21 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         // Log in and case handling
         loginButton.setOnClickListener(v -> {
             loginErrorTV.setText("");
+            loginErrorTV.setVisibility(View.GONE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
                 loginErrorTV.setText("Please enter your email.");
+                loginErrorTV.setVisibility(View.VISIBLE);
             } else if (password.isEmpty()) {
                 loginErrorTV.setText("Please enter your password.");
+                loginErrorTV.setVisibility(View.VISIBLE);
             } else {
                 logIn();
             }
         });
     }
+
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
