@@ -87,7 +87,7 @@ public class ResultsActivity extends AppCompatActivity {
             }
             
             if (originalPixels.size() == drawnPixels.size()) {
-                int whole = originalPixels.size();
+                int whole = (int) originalPixels.stream().filter(c -> c.getColor() != getColor(R.color.white)).count();
                 int part = 0;
                 for (PixelCellDisplay c : originalPixels) {
                     PixelCellDisplay drawnPixel = drawnPixels.stream().filter(item -> item.getRowNum() == c.getRowNum() && item.getColNum() == c.getColNum()).findFirst().orElse(null);
