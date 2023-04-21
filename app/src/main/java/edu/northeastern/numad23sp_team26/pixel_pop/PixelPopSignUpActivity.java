@@ -56,7 +56,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         // Sign up and case handling
         signUpButton.setOnClickListener(v -> {
             signUpErrorTV.setText("");
-            signUpErrorTV.setVisibility(View.GONE);
+            signUpErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {

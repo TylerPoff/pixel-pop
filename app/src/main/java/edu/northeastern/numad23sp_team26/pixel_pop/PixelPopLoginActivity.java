@@ -48,7 +48,7 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         // Log in and case handling
         loginButton.setOnClickListener(v -> {
             loginErrorTV.setText("");
-            loginErrorTV.setVisibility(View.GONE);
+            loginErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
