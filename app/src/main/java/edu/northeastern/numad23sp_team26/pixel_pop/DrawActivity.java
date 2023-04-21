@@ -88,7 +88,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
         Button resetBtn = findViewById(R.id.resetBtn);
-        resetBtn.setOnClickListener(v -> drawView.resetFills());
+        resetBtn.setOnClickListener(v -> createResetAlertDialog());
 
         Button doneBtn = findViewById(R.id.doneBtn);
         doneBtn.setOnClickListener(v -> handleDone());
@@ -152,7 +152,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                     sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
                     shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                 });
-        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.shake_reset_popup, null);
+        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
         Button noBtn = ShakeResetPopupView.findViewById(R.id.noBtn);
         Button yesBtn = ShakeResetPopupView.findViewById(R.id.yesBtn);
         dialogBuilder.setView(ShakeResetPopupView);
@@ -202,6 +202,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         dialog.show();
         okBtn.setOnClickListener(v -> dialog.dismiss());
     }
+
     @Override
     public void onBackPressed() {
         createQuitAlertDialog();
@@ -247,6 +248,22 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
             displayTimerThread.start();
         }
+    }
+
+    private void createResetAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View ResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
+        Button noBtn = ResetPopupView.findViewById(R.id.noBtn);
+        Button yesBtn = ResetPopupView.findViewById(R.id.yesBtn);
+        dialogBuilder.setView(ResetPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        noBtn.setOnClickListener(v -> dialog.dismiss());
+        yesBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            drawView.resetFills();
+        });
     }
 
     private void handleDone() {

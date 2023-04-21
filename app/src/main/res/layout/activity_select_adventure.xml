@@ -148,7 +148,7 @@
         app:barrierDirection="bottom"
         app:constraint_referenced_ids="hello_username" />
 
-    <com.google.android.material.divider.MaterialDivider
+    <View
         android:id="@+id/divider"
         android:layout_width="0dp"
         android:layout_height="1dp"
