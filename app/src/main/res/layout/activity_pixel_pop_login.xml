@@ -16,36 +16,54 @@
         app:layout_constraintTop_toTopOf="parent"
         android:fillViewport="true">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp"
-            android:gravity="center">
+            android:padding="15dp">
 
             <ImageView
                 android:id="@+id/title"
+                android:layout_width="300dp"
+                android:layout_height="0dp"
+                android:layout_margin="10dp"
+                android:padding="5dp"
+                app:layout_constraintBottom_toTopOf="@+id/guideline"
+                app:layout_constraintDimensionRatio="2:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.5"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_chainStyle="packed"
+                app:srcCompat="@drawable/pixel_pop_logo" />
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:src="@drawable/pixel_pop_logo" />
+                android:orientation="horizontal"
+                app:layout_constraintGuide_percent="0.25" />
 
-<!--            <TextView-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_gravity="center_horizontal"-->
-<!--                android:text="@string/login"-->
-<!--                android:fontFamily="@font/arcade"-->
-<!--                android:textColor="@color/black"-->
-<!--                android:textSize="44sp"-->
-<!--                android:textStyle="bold" />-->
+            <TextView
+                android:id="@+id/loginTV"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/arcade"
+                android:text="@string/login"
+                android:textColor="@color/black"
+                android:textSize="44sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/guideline" />
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginEmailTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="25dp"
                 android:hint="@string/email"
-                app:boxStrokeColor="@color/orange">
+                app:boxStrokeColor="@color/orange"
+                app:layout_constraintTop_toBottomOf="@+id/loginTV">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_email"
@@ -57,11 +75,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/loginPassTIL"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="15dp"
                 android:hint="@string/password"
-                app:boxStrokeColor="@color/orange">
+                app:boxStrokeColor="@color/orange"
+                app:layout_constraintTop_toBottomOf="@+id/loginEmailTIL">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/login_password"
@@ -71,47 +91,52 @@
                     android:minHeight="48dp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/login_error_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/error_background"
+                android:padding="8dp"
+                android:shadowDx="1"
+                android:shadowDy="1"
+                android:shadowRadius="2"
+                android:text=""
+                android:textColor="@android:color/holo_red_dark"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/loginPassTIL" />
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login_button"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="24dp"
+                android:layout_marginTop="10dp"
                 android:background="@drawable/primary_button_custom"
-                android:text="@string/login" />
+                android:text="@string/login"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/login_error_tv" />
 
             <TextView
                 android:id="@+id/login_signup_redirect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="16dp"
-                android:text="@string/dont_have_an_account"
-                android:textColor="@color/black"
+                android:layout_marginTop="15dp"
+                android:background="@drawable/dirt_button_custom"
+                android:padding="5dp"
                 android:shadowColor="#665E4E"
                 android:shadowDx="1"
                 android:shadowDy="1"
-                android:shadowRadius="2" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:layout_marginTop="16dp"
-                android:gravity="center_horizontal"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/login_error_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/error_background"
-                    android:padding="8dp"
-                    android:text=""
-                    android:textColor="@android:color/holo_red_dark"
-                    android:shadowDx="1"
-                    android:shadowDy="1"
-                    android:shadowRadius="2"
-                    android:visibility="gone" />
-            </LinearLayout>
-        </LinearLayout>
+                android:shadowRadius="2"
+                android:text="@string/dont_have_an_account"
+                android:textColor="@color/black"
+                android:textSize="15sp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/login_button" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

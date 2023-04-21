@@ -11,11 +11,14 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/danger_button_custom"
-        android:text="@string/quit"
+        android:text="@string/quit_level"
+        android:gravity="center"
         android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <!--
     <Button
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
@@ -25,13 +28,41 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quitBtn"
         app:layout_constraintTop_toTopOf="parent" />
+    -->
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchShakeErase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="0dp"
+        android:paddingVertical="0dp"
+        android:text="@string/shake_to_erase"
+        android:textColor="#5A5A5A"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/secondary_button_custom"
+        android:text="@string/skip_countdown"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:padding="5dp"
+        android:drawableEnd="@drawable/skip_next"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="quitBtn" />
+        app:constraint_referenced_ids="quitBtn, switchShakeErase" />
 
     <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
         android:id="@+id/drawView"
@@ -180,7 +211,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="20dp"
-            android:background="@drawable/primary_button_custom"
+            android:background="@drawable/danger_button_custom"
             android:paddingVertical="20dp"
             android:text="@string/reset"
             android:textSize="25sp"
@@ -228,15 +259,15 @@
 
     <TextView
         android:id="@+id/displayTimer"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:fontFamily="@font/arcade"
-        android:textColor="@color/black"
-        android:textSize="80sp"
         android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/barrier"/>
+        android:textColor="@color/black"
+        android:textSize="75dp"
+        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
+        app:layout_constraintEnd_toStartOf="@+id/switchShakeErase"
+        app:layout_constraintStart_toEndOf="@+id/quitBtn"
+        app:layout_constraintTop_toTopOf="@+id/quitBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

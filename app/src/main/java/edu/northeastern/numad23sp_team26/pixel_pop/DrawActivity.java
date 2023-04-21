@@ -1,23 +1,28 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.content.Context;
+import android.hardware.SensorManager;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.squareup.seismic.ShakeDetector;
+
 import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.ResultsActivity;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 import android.util.Log;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -28,7 +33,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawActivity extends AppCompatActivity {
+public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
 
     private static final String TAG = "pixel_pop.DrawActivity";
     private DrawView drawView;
@@ -40,6 +45,14 @@ public class DrawActivity extends AppCompatActivity {
     private Handler handler = new Handler();
     private String adventure;
     private int levelNum;
+    private int maxLevels;
+    private SwitchMaterial shakeToEraseSwitch;
+    private SensorManager sensorManager;
+    private boolean shouldShake = false;
+    private ShakeDetector shakeDetector;
+    private int noCount = 0;
+    private Button skipBtn;
+    private DisplayTimerThread displayTimerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +64,32 @@ public class DrawActivity extends AppCompatActivity {
         memorizeTV = findViewById(R.id.memorizeTV);
         drawPalette = findViewById(R.id.drawPalette);
 
+        skipBtn = findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(v -> {
+            if (displayTimerThread != null) {
+                displayTimerThread.interrupt();
+            }
+        });
+
+        shakeToEraseSwitch = findViewById(R.id.switchShakeErase);
+        shakeToEraseSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            shouldShake = isChecked;
+            if (shouldShake) {
+                Toast.makeText(this, "Shake to reset enabled", Toast.LENGTH_SHORT).show();
+                shakeDetector = new ShakeDetector(this);
+                sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+                shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+            } else {
+                Toast.makeText(this, "Shake to reset disabled", Toast.LENGTH_SHORT).show();
+                if (shakeDetector != null) {
+                    shakeDetector.stop();
+                }
+            }
+        });
+
+        Button quitBtn = findViewById(R.id.quitBtn);
+        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
@@ -58,7 +97,7 @@ public class DrawActivity extends AppCompatActivity {
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
         Button resetBtn = findViewById(R.id.resetBtn);
-        resetBtn.setOnClickListener(v -> drawView.resetFills());
+        resetBtn.setOnClickListener(v -> createResetAlertDialog());
 
         Button doneBtn = findViewById(R.id.doneBtn);
         doneBtn.setOnClickListener(v -> handleDone());
@@ -69,10 +108,12 @@ public class DrawActivity extends AppCompatActivity {
             Bundle extras = getIntent().getExtras();
             adventure = extras.getString("adventure");
             levelNum = extras.getInt("levelNum");
+            maxLevels = extras.getInt("maxLevels");
             colorList = extras.getIntegerArrayList("colorList");
 
             setPixelImageProperties();
 
+            /*
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
                 PixelImage currentImage = new PixelImage(adventure, levelNum, 30, 600, drawView.getPixelCellsDisplay());
@@ -87,7 +128,93 @@ public class DrawActivity extends AppCompatActivity {
                     }
                 }
             });
+            */
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if (shouldShake) {
+            shakeDetector = new ShakeDetector(this);
+            sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (shakeDetector != null) {
+            shakeDetector.stop();
+        }
+    }
+
+    @Override
+    public void hearShake() {
+        if (shakeDetector != null) {
+            shakeDetector.stop();
+        }
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this)
+                .setOnCancelListener(d -> {
+                    shakeDetector = new ShakeDetector(this);
+                    sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+                    shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+                });
+        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
+        Button noBtn = ShakeResetPopupView.findViewById(R.id.noBtn);
+        Button yesBtn = ShakeResetPopupView.findViewById(R.id.yesBtn);
+        dialogBuilder.setView(ShakeResetPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        noBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            // Add to the no count
+            noCount++;
+            if (noCount == 3) {
+                // Reset noCount
+                noCount = 0;
+                shouldShake = false;
+                shakeToEraseSwitch.setChecked(false);
+                // If the shake detector is active, stop it
+                if (shakeDetector != null) {
+                    shakeDetector.stop();
+                }
+
+                showSimpleDialog();
+            } else {
+                shakeDetector = new ShakeDetector(this);
+                sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+                shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+            }
+        });
+        yesBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            drawView.resetFills();
+            shakeDetector = new ShakeDetector(this);
+            sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
+            shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
+
+            // A yes should reset the no count
+            noCount = 0;
+        });
+    }
+
+    private void  showSimpleDialog(){
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View ShakeDisabledPopupView = getLayoutInflater().inflate(R.layout.shake_disabled_popup, null);
+        Button okBtn = ShakeDisabledPopupView.findViewById(R.id.okBtn);
+        dialogBuilder.setView(ShakeDisabledPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        okBtn.setOnClickListener(v -> dialog.dismiss());
+    }
+
+    @Override
+    public void onBackPressed() {
+        createQuitAlertDialog();
     }
 
     private void setPixelImageProperties() {
@@ -121,22 +248,41 @@ public class DrawActivity extends AppCompatActivity {
         List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
+            shakeToEraseSwitch.setVisibility(View.INVISIBLE);
+            skipBtn.setVisibility(View.VISIBLE);
             memorizeTV.setVisibility(View.VISIBLE);
             drawPalette.setVisibility(View.INVISIBLE);
             drawView.setIsEditable(false);
             drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
             displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
-            DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
+            displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
             displayTimerThread.start();
         }
+    }
+
+    private void createResetAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View ResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
+        Button noBtn = ResetPopupView.findViewById(R.id.noBtn);
+        Button yesBtn = ResetPopupView.findViewById(R.id.yesBtn);
+        dialogBuilder.setView(ResetPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        noBtn.setOnClickListener(v -> dialog.dismiss());
+        yesBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            drawView.resetFills();
+        });
     }
 
     private void handleDone() {
         Intent intent = new Intent (getApplicationContext(), ResultsActivity.class);
 
         Bundle extras = new Bundle();
-        extras.putString("adventure", "animals");
+        extras.putString("adventure", adventure);
         extras.putInt("levelNum", levelNum);
+        extras.putInt("maxLevels", maxLevels);
         extras.putIntegerArrayList("colorList", colorList);
         extras.putParcelableArrayList("originalPixels", new ArrayList<>(drawView.getPixelCellsDisplay()));
         extras.putParcelableArrayList("drawnPixels", new ArrayList<>(drawView.getPixelCellsState()));
@@ -172,7 +318,25 @@ public class DrawActivity extends AppCompatActivity {
         }
     }
 
+    private void createQuitAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View QuitPopupView = getLayoutInflater().inflate(R.layout.quit_level_popup, null);
+        Button cancelBtn = QuitPopupView.findViewById(R.id.cancelBtn);
+        Button quitBtn = QuitPopupView.findViewById(R.id.quitBtn);
+        dialogBuilder.setView(QuitPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        quitBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            finish();
+        });
+    }
+
     private class DisplayTimerThread extends Thread {
+
+        private volatile boolean flag = false;
         private int displaySecondsTimer;
 
         public DisplayTimerThread(int displaySecondsTimer) {
@@ -181,8 +345,8 @@ public class DrawActivity extends AppCompatActivity {
 
         @Override
         public void run() {
-            for (int i = 0; i < displaySecondsTimer; i++) {
-                try {
+            try {
+                for (int i = 0; i < displaySecondsTimer; i++) {
                     Thread.sleep(1000);
                     int currentTime = displaySecondsTimer - i - 1;
                     handler.post(() -> {
@@ -199,13 +363,35 @@ public class DrawActivity extends AppCompatActivity {
                         handler.post(() -> {
                             displayTimer.setTextColor(Color.BLACK);
                             displayTimer.setText("Draw");
+                            skipBtn.setVisibility(View.INVISIBLE);
                             memorizeTV.setVisibility(View.INVISIBLE);
                             drawPalette.setVisibility(View.VISIBLE);
+                            shakeToEraseSwitch.setVisibility(View.VISIBLE);
                         });
                     }
-                } catch (InterruptedException e) {
-                    Log.e(TAG, "InterruptedException");
                 }
+            } catch (InterruptedException e) {
+                // Interrupted
+            }
+        }
+
+        @Override
+        public void interrupt() {
+            try {
+                // Change to draw mode
+                drawView.resetFills();
+                drawView.setIsEditable(true);
+                handler.post(() -> {
+                    displayTimer.setTextColor(Color.BLACK);
+                    displayTimer.setText("Draw");
+                    skipBtn.setVisibility(View.INVISIBLE);
+                    memorizeTV.setVisibility(View.INVISIBLE);
+                    drawPalette.setVisibility(View.VISIBLE);
+                    shakeToEraseSwitch.setVisibility(View.VISIBLE);
+                });
+            }
+            finally {
+                super.interrupt();
             }
         }
     }

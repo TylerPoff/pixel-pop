@@ -16,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -55,7 +56,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         // Sign up and case handling
         signUpButton.setOnClickListener(v -> {
             signUpErrorTV.setText("");
-            signUpErrorTV.setVisibility(View.GONE);
+            signUpErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
@@ -69,7 +70,6 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
@@ -115,7 +115,7 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
     private void addUserToDatabase(FirebaseUser user) {
         if (user != null) {
             DatabaseReference usersRef = database.getReference("Users");
-            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture());
+            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture(), new ArrayList<>());
             usersRef.child(user.getUid()).setValue(pixelPopUser);
         }
     }

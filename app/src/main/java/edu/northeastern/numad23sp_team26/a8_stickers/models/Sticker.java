@@ -11,7 +11,7 @@ public class Sticker implements Parcelable {
     private String fileName;
 
     public Sticker() {
-        // Default constructor required for calls to DataSnapshot.getValue(StickerSent.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Sticker.class)
     }
 
     public Sticker(String name, String fileName) {

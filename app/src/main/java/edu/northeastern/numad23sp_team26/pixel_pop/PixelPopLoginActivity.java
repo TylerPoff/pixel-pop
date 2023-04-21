@@ -1,4 +1,5 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -47,7 +48,7 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         // Log in and case handling
         loginButton.setOnClickListener(v -> {
             loginErrorTV.setText("");
-            loginErrorTV.setVisibility(View.GONE);
+            loginErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
@@ -61,7 +62,6 @@ public class PixelPopLoginActivity extends AppCompatActivity {
             }
         });
     }
-
 
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
