@@ -51,6 +51,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private boolean shouldShake = false;
     private ShakeDetector shakeDetector;
     private int noCount = 0;
+    private Button skipBtn;
+    private DisplayTimerThread displayTimerThread;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,13 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         displayTimer = findViewById(R.id.displayTimer);
         memorizeTV = findViewById(R.id.memorizeTV);
         drawPalette = findViewById(R.id.drawPalette);
+
+        skipBtn = findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(v -> {
+            if (displayTimerThread != null) {
+                displayTimerThread.interrupt();
+            }
+        });
 
         shakeToEraseSwitch = findViewById(R.id.switchShakeErase);
         shakeToEraseSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -239,13 +248,14 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
-            runOnUiThread(() -> shakeToEraseSwitch.setVisibility(View.INVISIBLE));
+            shakeToEraseSwitch.setVisibility(View.INVISIBLE);
+            skipBtn.setVisibility(View.VISIBLE);
             memorizeTV.setVisibility(View.VISIBLE);
             drawPalette.setVisibility(View.INVISIBLE);
             drawView.setIsEditable(false);
             drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
             displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
-            DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
+            displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
             displayTimerThread.start();
         }
     }
@@ -325,6 +335,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     }
 
     private class DisplayTimerThread extends Thread {
+
+        private volatile boolean flag = false;
         private int displaySecondsTimer;
 
         public DisplayTimerThread(int displaySecondsTimer) {
@@ -333,8 +345,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
         @Override
         public void run() {
-            for (int i = 0; i < displaySecondsTimer; i++) {
-                try {
+            try {
+                for (int i = 0; i < displaySecondsTimer; i++) {
                     Thread.sleep(1000);
                     int currentTime = displaySecondsTimer - i - 1;
                     handler.post(() -> {
@@ -351,14 +363,35 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                         handler.post(() -> {
                             displayTimer.setTextColor(Color.BLACK);
                             displayTimer.setText("Draw");
+                            skipBtn.setVisibility(View.INVISIBLE);
                             memorizeTV.setVisibility(View.INVISIBLE);
                             drawPalette.setVisibility(View.VISIBLE);
                             shakeToEraseSwitch.setVisibility(View.VISIBLE);
                         });
                     }
-                } catch (InterruptedException e) {
-                    Log.e(TAG, "InterruptedException");
                 }
+            } catch (InterruptedException e) {
+                // Interrupted
+            }
+        }
+
+        @Override
+        public void interrupt() {
+            try {
+                // Change to draw mode
+                drawView.resetFills();
+                drawView.setIsEditable(true);
+                handler.post(() -> {
+                    displayTimer.setTextColor(Color.BLACK);
+                    displayTimer.setText("Draw");
+                    skipBtn.setVisibility(View.INVISIBLE);
+                    memorizeTV.setVisibility(View.INVISIBLE);
+                    drawPalette.setVisibility(View.VISIBLE);
+                    shakeToEraseSwitch.setVisibility(View.VISIBLE);
+                });
+            }
+            finally {
+                super.interrupt();
             }
         }
     }

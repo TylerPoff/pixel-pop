@@ -85,4 +85,5 @@
     <string name="yes">Yes</string>
     <string name="shake_disabled_msg">Shake To Erase has been turned off! Re-toggle to turn it back on.</string>
     <string name="ok">Ok</string>
+    <string name="skip_countdown">Skip Countdown</string>
 </resources>

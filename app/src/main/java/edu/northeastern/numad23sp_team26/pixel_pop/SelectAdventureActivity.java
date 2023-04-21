@@ -126,6 +126,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
     private void getCurrentUser() {
         progressBar.setVisibility(View.VISIBLE);
         spinner.setEnabled(false);
+        joinMultiplayerBtn.setEnabled(false);
         String uid = mAuth.getCurrentUser().getUid();
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -144,6 +145,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
             }
             progressBar.setVisibility(View.INVISIBLE);
             spinner.setEnabled(true);
+            joinMultiplayerBtn.setEnabled(true);
         });
     }
 }
