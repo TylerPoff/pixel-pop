@@ -115,7 +115,8 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
     private void addUserToDatabase(FirebaseUser user) {
         if (user != null) {
             DatabaseReference usersRef = database.getReference("Users");
-            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture(), new ArrayList<>());
+            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture(),
+                    new ArrayList<>(), new ArrayList<>());
             usersRef.child(user.getUid()).setValue(pixelPopUser);
         }
     }
