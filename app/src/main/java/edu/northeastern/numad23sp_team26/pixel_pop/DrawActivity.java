@@ -107,7 +107,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             /*
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
-                PixelImage currentImage = new PixelImage(adventure, levelNum, 600, 600, drawView.getPixelCellsDisplay());
+                PixelImage currentImage = new PixelImage(adventure, levelNum, 30, 600, drawView.getPixelCellsDisplay());
                 String jsonToLog =  gson.toJson(currentImage);
                 int chunkCount = jsonToLog.length() / 4000;
                 for (int i = 0; i <= chunkCount; i++) {

@@ -9,49 +9,48 @@ import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 
-public class VideoGameAdventureActivity extends AdventureActivity {
+public class FruitsAdventureActivity extends AdventureActivity {
 
-    private Button button1, button2, button3, button4, button5;
-    private final String ADVENTURE_TYPE = "video game";
+    private Button fruit_button1, fruit_button2, fruit_button3, fruit_button4, fruit_button5;
+    private final String ADVENTURE_TYPE = "fruits";
     private final int MAX_LEVELS = 5;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_video_game_adventure);
+        setContentView(R.layout.activity_fruits_adventure);
 
-        button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
+        fruit_button1 = findViewById(R.id.fruit_button1);
+        fruit_button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
 
-        button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
+        fruit_button2 = findViewById(R.id.fruit_button2);
+        fruit_button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
 
-        button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
+        fruit_button3 = findViewById(R.id.fruit_button3);
+        fruit_button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
 
-        button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
+        fruit_button4 = findViewById(R.id.fruit_button4);
+        fruit_button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
 
-        button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+        fruit_button5 = findViewById(R.id.fruit_button5);
+        fruit_button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getUnlockedLevels("video game");
+        getUnlockedLevels(ADVENTURE_TYPE);
     }
 
-    @Override
     public void openActivityPixelDraw(int levelNum) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
-        colorList.add(getColor(R.color.green));
+        colorList.add(getColor(R.color.nature_green));
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
-        colorList.add(getColor(R.color.orange));
-        colorList.add(getColor(R.color.maple));
+        colorList.add(getColor(R.color.fruit_orange));
+        colorList.add(getColor(R.color.purple_500));
         colorList.add(getColor(R.color.brown));
 
         Intent intent = new Intent(this, DrawActivity.class);
@@ -71,19 +70,19 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         for (int l : unlockLevels) {
             switch (l) {
                 case 1:
-                    button1.setEnabled(true);
+                    fruit_button1.setEnabled(true);
                     break;
                 case 2:
-                    button2.setEnabled(true);
+                    fruit_button2.setEnabled(true);
                     break;
                 case 3:
-                    button3.setEnabled(true);
+                    fruit_button3.setEnabled(true);
                     break;
                 case 4:
-                    button4.setEnabled(true);
+                    fruit_button4.setEnabled(true);
                     break;
                 case 5:
-                    button5.setEnabled(true);
+                    fruit_button5.setEnabled(true);
                     break;
             }
         }

@@ -60,6 +60,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
         ArrayList<String> arrayList = new ArrayList<>();
         arrayList.add("Select Adventure");
         arrayList.add("Nature (Easy)");
+        arrayList.add("Fruit Stand (Normal)");
         arrayList.add("Video Game (Hard)");
         ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.spinner_item, arrayList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -89,6 +90,9 @@ public class SelectAdventureActivity extends AppCompatActivity {
                 case "Nature (Easy)":
                     openActivityAnimals();
                     break;
+                case "Fruit Stand (Normal)":
+                openActivityFruits();
+                    break;
                 case "Video Game (Hard)":
                     openActivityVideoGame();
                     break;
@@ -111,6 +115,11 @@ public class SelectAdventureActivity extends AppCompatActivity {
 
     public void openActivityVideoGame() {
         Intent intent = new Intent(this, VideoGameAdventureActivity.class);
+        startActivity(intent);
+    }
+
+    public void openActivityFruits() {
+        Intent intent = new Intent(this, FruitsAdventureActivity.class);
         startActivity(intent);
     }
 

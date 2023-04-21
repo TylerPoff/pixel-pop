@@ -13,6 +13,8 @@ public class AnimalsAdventureActivity extends AdventureActivity {
 
     private Button animals_pixel_drawing_1_button, animals_pixel_drawing_2_button, animals_pixel_drawing_3_button, animals_pixel_drawing_4_button, animals_pixel_drawing_5_button;
     private final String ADVENTURE_TYPE = "animals";
+    private final int MAX_LEVELS = 5;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +59,7 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         Bundle extras = new Bundle();
         extras.putString("adventure", ADVENTURE_TYPE);
         extras.putInt("levelNum", levelNum);
-        extras.putInt("maxLevels", 5);
+        extras.putInt("maxLevels", MAX_LEVELS);
         extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
 

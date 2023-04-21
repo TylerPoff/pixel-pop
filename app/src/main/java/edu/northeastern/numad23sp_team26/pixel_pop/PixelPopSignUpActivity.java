@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -55,12 +56,15 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         // Sign up and case handling
         signUpButton.setOnClickListener(v -> {
             signUpErrorTV.setText("");
+            signUpErrorTV.setVisibility(View.GONE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
                 signUpErrorTV.setText("Please enter your email.");
+                signUpErrorTV.setVisibility(View.VISIBLE);
             } else if (password.isEmpty()) {
                 signUpErrorTV.setText("Please enter your password.");
+                signUpErrorTV.setVisibility(View.VISIBLE);
             } else {
                 signUp();
             }
