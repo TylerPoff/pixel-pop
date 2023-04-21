@@ -63,6 +63,19 @@ public abstract class AdventureActivity extends AppCompatActivity {
         });
     }
 
+    public void createGameIdDialog(String gameID) {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View GameIdPopupView = getLayoutInflater().inflate(R.layout.activity_host_multiplayer, null);
+        TextView gameIdTV = GameIdPopupView.findViewById(R.id.gameIdTV);
+        gameIdTV.setText(getString(R.string.game_id, gameID));
+        Button okBtn = GameIdPopupView.findViewById(R.id.okBtn);
+        dialogBuilder.setView(GameIdPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        okBtn.setOnClickListener(v -> dialog.dismiss());
+    }
+
     public void createAlertDialog(int levelNum, String adventure) {
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View AdventurePopupView = getLayoutInflater().inflate(R.layout.adventure_popup, null);

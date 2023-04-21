@@ -76,8 +76,8 @@
     <string name="quit">Quit</string>
     <string name="shake_to_erase">Shake to reset</string>
     <string name="singleplayer">Singleplayer</string>
-    <string name="host_multiplayer">Host multiplayer</string>
-    <string name="join_multiplayer">Join multiplayer</string>
+    <string name="host_multiplayer">Host online co-op</string>
+    <string name="join_multiplayer">Join online co-op</string>
     <string name="your_top_scores">Your top scores:</string>
     <string name="no_top_score">No top score available.\nCreate one now!</string>
     <string name="reset_msg">Are you sure you want to reset your drawing?</string>
@@ -86,4 +86,5 @@
     <string name="shake_disabled_msg">Shake To Erase has been turned off! Re-toggle to turn it back on.</string>
     <string name="ok">Ok</string>
     <string name="skip_countdown">Skip Countdown</string>
+    <string name="game_id">Game ID: %1$s</string>
 </resources>

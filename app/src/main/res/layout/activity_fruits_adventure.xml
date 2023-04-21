@@ -88,6 +88,20 @@
         app:layout_constraintTop_toTopOf="@id/backgroundImageView"
         app:layout_constraintVertical_bias="0.301" />
 
+    <TextView
+        android:id="@+id/gameIdTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blur_background"
+        android:fontFamily="@font/press_start_2p"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:text="@string/game_id"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImageView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
