@@ -1,5 +1,6 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ public class JoinMultiplayerActivity extends AppCompatActivity {
     private Button joinBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
+    private String activeGameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,19 @@ public class JoinMultiplayerActivity extends AppCompatActivity {
         joinBtn.setOnClickListener(v -> joinMultiplayerGame());
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        activeGameID = null;
+        errorTV.setText("");
+        errorTV.setVisibility(View.INVISIBLE);
+    }
+
     private void joinMultiplayerGame() {
         String gameID = gameIdEditText.getText().toString().trim();
+
+        errorTV.setText("");
+        errorTV.setVisibility(View.INVISIBLE);
 
         if (gameID.isEmpty()) {
             errorTV.setText("Please enter a game ID");
@@ -52,8 +65,6 @@ public class JoinMultiplayerActivity extends AppCompatActivity {
             return;
         }
 
-        errorTV.setText("");
-        errorTV.setVisibility(View.INVISIBLE);
         databaseRef.child("MultiplayerGames").child(gameID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -62,8 +73,20 @@ public class JoinMultiplayerActivity extends AppCompatActivity {
                     errorTV.setText("Could not find game");
                     errorTV.setVisibility(View.VISIBLE);
                 } else {
-                    multiGame.playerTwoID = mAuth.getCurrentUser().getUid();
-                    databaseRef.child("MultiplayerGames").child(multiGame.gameID).getRef().setValue(multiGame);
+                    if (multiGame.playerTwoID.isEmpty()) {
+                        multiGame.playerTwoID = mAuth.getCurrentUser().getUid();
+                        activeGameID = multiGame.gameID;
+                        databaseRef.child("MultiplayerGames").child(activeGameID).getRef().setValue(multiGame);
+
+                        Intent intent = new Intent(JoinMultiplayerActivity.this, WaitJoinMultiplayerActivity.class);
+                        Bundle extras = new Bundle();
+                        extras.putString("gameID", activeGameID);
+                        intent.putExtras(extras);
+                        startActivity(intent);
+                    } else if (activeGameID == null) {
+                        errorTV.setText("Unable to join");
+                        errorTV.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 

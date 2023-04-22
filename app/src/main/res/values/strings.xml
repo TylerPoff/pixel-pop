@@ -87,9 +87,12 @@
     <string name="ok">Ok</string>
     <string name="skip_timer">Skip timer</string>
     <string name="game_id">Game ID: %1$s</string>
-    <string name="waiting_for_player_two_to_join">Waiting for player two to join...</string>
-    <string name="stay_on_this_page">Please stay on this page.</string>
-    <string name="provide_game_id_msg">Please provide the game ID to player two.</string>
+    <string name="waiting_for_player_two_to_join">Waiting for player two to join…</string>
+    <string name="stay_on_this_page">Please stay on this page</string>
+    <string name="provide_game_id_msg">Please provide the game ID to player two</string>
     <string name="game_id_hint">Game ID</string>
     <string name="join">Join</string>
+    <string name="waiting_for_host">Waiting for host to start game…</string>
+    <string name="online_session_ended">Online session ended</string>
+    <string name="other_player_disconnected">Other player disconnected</string>
 </resources>

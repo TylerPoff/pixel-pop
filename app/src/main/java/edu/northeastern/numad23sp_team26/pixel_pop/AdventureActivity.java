@@ -1,5 +1,6 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -10,14 +11,11 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
@@ -30,22 +28,66 @@ import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiScore;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelPopUser;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelScore;
 
-public abstract class AdventureActivity extends AppCompatActivity {
+public abstract class AdventureActivity extends MultiPlayCommonActivity {
 
     private static final String TAG = "pixel_pop.AdventureActivity";
     private String playerTwoEmail;
     private View MultiAdventurePopupView;
     private TextView playTwoTxt;
     private ProgressBar progressBar;
+    private Button multiPlayStartBtn;
+    private FirebaseAuth mAuth;
+    private AlertDialog gameIdDialog, adventureDialog, multiAdventureDialog;
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mAuth = FirebaseAuth.getInstance();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        TextView gameIdTV = findViewById(R.id.gameIdTV);
+        if (multiPlayGameID.isEmpty()) {
+            gameIdTV.setVisibility(View.INVISIBLE);
+        } else {
+            gameIdTV.setText(getString(R.string.game_id, multiPlayGameID));
+            createGameIdDialog(multiPlayGameID);
+            listenPlayerTwoJoin(multiPlayGameID);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        if (!multiPlayGameID.isEmpty()) {
+            if (gameIdDialog != null) {
+                gameIdDialog.dismiss();
+            }
+
+            if (adventureDialog != null) {
+                adventureDialog.dismiss();
+            }
+
+            if (multiAdventureDialog != null) {
+                multiAdventureDialog.dismiss();
+            }
+
+            multiPlayGameID = "";
+            finish();
+        }
+    }
 
     public abstract void openActivityPixelDraw(int levelNum);
 
     public abstract void updateUnlockLevels(List<Integer> unlockLevels);
 
+    // TODO: get unlocked for multiplayer
     public void getUnlockedLevels(String adventure) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-
         String uid = mAuth.getCurrentUser().getUid();
 
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
@@ -83,10 +125,10 @@ public abstract class AdventureActivity extends AppCompatActivity {
         gameIdTV.setText(getString(R.string.game_id, gameID));
         Button okBtn = GameIdPopupView.findViewById(R.id.okBtn);
         dialogBuilder.setView(GameIdPopupView);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.show();
-        okBtn.setOnClickListener(v -> dialog.dismiss());
+        gameIdDialog = dialogBuilder.create();
+        gameIdDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        gameIdDialog.show();
+        okBtn.setOnClickListener(v -> gameIdDialog.dismiss());
     }
 
     public void createAlertDialog(int levelNum, String adventure) {
@@ -94,8 +136,7 @@ public abstract class AdventureActivity extends AppCompatActivity {
         final View AdventurePopupView = getLayoutInflater().inflate(R.layout.adventure_popup, null);
         TextView adventure_level_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_level_txt);
         TextView three_top_scores_txt = (TextView) AdventurePopupView.findViewById(R.id.adventure_popup_top_scores_txt2);
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
+
         String uid = mAuth.getCurrentUser().getUid();
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
@@ -129,19 +170,18 @@ public abstract class AdventureActivity extends AppCompatActivity {
         Button back_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_back_btn);
         Button start_btn = (Button) AdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
         dialogBuilder.setView(AdventurePopupView);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.show();
+        adventureDialog = dialogBuilder.create();
+        adventureDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        adventureDialog.show();
         adventure_level_txt.setText(getString(R.string.level_num, levelNum));
-        back_btn.setOnClickListener(v -> dialog.dismiss());
+        back_btn.setOnClickListener(v -> adventureDialog.dismiss());
         start_btn.setOnClickListener(v -> {
-            dialog.dismiss();
+            adventureDialog.dismiss();
             openActivityPixelDraw(levelNum);
         });
     }
 
     public void listenPlayerTwoJoin(String gameID) {
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
         databaseRef.child("MultiplayerGames").child(gameID).addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -166,6 +206,7 @@ public abstract class AdventureActivity extends AppCompatActivity {
                                 if (MultiAdventurePopupView != null) {
                                     playTwoTxt.setText("Player Two: " + playerTwoEmail.split("@")[0]);
                                     progressBar.setVisibility(View.INVISIBLE);
+                                    multiPlayStartBtn.setEnabled(true);
                                 }
                             }
                         }
@@ -196,17 +237,14 @@ public abstract class AdventureActivity extends AppCompatActivity {
     }
 
     public void createMultiAlertDialog(int levelNum, String adventure) {
-        FirebaseAuth mAuth = FirebaseAuth.getInstance();
-        DatabaseReference databaseRef = FirebaseDatabase.getInstance().getReference();
-
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         MultiAdventurePopupView = getLayoutInflater().inflate(R.layout.multi_adventure_popup, null);
         playTwoTxt = (TextView) MultiAdventurePopupView.findViewById(R.id.adventure_popup_player_two_txt);
         progressBar = (ProgressBar) MultiAdventurePopupView.findViewById(R.id.progressBar);
+        multiPlayStartBtn = (Button) MultiAdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
         TextView adventure_level_txt = (TextView) MultiAdventurePopupView.findViewById(R.id.adventure_popup_level_txt);
         TextView three_top_scores_txt = (TextView) MultiAdventurePopupView.findViewById(R.id.adventure_popup_top_scores_txt2);
         Button back_btn = (Button) MultiAdventurePopupView.findViewById(R.id.adventure_popup_back_btn);
-        Button start_btn = (Button) MultiAdventurePopupView.findViewById(R.id.adventure_popup_start_btn);
 
         String uid = mAuth.getCurrentUser().getUid();
         databaseRef.child("Users").child(uid).get().addOnCompleteListener(task -> {
@@ -239,20 +277,23 @@ public abstract class AdventureActivity extends AppCompatActivity {
         });
 
         dialogBuilder.setView(MultiAdventurePopupView);
-        AlertDialog multiDialog = dialogBuilder.create();
-        multiDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        multiDialog.show();
+        multiAdventureDialog = dialogBuilder.create();
+        multiAdventureDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        multiAdventureDialog.show();
 
         adventure_level_txt.setText(getString(R.string.level_num, levelNum));
 
         if (playerTwoEmail != null && !playerTwoEmail.isEmpty()) {
             playTwoTxt.setText("Player Two: " + playerTwoEmail.split("@")[0]);
             progressBar.setVisibility(View.INVISIBLE);
+            multiPlayStartBtn.setEnabled(true);
+        } else {
+            multiPlayStartBtn.setEnabled(false);
         }
 
-        back_btn.setOnClickListener(v -> multiDialog.dismiss());
-        start_btn.setOnClickListener(v -> {
-            multiDialog.dismiss();
+        back_btn.setOnClickListener(v -> multiAdventureDialog.dismiss());
+        multiPlayStartBtn.setOnClickListener(v -> {
+            multiAdventureDialog.dismiss();
             openActivityPixelDraw(levelNum);
         });
     }
