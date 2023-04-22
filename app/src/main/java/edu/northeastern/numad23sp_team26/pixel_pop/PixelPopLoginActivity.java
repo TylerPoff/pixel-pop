@@ -92,14 +92,14 @@ public class PixelPopLoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_LONG).show();
                         // Redirect to main activity or another relevant activity
                         redirectToSelectAdventureActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Exception exception = task.getException();
                         String errorMessage = exception != null ? exception.getMessage() : "Registration failed.";
-                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(this, e -> {
                     Log.e("PixelPopLogin", "Error: " + e.getMessage());
