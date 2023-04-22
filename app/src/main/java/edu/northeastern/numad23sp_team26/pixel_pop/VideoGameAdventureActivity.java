@@ -106,6 +106,8 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         player.start();
         player.setLooping(true);
     }
+
+    //Could create button for musicStop
     public void musicStop() {
         if (player != null) {
             player.release();
