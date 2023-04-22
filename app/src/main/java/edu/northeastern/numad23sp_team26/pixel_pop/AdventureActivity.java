@@ -62,8 +62,6 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
 
     @Override
     protected void onStop() {
-        super.onStop();
-
         if (!multiPlayGameID.isEmpty()) {
             if (gameIdDialog != null) {
                 gameIdDialog.dismiss();
@@ -76,10 +74,9 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
             if (multiAdventureDialog != null) {
                 multiAdventureDialog.dismiss();
             }
-
-            multiPlayGameID = "";
-            finish();
         }
+
+        super.onStop();
     }
 
     public abstract void openActivityPixelDraw(int levelNum);

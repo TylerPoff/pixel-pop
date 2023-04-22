@@ -43,6 +43,8 @@ public class MultiPlayCommonActivity extends AppCompatActivity {
 
         if (!multiPlayGameID.isEmpty()) {
             databaseRef.child("MultiplayerGames").child(multiPlayGameID).removeValue();
+            multiPlayGameID = "";
+            finish();
         }
     }
 

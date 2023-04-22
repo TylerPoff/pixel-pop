@@ -22,14 +22,4 @@ public class WaitJoinMultiplayerActivity extends MultiPlayCommonActivity {
             finish();
         }
     }
-
-    @Override
-    protected void onStop() {
-        super.onStop();
-
-        if (!multiPlayGameID.isEmpty()) {
-            multiPlayGameID = "";
-            finish();
-        }
-    }
 }
