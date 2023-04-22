@@ -58,6 +58,7 @@
     <string name="_5">5</string>
 
     <string name="quit_level">Quit level</string>
+    <string name="pause_level">Pause level</string>
     <string name="reset">Reset</string>
     <string name="done">Done</string>
     <string name="eraser">Eraser</string>
@@ -74,6 +75,8 @@
     <string name="start">Start</string>
     <string name="cancel">Cancel</string>
     <string name="quit">Quit</string>
+    <string name="resume">Resume</string>
+    <string name="pause_menu">Paused</string>
     <string name="shake_to_erase">Shake to reset</string>
     <string name="singleplayer">Singleplayer</string>
     <string name="host_multiplayer">Host online co-op</string>
@@ -85,6 +88,6 @@
     <string name="yes">Yes</string>
     <string name="shake_disabled_msg">Shake To Erase has been turned off! Re-toggle to turn it back on.</string>
     <string name="ok">Ok</string>
-    <string name="skip_countdown">Skip Countdown</string>
+    <string name="skip_countdown">Skip Timer</string>
     <string name="game_id">Game ID: %1$s</string>
 </resources>
