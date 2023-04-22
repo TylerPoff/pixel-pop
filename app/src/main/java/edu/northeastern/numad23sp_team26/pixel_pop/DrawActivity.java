@@ -53,6 +53,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private int noCount = 0;
     private Button skipBtn;
     private DisplayTimerThread displayTimerThread;
+    private boolean paused = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +88,11 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             }
         });
 
-        Button quitBtn = findViewById(R.id.quitBtn);
-        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+//        Button quitBtn = findViewById(R.id.quitBtn);
+//        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+
+        Button pauseBtn = findViewById(R.id.pauseBtn);
+        pauseBtn.setOnClickListener(v -> createPauseAlertDialog());
 
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
@@ -148,6 +152,10 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         if (shakeDetector != null) {
             shakeDetector.stop();
         }
+        if (displayTimerThread != null) {
+            displayTimerThread.pauseTimer();
+        }
+        createPauseAlertDialog();
     }
 
     @Override
@@ -334,10 +342,35 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         });
     }
 
+    private void createPauseAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View PausePopupView = getLayoutInflater().inflate(R.layout.pause_menu_popup, null);
+        Button resumeBtn = PausePopupView.findViewById(R.id.pause_menu_resume_btn);
+        Button quitBtn = PausePopupView.findViewById(R.id.pause_menu_quit_btn);
+        dialogBuilder.setView(PausePopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setOnDismissListener(dialogInterface -> {
+            if (paused) {
+                displayTimerThread.resumeTimer();
+            }
+        });
+        dialog.show();
+        displayTimerThread.pauseTimer();
+        resumeBtn.setOnClickListener(v -> {
+            displayTimerThread.resumeTimer();
+            dialog.dismiss();
+        });
+        quitBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            finish();
+        });
+    }
+
     private class DisplayTimerThread extends Thread {
 
-        private volatile boolean flag = false;
         private int displaySecondsTimer;
+        private final Object lock = new Object();
 
         public DisplayTimerThread(int displaySecondsTimer) {
             this.displaySecondsTimer = displaySecondsTimer;
@@ -348,6 +381,11 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             try {
                 for (int i = 0; i < displaySecondsTimer; i++) {
                     Thread.sleep(1000);
+                    if (paused) {
+                        synchronized (lock) {
+                            lock.wait();
+                        }
+                    }
                     int currentTime = displaySecondsTimer - i - 1;
                     handler.post(() -> {
                         if (currentTime <= 10) {
@@ -372,6 +410,17 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                 }
             } catch (InterruptedException e) {
                 // Interrupted
+            }
+        }
+
+        public void pauseTimer() {
+            paused = true;
+        }
+
+        public void resumeTimer() {
+            synchronized (lock) {
+                paused = false;
+                lock.notify();
             }
         }
 
