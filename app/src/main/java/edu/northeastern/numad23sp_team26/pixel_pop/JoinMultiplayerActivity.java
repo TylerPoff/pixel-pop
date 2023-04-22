@@ -43,16 +43,24 @@ public class JoinMultiplayerActivity extends AppCompatActivity {
     }
 
     private void joinMultiplayerGame() {
-        String gameID = gameIdEditText.getText().toString();
-        errorTV.setVisibility(View.INVISIBLE);
+        String gameID = gameIdEditText.getText().toString().trim();
+
+        if (gameID.isEmpty()) {
+            errorTV.setText("Please enter a game ID");
+            errorTV.setVisibility(View.VISIBLE);
+
+            return;
+        }
+
         errorTV.setText("");
+        errorTV.setVisibility(View.INVISIBLE);
         databaseRef.child("MultiplayerGames").child(gameID).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 PixelMultiGame multiGame = dataSnapshot.getValue(PixelMultiGame.class);
                 if (multiGame == null) {
+                    errorTV.setText("Could not find game");
                     errorTV.setVisibility(View.VISIBLE);
-                    errorTV.setText("Online co-op game with the given game ID does not exist.");
                 } else {
                     multiGame.playerTwoID = mAuth.getCurrentUser().getUid();
                     databaseRef.child("MultiplayerGames").child(multiGame.gameID).getRef().setValue(multiGame);

@@ -85,7 +85,7 @@
     <string name="yes">Yes</string>
     <string name="shake_disabled_msg">Shake To Erase has been turned off! Re-toggle to turn it back on.</string>
     <string name="ok">Ok</string>
-    <string name="skip_countdown">Skip Countdown</string>
+    <string name="skip_timer">Skip timer</string>
     <string name="game_id">Game ID: %1$s</string>
     <string name="waiting_for_player_two_to_join">Waiting for player two to join...</string>
     <string name="stay_on_this_page">Please stay on this page.</string>

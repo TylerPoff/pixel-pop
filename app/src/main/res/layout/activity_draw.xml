@@ -48,7 +48,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/secondary_button_custom"
-        android:text="@string/skip_countdown"
+        android:text="@string/skip_timer"
         android:gravity="center"
         android:textAllCaps="false"
         android:padding="5dp"

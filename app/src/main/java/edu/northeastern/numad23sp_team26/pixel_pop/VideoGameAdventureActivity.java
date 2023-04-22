@@ -87,6 +87,10 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     protected void onResume() {
         super.onResume();
         getUnlockedLevels("video game");
+
+        if (!multiPlayGameID.isEmpty()) {
+            listenPlayerTwoJoin(multiPlayGameID);
+        }
     }
 
     @Override

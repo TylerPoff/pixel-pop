@@ -7,20 +7,17 @@ public class PixelPopUserActions implements Parcelable {
 
     public boolean paused;
     public boolean skipCountdown;
-    public boolean reset;
     public boolean done;
 
     public PixelPopUserActions() {
         paused = false;
         skipCountdown = false;
-        reset = false;
         done = false;
     }
 
     private PixelPopUserActions(Parcel in) {
         paused = in.readInt() == 1;
         skipCountdown = in.readInt() == 1;
-        reset = in.readInt() == 1;
         done = in.readInt() == 1;
     }
 
@@ -32,10 +29,6 @@ public class PixelPopUserActions implements Parcelable {
         skipCountdown = isSkipCountdown;
     }
 
-    public void setReset(boolean isReset) {
-        reset = isReset;
-    }
-
     public void setDone(boolean isDone) {
         done = isDone;
     }
@@ -44,7 +37,6 @@ public class PixelPopUserActions implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeInt(paused ? 1 : 0);
         dest.writeInt(skipCountdown ? 1 : 0);
-        dest.writeInt(reset ? 1 : 0);
         dest.writeInt(done ? 1 : 0);
     }
 

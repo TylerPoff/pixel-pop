@@ -87,6 +87,10 @@ public class FruitsAdventureActivity extends AdventureActivity {
     protected void onResume() {
         super.onResume();
         getUnlockedLevels(ADVENTURE_TYPE);
+
+        if (!multiPlayGameID.isEmpty()) {
+            listenPlayerTwoJoin(multiPlayGameID);
+        }
     }
 
     public void openActivityPixelDraw(int levelNum) {
