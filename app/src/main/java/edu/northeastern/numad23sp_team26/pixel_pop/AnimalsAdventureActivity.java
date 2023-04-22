@@ -1,8 +1,10 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,12 +13,17 @@ import edu.northeastern.numad23sp_team26.R;
 
 public class AnimalsAdventureActivity extends AdventureActivity {
 
+    MediaPlayer player;
+
     private Button animals_pixel_drawing_1_button, animals_pixel_drawing_2_button, animals_pixel_drawing_3_button, animals_pixel_drawing_4_button, animals_pixel_drawing_5_button;
     private final String ADVENTURE_TYPE = "animals";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_adventure);
+
+        musicPlay();
 
         animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
         animals_pixel_drawing_1_button.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
@@ -37,7 +44,14 @@ public class AnimalsAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         getUnlockedLevels(ADVENTURE_TYPE);
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        musicStop();
     }
 
     @Override
@@ -84,6 +98,22 @@ public class AnimalsAdventureActivity extends AdventureActivity {
                     animals_pixel_drawing_5_button.setEnabled(true);
                     break;
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.tranquility);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
+            Toast.makeText(this, "Music off", Toast.LENGTH_SHORT);
         }
     }
 }

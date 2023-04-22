@@ -1,8 +1,10 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +12,7 @@ import java.util.List;
 import edu.northeastern.numad23sp_team26.R;
 
 public class VideoGameAdventureActivity extends AdventureActivity {
+    MediaPlayer player;
 
     private Button button1, button2, button3, button4, button5;
     private final String ADVENTURE_TYPE = "video game";
@@ -18,6 +21,8 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
+
+        musicPlay();
 
         button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
@@ -38,7 +43,13 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         getUnlockedLevels("video game");
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        musicStop();
     }
 
     @Override
@@ -85,6 +96,21 @@ public class VideoGameAdventureActivity extends AdventureActivity {
                     button5.setEnabled(true);
                     break;
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.supermariobros);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
+            Toast.makeText(this, "Music off", Toast.LENGTH_SHORT);
         }
     }
 }

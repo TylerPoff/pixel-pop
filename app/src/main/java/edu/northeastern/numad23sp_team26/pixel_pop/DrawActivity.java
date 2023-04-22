@@ -1,13 +1,17 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Context;
-import android.hardware.SensorManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
@@ -15,23 +19,18 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
-import com.squareup.seismic.ShakeDetector;
-
-import edu.northeastern.numad23sp_team26.R;
-import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
-
-import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.TextView;
-
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.squareup.seismic.ShakeDetector;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
+
+import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 
 public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
 
@@ -51,11 +50,14 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private boolean shouldShake = false;
     private ShakeDetector shakeDetector;
     private int noCount = 0;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
+
+        musicPlay();
 
         drawView = findViewById(R.id.drawView);
         displayTimer = findViewById(R.id.displayTimer);
@@ -126,6 +128,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         if (shouldShake) {
             shakeDetector = new ShakeDetector(this);
             sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -136,6 +139,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onPause() {
         super.onPause();
+        musicStop();
         if (shakeDetector != null) {
             shakeDetector.stop();
         }
@@ -343,6 +347,20 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                     Log.e(TAG, "InterruptedException");
                 }
             }
+        }
+    }
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.puzzler);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
+            Toast.makeText(this, "Music off", Toast.LENGTH_SHORT);
         }
     }
 }
