@@ -419,10 +419,14 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
         public void resumeTimer() {
             synchronized (lock) {
-                paused = false;
-                lock.notify();
+                paused = true;
+                new Handler().postDelayed(() -> {
+                    paused = false;
+                    lock.notify();
+                }, 1000);
             }
         }
+
 
         @Override
         public void interrupt() {
