@@ -1,5 +1,7 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -15,11 +17,11 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -125,6 +127,8 @@ public class SelectAdventureActivity extends AppCompatActivity {
                     break;
             }
         });
+
+        joinMultiplayerBtn.setOnClickListener(v -> openJoinMultiplayerActivity());
     }
 
     @Override
@@ -177,17 +181,42 @@ public class SelectAdventureActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void openJoinMultiplayerActivity() {
+        Intent intent = new Intent(this, JoinMultiplayerActivity.class);
+        startActivity(intent);
+    }
+
     private void getGameIds() {
-        databaseRef.addValueEventListener(new ValueEventListener() {
+        databaseRef.child("MultiplayerGames").addChildEventListener(new ChildEventListener() {
             @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                PixelMultiGame multiGame = dataSnapshot.getValue(PixelMultiGame.class);
-                multiPlayGameIDList.add(multiGame.gameID);
+            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
+                if (multiGame != null && !multiPlayGameIDList.contains(multiGame.gameID)) {
+                    multiPlayGameIDList.add(multiGame.gameID);
+                }
             }
 
             @Override
-            public void onCancelled(DatabaseError databaseError) {
-                // onCancelled
+            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+                PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
+                if (multiGame != null) {
+                    multiPlayGameIDList.remove(multiGame.gameID);
+                }
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
             }
         });
     }

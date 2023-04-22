@@ -46,7 +46,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="Please provide the game ID to player two."
+        android:text="@string/provide_game_id_msg"
         android:textAlignment="center"
         android:textColor="@color/black"
         android:textSize="15sp"

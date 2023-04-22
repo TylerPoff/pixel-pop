@@ -87,4 +87,9 @@
     <string name="ok">Ok</string>
     <string name="skip_countdown">Skip Countdown</string>
     <string name="game_id">Game ID: %1$s</string>
+    <string name="waiting_for_player_two_to_join">Waiting for player two to join...</string>
+    <string name="stay_on_this_page">Please stay on this page.</string>
+    <string name="provide_game_id_msg">Please provide the game ID to player two.</string>
+    <string name="game_id_hint">Game ID</string>
+    <string name="join">Join</string>
 </resources>

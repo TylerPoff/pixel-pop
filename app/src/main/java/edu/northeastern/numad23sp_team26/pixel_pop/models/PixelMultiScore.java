@@ -11,18 +11,18 @@ public class PixelMultiScore implements Parcelable {
     public int levelNum;
     public int accuracyPercent;
     public String timeStamp;
-    public PixelPopUser otherPlayer;
+    public String otherPlayerEmail;
 
     public PixelMultiScore() {
         // Default constructor required for calls to DataSnapshot.getValue(PixelMultiScore.class)
     }
 
-    public PixelMultiScore(String adventure, int levelNum, int accuracyPercent, String timeStamp, PixelPopUser otherPlayer) {
+    public PixelMultiScore(String adventure, int levelNum, int accuracyPercent, String timeStamp, String otherPlayerEmail) {
         this.adventure = adventure;
         this.levelNum = levelNum;
         this.accuracyPercent = accuracyPercent;
         this.timeStamp = timeStamp;
-        this.otherPlayer = otherPlayer;
+        this.otherPlayerEmail = otherPlayerEmail;
     }
 
     private PixelMultiScore(Parcel in) {
@@ -30,7 +30,7 @@ public class PixelMultiScore implements Parcelable {
         levelNum = in.readInt();
         accuracyPercent = in.readInt();
         timeStamp = in.readString();
-        otherPlayer = in.readParcelable(PixelPopUser.class.getClassLoader());
+        otherPlayerEmail = in.readString();
     }
 
     @Override
@@ -44,7 +44,7 @@ public class PixelMultiScore implements Parcelable {
         dest.writeInt(levelNum);
         dest.writeInt(accuracyPercent);
         dest.writeString(timeStamp);
-        dest.writeParcelable(otherPlayer, flags);
+        dest.writeString(otherPlayerEmail);
     }
 
     public static final Parcelable.Creator<PixelMultiScore> CREATOR = new Parcelable.Creator<PixelMultiScore>() {

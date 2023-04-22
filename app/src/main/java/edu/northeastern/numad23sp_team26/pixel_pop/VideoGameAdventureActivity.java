@@ -38,19 +38,49 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         }
 
         button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
+        button1.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(1, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(1, ADVENTURE_TYPE);
+            }
+        });
 
         button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
+        button2.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(2, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(2, ADVENTURE_TYPE);
+            }
+        });
 
         button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
+        button3.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(3, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(3, ADVENTURE_TYPE);
+            }
+        });
 
         button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
+        button4.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(4, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(4, ADVENTURE_TYPE);
+            }
+        });
 
         button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+        button5.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(5, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(5, ADVENTURE_TYPE);
+            }
+        });
     }
 
     @Override

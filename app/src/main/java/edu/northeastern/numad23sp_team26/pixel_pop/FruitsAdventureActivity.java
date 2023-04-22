@@ -38,19 +38,49 @@ public class FruitsAdventureActivity extends AdventureActivity {
         }
 
         fruit_button1 = findViewById(R.id.fruit_button1);
-        fruit_button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
+        fruit_button1.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(1, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(1, ADVENTURE_TYPE);
+            }
+        });
 
         fruit_button2 = findViewById(R.id.fruit_button2);
-        fruit_button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
+        fruit_button2.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(2, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(2, ADVENTURE_TYPE);
+            }
+        });
 
         fruit_button3 = findViewById(R.id.fruit_button3);
-        fruit_button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
+        fruit_button3.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(3, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(3, ADVENTURE_TYPE);
+            }
+        });
 
         fruit_button4 = findViewById(R.id.fruit_button4);
-        fruit_button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
+        fruit_button4.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(4, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(4, ADVENTURE_TYPE);
+            }
+        });
 
         fruit_button5 = findViewById(R.id.fruit_button5);
-        fruit_button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+        fruit_button5.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(5, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(5, ADVENTURE_TYPE);
+            }
+        });
     }
 
     @Override
