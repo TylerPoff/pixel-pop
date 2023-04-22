@@ -2,9 +2,7 @@ package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,47 +14,62 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     private Button button1, button2, button3, button4, button5;
     private final String ADVENTURE_TYPE = "video game";
     private final int MAX_LEVELS = 5;
-    private String multiPlayGameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
 
-        TextView gameIdTV = findViewById(R.id.gameIdTV);
-
-        if (getIntent().getExtras() != null) {
-            Bundle extras = getIntent().getExtras();
-            multiPlayGameID = extras.getString("gameID");
-
-            if (multiPlayGameID.isEmpty()) {
-                gameIdTV.setVisibility(View.INVISIBLE);
-            } else {
-                gameIdTV.setText(getString(R.string.game_id, multiPlayGameID));
-                createGameIdDialog(multiPlayGameID);
-            }
-        }
-
         button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
+        button1.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(1, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(1, ADVENTURE_TYPE);
+            }
+        });
 
         button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
+        button2.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(2, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(2, ADVENTURE_TYPE);
+            }
+        });
 
         button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
+        button3.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(3, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(3, ADVENTURE_TYPE);
+            }
+        });
 
         button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
+        button4.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(4, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(4, ADVENTURE_TYPE);
+            }
+        });
 
         button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+        button5.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(5, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(5, ADVENTURE_TYPE);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        getUnlockedLevels("video game");
+        getUnlockedLevels(ADVENTURE_TYPE);
     }
 
     @Override

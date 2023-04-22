@@ -53,7 +53,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private int noCount = 0;
     private Button skipBtn;
     private DisplayTimerThread displayTimerThread;
-
     private boolean paused = false;
 
     @Override
@@ -331,7 +330,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
         final View QuitPopupView = getLayoutInflater().inflate(R.layout.quit_level_popup, null);
         Button cancelBtn = QuitPopupView.findViewById(R.id.cancelBtn);
-        Button quitBtn = QuitPopupView.findViewById(R.id.pauseBtn);
+        Button quitBtn = QuitPopupView.findViewById(R.id.quitBtn);
         dialogBuilder.setView(QuitPopupView);
         AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
@@ -370,7 +369,6 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
     private class DisplayTimerThread extends Thread {
 
-        private volatile boolean flag = false;
         private int displaySecondsTimer;
         private final Object lock = new Object();
 
@@ -421,14 +419,10 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
         public void resumeTimer() {
             synchronized (lock) {
-                paused = true;
-                new Handler().postDelayed(() -> {
-                    paused = false;
-                    lock.notify();
-                }, 1000);
+                paused = false;
+                lock.notify();
             }
         }
-
 
         @Override
         public void interrupt() {

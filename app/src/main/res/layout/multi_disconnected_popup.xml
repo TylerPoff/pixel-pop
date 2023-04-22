@@ -6,55 +6,57 @@
     android:background="@drawable/orange_border">
 
     <TextView
-        android:id="@+id/msgTV"
+        android:id="@+id/titleTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginVertical="20dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="@string/quit_msg"
-        android:textColor="@color/danger_red"
+        android:text="@string/online_session_ended"
+        android:gravity="center"
+        android:textColor="@color/dark_orange"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/cancelBtn"
-        android:layout_width="0dp"
+    <TextView
+        android:id="@+id/msgTV"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="20dp"
-        android:background="@drawable/secondary_button_custom"
-        android:paddingVertical="20dp"
-        android:text="@string/cancel"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/quitBtn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/other_player_disconnected"
+        android:gravity="center"
+        android:textColor="@color/danger_red"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/quitBtn"
-        android:layout_width="0dp"
+        android:id="@+id/okBtn"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="20dp"
-        android:background="@drawable/danger_button_custom"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/primary_button_custom"
         android:paddingVertical="20dp"
-        android:text="@string/quit"
+        android:text="@string/ok"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/cancelBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/msgTV"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="cancelBtn, quitBtn" />
+        app:constraint_referenced_ids="okBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,6 +6,20 @@
     android:background="#E8E4D6">
 
     <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/quitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/danger_button_custom"
+        android:text="@string/quit_level"
+        android:visibility="invisible"
+        android:gravity="center"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/pauseBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -19,7 +33,6 @@
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
 
     <!--
     <Button
@@ -51,7 +64,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:background="@drawable/secondary_button_custom"
-        android:text="@string/skip_countdown"
+        android:text="@string/skip_timer"
         android:gravity="center"
         android:textAllCaps="false"
         android:padding="5dp"
