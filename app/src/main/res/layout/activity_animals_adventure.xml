@@ -1,18 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".pixel_pop.AnimalsAdventureActivity">
 
+    <!--    <View-->
+<!--        android:id="@+id/blurView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#1AFFFFFF"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintTop_toTopOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/pixel_pop_level_select_background" />
+        android:src="@drawable/pixel_pop_level_select_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_1_button"
@@ -24,10 +39,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintHorizontal_bias="0.606"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.964" />
+        app:layout_constraintTop_toBottomOf="@+id/gameIdTV"
+        app:layout_constraintVertical_bias="0.943" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/fish"
+        app:layout_constraintStart_toEndOf="@+id/animals_pixel_drawing_1_button"
+        app:layout_constraintTop_toTopOf="@+id/animals_pixel_drawing_1_button"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_2_button"
@@ -39,10 +64,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.321"
+        app:layout_constraintHorizontal_bias="0.332"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.841" />
+        app:layout_constraintTop_toBottomOf="@+id/gameIdTV"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@drawable/duck_withreflection"
+        app:layout_constraintStart_toEndOf="@+id/animals_pixel_drawing_2_button"
+        app:layout_constraintTop_toTopOf="@+id/animals_pixel_drawing_2_button"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_3_button"
@@ -54,10 +89,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.706"
+        app:layout_constraintHorizontal_bias="0.578"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.696" />
+        app:layout_constraintTop_toBottomOf="@+id/gameIdTV"
+        app:layout_constraintVertical_bias="0.588" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="180dp"
+        android:layout_height="180dp"
+        android:src="@drawable/deer"
+        app:layout_constraintStart_toEndOf="@+id/animals_pixel_drawing_3_button"
+        app:layout_constraintTop_toTopOf="@+id/animals_pixel_drawing_3_button"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_4_button"
@@ -69,10 +114,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.459"
+        app:layout_constraintHorizontal_bias="0.304"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.455" />
+        app:layout_constraintTop_toBottomOf="@+id/gameIdTV"
+        app:layout_constraintVertical_bias="0.367" />
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:src="@drawable/tree"
+        app:layout_constraintStart_toEndOf="@+id/animals_pixel_drawing_4_button"
+        app:layout_constraintTop_toTopOf="@+id/animals_pixel_drawing_4_button"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background"/>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/animals_pixel_drawing_5_button"
@@ -84,10 +139,20 @@
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.844"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.105" />
+        app:layout_constraintTop_toBottomOf="@+id/gameIdTV"
+        app:layout_constraintVertical_bias="0.079" />
+
+    <ImageView
+        android:id="@+id/image5"
+        android:layout_width="65dp"
+        android:layout_height="65dp"
+        android:src="@drawable/owl"
+        app:layout_constraintStart_toEndOf="@+id/animals_pixel_drawing_5_button"
+        app:layout_constraintTop_toTopOf="@+id/animals_pixel_drawing_5_button"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background"/>
 
     <TextView
         android:id="@+id/gameIdTV"

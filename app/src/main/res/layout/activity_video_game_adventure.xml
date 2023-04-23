@@ -13,19 +13,15 @@
         android:scaleType="centerCrop"
         android:src="@drawable/pixel_pop_level_select_background3" />
 
-    <View
-        android:id="@+id/blurView"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#1AFFFFFF"
-        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
-        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />
-
-    <!-- Buttons -->
-
-    <!-- ImageViews -->
+<!--    <View-->
+<!--        android:id="@+id/blurView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#1AFFFFFF"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintStart_toStartOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />-->
 
 
     <androidx.appcompat.widget.AppCompatButton
