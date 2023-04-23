@@ -1,6 +1,7 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -14,11 +15,14 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     private Button button1, button2, button3, button4, button5;
     private final String ADVENTURE_TYPE = "video game";
     private final int MAX_LEVELS = 5;
+    private MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_game_adventure);
+
+        musicPlay();
 
         button1 = findViewById(R.id.button1);
         button1.setOnClickListener(v -> {
@@ -69,11 +73,17 @@ public class VideoGameAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         if (multiPlayGameID.isEmpty()) {
             getUnlockedLevels(ADVENTURE_TYPE);
         } else {
             getMultiPlayUnlockedLevels(ADVENTURE_TYPE);
         }
+    }
+
+    @Override public void onPause() {
+        super.onPause();
+        musicStop();
     }
 
     @Override
@@ -123,6 +133,22 @@ public class VideoGameAdventureActivity extends AdventureActivity {
                     button5.setEnabled(true);
                     break;
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.supermariobros);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+
+    //Could create button for musicStop
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 }

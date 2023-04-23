@@ -1,15 +1,16 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -46,12 +47,15 @@ public class ResultsActivity extends AppCompatActivity {
     private Button levelMenuBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
+    private MediaPlayer player;
     private String gameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
+
+        musicPlay();
 
         levelName = findViewById(R.id.levelName);
         originalDrawView = findViewById(R.id.originalDrawingImg);
@@ -125,6 +129,7 @@ public class ResultsActivity extends AppCompatActivity {
 
     @Override
     protected void onPause() {
+        musicStop();
         super.onPause();
 
         if (gameID != null) {
@@ -187,6 +192,20 @@ public class ResultsActivity extends AppCompatActivity {
 
             startActivity(intent);
             finish();
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.victory);
+        }
+        player.start();
+    }
+
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 }

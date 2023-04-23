@@ -1,6 +1,7 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -15,10 +16,14 @@ public class FruitsAdventureActivity extends AdventureActivity {
     private final String ADVENTURE_TYPE = "fruits";
     private final int MAX_LEVELS = 5;
 
+    private MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fruits_adventure);
+
+        musicPlay();
 
         fruit_button1 = findViewById(R.id.fruit_button1);
         fruit_button1.setOnClickListener(v -> {
@@ -69,11 +74,18 @@ public class FruitsAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         if (multiPlayGameID.isEmpty()) {
             getUnlockedLevels(ADVENTURE_TYPE);
         } else {
             getMultiPlayUnlockedLevels(ADVENTURE_TYPE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        musicStop();
+        super.onPause();
     }
 
     @Override
@@ -123,6 +135,21 @@ public class FruitsAdventureActivity extends AdventureActivity {
                     fruit_button5.setEnabled(true);
                     break;
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.sanity);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 }

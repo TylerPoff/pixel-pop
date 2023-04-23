@@ -1,6 +1,7 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
 
@@ -15,10 +16,14 @@ public class AnimalsAdventureActivity extends AdventureActivity {
     private final String ADVENTURE_TYPE = "animals";
     private final int MAX_LEVELS = 5;
 
+    private MediaPlayer player;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_animals_adventure);
+
+        musicPlay();
 
         animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
         animals_pixel_drawing_1_button.setOnClickListener(v -> {
@@ -69,11 +74,18 @@ public class AnimalsAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        musicPlay();
         if (multiPlayGameID.isEmpty()) {
             getUnlockedLevels(ADVENTURE_TYPE);
         } else {
             getMultiPlayUnlockedLevels(ADVENTURE_TYPE);
         }
+    }
+
+    @Override
+    public void onPause() {
+        musicStop();
+        super.onPause();
     }
 
     @Override
@@ -123,6 +135,21 @@ public class AnimalsAdventureActivity extends AdventureActivity {
                     animals_pixel_drawing_5_button.setEnabled(true);
                     break;
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.tranquility);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
         }
     }
 }

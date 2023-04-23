@@ -1,13 +1,17 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
 
 import android.content.Context;
-import android.hardware.SensorManager;
 import android.content.Intent;
 import android.graphics.Color;
+import android.hardware.SensorManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -26,10 +30,6 @@ import com.squareup.seismic.ShakeDetector;
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiGame;
-
-import android.util.Log;
-import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -61,6 +61,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     private Button skipBtn;
     private DisplayTimerThread displayTimerThread;
     private boolean paused = false;
+    private MediaPlayer player;
     private String playMode;
     private String playerNum;
     private String gameID;
@@ -111,6 +112,8 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_draw);
+
+        musicPlay();
 
         drawView = findViewById(R.id.drawView);
         displayTimer = findViewById(R.id.displayTimer);
@@ -238,7 +241,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     @Override
     protected void onResume() {
         super.onResume();
-
+        musicPlay();
         if (shouldShake) {
             shakeDetector = new ShakeDetector(this);
             sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -248,6 +251,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
 
     @Override
     protected void onPause() {
+        musicStop();
         databaseRef.child("MultiplayerGames").removeEventListener(multiPlayGamesDoneChildListener);
 
         if (shakeDetector != null) {
@@ -595,6 +599,21 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
             finally {
                 super.interrupt();
             }
+        }
+    }
+
+    public void musicPlay() {
+        if (player == null) {
+            player = MediaPlayer.create(this, R.raw.puzzler);
+        }
+        player.start();
+        player.setLooping(true);
+    }
+    public void musicStop() {
+        if (player != null) {
+            player.release();
+            player = null;
+            Toast.makeText(this, "Music off", Toast.LENGTH_SHORT);
         }
     }
 }
