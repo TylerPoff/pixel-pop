@@ -65,6 +65,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     private String playMode;
     private String playerNum;
     private String gameID;
+    private String otherPlayerID;
     private boolean isDone = false;
     private ChildEventListener multiPlayGamesDoneChildListener = new ChildEventListener() {
         @Override
@@ -165,7 +166,6 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
             if (playMode.equalsIgnoreCase("MULTI")) {
                 if (playerNum.equalsIgnoreCase("p1")) {
                     notifyDone(1);
-                    handleDone();
                 } else {
                     notifyDone(2);
                     shakeToEraseSwitch.setVisibility(View.INVISIBLE);
@@ -179,6 +179,8 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
                     doneBtn.setEnabled(false);
                     waitingTV.setVisibility(View.VISIBLE);
                 }
+            } else {
+                handleDone();
             }
         });
 
@@ -411,7 +413,9 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
         extras.putIntegerArrayList("colorList", colorList);
         extras.putParcelableArrayList("originalPixels", new ArrayList<>(drawView.getPixelCellsDisplay()));
         extras.putParcelableArrayList("drawnPixels", new ArrayList<>(drawView.getPixelCellsState()));
+        extras.putString("playMode", playMode);
         extras.putString("gameID", multiPlayGameID);
+        extras.putString("otherPlayerID", otherPlayerID);
         intent.putExtras(extras);
 
         startActivity(intent);
@@ -431,10 +435,14 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
 
                 if (playerNum == 1) {
                     multiGame.isPlayerOneDone = 1;
+                    currentData.setValue(multiGame);
+                    otherPlayerID = multiGame.playerTwoID;
+                    handleDone();
                 } else if (playerNum == 2) {
                     multiGame.isPlayerTwoDone = 1;
+                    currentData.setValue(multiGame);
+                    otherPlayerID = multiGame.playerOneID;
                 }
-                currentData.setValue(multiGame);
 
                 return Transaction.success(currentData);
             }

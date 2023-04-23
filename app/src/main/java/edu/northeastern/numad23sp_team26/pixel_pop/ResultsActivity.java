@@ -26,6 +26,7 @@ import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelCellDisplay;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiScore;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelPopUser;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelScore;
 
@@ -48,7 +49,13 @@ public class ResultsActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
     private MediaPlayer player;
+    private String playMode;
     private String gameID;
+    private String otherPlayerID;
+    protected enum PlayMode {
+        SINGLE,
+        MULTI
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,9 +88,11 @@ public class ResultsActivity extends AppCompatActivity {
             colorList = extras.getIntegerArrayList("colorList");
             originalPixels = extras.getParcelableArrayList("originalPixels");
             drawnPixels = extras.getParcelableArrayList("drawnPixels");
+            playMode = extras.getString("playMode");
             gameID = extras.getString("gameID");
+            otherPlayerID = extras.getString("otherPlayerID");
 
-            if (gameID != null) {
+            if (playMode != null && playMode.equalsIgnoreCase("MULTI")) {
                 levelMenuBtn.setVisibility(View.INVISIBLE);
                 levelMenuBtn.setEnabled(false);
                 retryBtn.setVisibility(View.INVISIBLE);
@@ -94,6 +103,7 @@ public class ResultsActivity extends AppCompatActivity {
                 Button endMultiSessionBtn = findViewById(R.id.endMultiSessionBtn);
                 endMultiSessionBtn.setVisibility(View.VISIBLE);
                 endMultiSessionBtn.setEnabled(true);
+                endMultiSessionBtn.setOnClickListener(v -> finish());
             }
 
             levelName.setText(getString(R.string.level_num, levelNum));
@@ -118,7 +128,11 @@ public class ResultsActivity extends AppCompatActivity {
                 float percent = ((float)part / whole) * 100;
                 int percent_rounded = Math.round(percent);
                 score.setText(getString(R.string.accuracy, percent_rounded + "%"));
-                saveScore(percent_rounded);
+                if (playMode != null && playMode.equalsIgnoreCase("MULTI")) {
+                    saveMultiScore(percent_rounded);
+                } else {
+                    saveScore(percent_rounded);
+                }
             } else {
                 score.setText(getString(R.string.accuracy, ""));
             }
@@ -165,6 +179,45 @@ public class ResultsActivity extends AppCompatActivity {
         });
     }
 
+    private void saveMultiScore(int accuracyPercent) {
+        String uid = mAuth.getCurrentUser().getUid();
+        if (otherPlayerID != null) {
+            databaseRef.child("Users").child(otherPlayerID).get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e(TAG, "Error getting firebase data", task.getException());
+                } else {
+                    if (task.getResult().getValue() != null) {
+                        PixelPopUser otherPlayer = task.getResult().getValue(PixelPopUser.class);
+                        databaseRef.child("Users").child(uid).runTransaction(new Transaction.Handler() {
+                            @NonNull
+                            @Override
+                            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                                PixelPopUser u = currentData.getValue(PixelPopUser.class);
+                                if (u == null) {
+                                    return Transaction.success(currentData);
+                                }
+
+                                if (u.pixelMultiScoreList == null) {
+                                    u.pixelMultiScoreList = new ArrayList<>();
+                                }
+
+                                u.pixelMultiScoreList.add(new PixelMultiScore(adventure, levelNum, accuracyPercent, LocalDateTime.now().toString(), otherPlayer.email));
+                                currentData.setValue(u);
+
+                                return Transaction.success(currentData);
+                            }
+
+                            @Override
+                            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+                                Log.d(TAG, "postTransaction:onComplete:" + error);
+                            }
+                        });
+                    }
+                }
+            });
+        }
+    }
+
     private void handleRetry() {
         Intent intent = new Intent(this, DrawActivity.class);
 
@@ -173,6 +226,9 @@ public class ResultsActivity extends AppCompatActivity {
         extras.putInt("levelNum", levelNum);
         extras.putInt("maxLevels", maxLevels);
         extras.putIntegerArrayList("colorList", colorList);
+        extras.putString("playMode", PlayMode.SINGLE.toString());
+        extras.putString("playerNum", "p1");
+        extras.putString("gameID", "");
         intent.putExtras(extras);
 
         startActivity(intent);
@@ -188,6 +244,9 @@ public class ResultsActivity extends AppCompatActivity {
             extras.putInt("levelNum", levelNum + 1);
             extras.putInt("maxLevels", maxLevels);
             extras.putIntegerArrayList("colorList", colorList);
+            extras.putString("playMode", PlayMode.SINGLE.toString());
+            extras.putString("playerNum", "p1");
+            extras.putString("gameID", "");
             intent.putExtras(extras);
 
             startActivity(intent);
