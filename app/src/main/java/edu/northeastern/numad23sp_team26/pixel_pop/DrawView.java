@@ -5,6 +5,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -18,7 +19,6 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +29,7 @@ import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiGame;
 
 public class DrawView extends View {
 
+    private static final String TAG = "pixel_pop.DrawView";
     private final Paint strokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint thickStrokeBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
     private final Paint fillBrush = new Paint(Paint.ANTI_ALIAS_FLAG);
@@ -227,25 +228,33 @@ public class DrawView extends View {
 
     public void listenMultiplayerGameDrawOnce() {
         if (gameID != null) {
-            databaseRef.child("MultiplayerGames").child(gameID).addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
-                    if (multiGame != null && multiGame.pixelCellsState != null) {
-                        for (PixelCellDisplay status : multiGame.pixelCellsState) {
-                            PixelCell pc = pixelCells.stream().filter(c -> c.getRowNum() == status.getRowNum() && c.getColNum() == status.getColNum()).findFirst().orElse(null);
+            databaseRef.child("MultiplayerGames").child(gameID).get().addOnCompleteListener(task -> {
+                if (!task.isSuccessful()) {
+                    Log.e(TAG, "Error getting firebase data", task.getException());
+                } else {
+                    if (task.getResult().getValue() != null) {
+                        PixelMultiGame multiGame = task.getResult().getValue(PixelMultiGame.class);
+                        if (multiGame != null) {
+                            if (playerNum != null && playerNum.equalsIgnoreCase("p1") && multiGame.playerTwoPixelCellsState != null) {
+                                for (PixelCellDisplay status : multiGame.playerTwoPixelCellsState) {
+                                    PixelCell pc = pixelCells.stream().filter(c -> c.getRowNum() == status.getRowNum() && c.getColNum() == status.getColNum()).findFirst().orElse(null);
 
-                            if (pc != null) {
-                                pc.draw(status.getColor());
+                                    if (pc != null) {
+                                        pc.draw(status.getColor());
+                                    }
+                                }
+                            } else if (playerNum != null && playerNum.equalsIgnoreCase("p2") && multiGame.playerOnePixelCellsState != null) {
+                                for (PixelCellDisplay status : multiGame.playerOnePixelCellsState) {
+                                    PixelCell pc = pixelCells.stream().filter(c -> c.getRowNum() == status.getRowNum() && c.getColNum() == status.getColNum()).findFirst().orElse(null);
+
+                                    if (pc != null) {
+                                        pc.draw(status.getColor());
+                                    }
+                                }
                             }
+                            postInvalidate();
                         }
-                        postInvalidate();
                     }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
                 }
             });
         }
@@ -261,7 +270,8 @@ public class DrawView extends View {
 
                 @Override
                 public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                    if (snapshot.getKey() != null && !snapshot.getKey().equalsIgnoreCase("pixelCellsState")) {
+                    if (snapshot.getKey() != null && !snapshot.getKey().equalsIgnoreCase("playerOnePixelCellsState")
+                            && !snapshot.getKey().equalsIgnoreCase("playerTwoPixelCellsState")) {
                         return;
                     }
                     for (DataSnapshot statusSnapshot : snapshot.getChildren()) {
@@ -304,7 +314,22 @@ public class DrawView extends View {
                         return Transaction.success(currentData);
                     }
 
-                    multiGame.pixelCellsState = getPixelCellsState();
+                    List<PixelCellDisplay> cellsState = getPixelCellsState();
+                    List<PixelCellDisplay> playerOneCellsState = new ArrayList<>();
+                    List<PixelCellDisplay> playerTwoCellsState = new ArrayList<>();
+                    for (PixelCellDisplay cd : cellsState) {
+                        if (cd.getColNum() < 8) {
+                            playerOneCellsState.add(new PixelCellDisplay(cd.getRowNum(), cd.getColNum(), cd.getColor()));
+                        } else if (cd.getColNum() >= 8) {
+                            playerTwoCellsState.add(new PixelCellDisplay(cd.getRowNum(), cd.getColNum(), cd.getColor()));
+                        }
+                    }
+
+                    if (playerNum != null && playerNum.equalsIgnoreCase("p1")) {
+                        multiGame.playerOnePixelCellsState = playerOneCellsState;
+                    } else if (playerNum != null && playerNum.equalsIgnoreCase("p2")) {
+                        multiGame.playerTwoPixelCellsState = playerTwoCellsState;
+                    }
                     currentData.setValue(multiGame);
 
                     return Transaction.success(currentData);

@@ -16,7 +16,8 @@ public class PixelMultiGame implements Parcelable {
     public int levelNum;
     public int isPlayerOneDone;
     public int isPlayerTwoDone;
-    public List<PixelCellDisplay> pixelCellsState;
+    public List<PixelCellDisplay> playerOnePixelCellsState;
+    public List<PixelCellDisplay> playerTwoPixelCellsState;
 
     public PixelMultiGame() {
         // Default constructor required for calls to DataSnapshot.getValue(PixelMultiGame.class)

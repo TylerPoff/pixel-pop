@@ -28,7 +28,8 @@ public class WaitJoinMultiplayerActivity extends MultiPlayCommonActivity {
         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
             PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
             if (multiGame != null && multiGame.gameID.equalsIgnoreCase(multiPlayGameID)) {
-                if (!multiGame.adventure.isEmpty() && multiGame.levelNum != 0 && multiGame.pixelCellsState == null) {
+                if (!multiGame.adventure.isEmpty() && multiGame.levelNum != 0
+                        && multiGame.playerOnePixelCellsState == null && multiGame.playerTwoPixelCellsState == null) {
                     isPlaying = true;
                     openDrawActivity(multiGame.adventure, multiGame.levelNum);
                 }
