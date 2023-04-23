@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -15,6 +16,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
@@ -54,12 +56,15 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
         // Sign up and case handling
         signUpButton.setOnClickListener(v -> {
             signUpErrorTV.setText("");
+            signUpErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
                 signUpErrorTV.setText("Please enter your email.");
+                signUpErrorTV.setVisibility(View.VISIBLE);
             } else if (password.isEmpty()) {
                 signUpErrorTV.setText("Please enter your password.");
+                signUpErrorTV.setVisibility(View.VISIBLE);
             } else {
                 signUp();
             }
@@ -93,14 +98,14 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
                         // Sign up success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
                         addUserToDatabase(user);
-                        Toast.makeText(PixelPopSignUpActivity.this, "Registration successful.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopSignUpActivity.this, "Registration successful.", Toast.LENGTH_LONG).show();
                         // Redirect to main activity or another relevant activity
                         redirectToSelectAdventureActivity();
                     } else {
                         // If sign up fails, display a message to the user.
                         Exception exception = task.getException();
                         String errorMessage = exception != null ? exception.getMessage() : "Registration failed.";
-                        Toast.makeText(PixelPopSignUpActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopSignUpActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(this, e -> {
                     Log.e("PixelPopSignUp", "Error: " + e.getMessage());
@@ -110,7 +115,8 @@ public class PixelPopSignUpActivity extends AppCompatActivity {
     private void addUserToDatabase(FirebaseUser user) {
         if (user != null) {
             DatabaseReference usersRef = database.getReference("Users");
-            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture());
+            PixelPopUser pixelPopUser = new PixelPopUser(email.toLowerCase(), getRandomProfilePicture(),
+                    new ArrayList<>(), new ArrayList<>());
             usersRef.child(user.getUid()).setValue(pixelPopUser);
         }
     }

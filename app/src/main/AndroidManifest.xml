@@ -15,26 +15,45 @@
         android:theme="@style/Theme.NUMAD23Sp_Team26"
         tools:targetApi="31">
         <activity
+            android:name=".pixel_pop.WaitJoinMultiplayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pixel_pop.JoinMultiplayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pixel_pop.ResultsActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".pixel_pop.DrawActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.VideoGameAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pixel_pop.FruitsAdventureActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.PixelPopSignUpActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".pixel_pop.PixelPopLoginActivity"
-            android:windowSoftInputMode="adjustResize"
-            android:exported="false" />
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".pixel_pop.AnimalsAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.SelectAdventureActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".a8_stickers.ReceiveNotificationActivity"
             android:exported="false" />

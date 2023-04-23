@@ -5,14 +5,11 @@ import android.graphics.Color;
 public class PixelCell {
 
     private int rowNum;
-
     private int colNum;
-
     private float left;
     private float top;
     private float right;
     private float bottom;
-
     private int color;
 
     public PixelCell(int rowNum, int colNum, float left, float top, float right, float bottom) {
@@ -31,6 +28,14 @@ public class PixelCell {
 
     public void reset() {
         this.color = Color.WHITE;
+    }
+
+    public int getRowNum() {
+        return rowNum;
+    }
+
+    public int getColNum() {
+        return colNum;
     }
 
     public float getLeft() {
@@ -52,4 +57,5 @@ public class PixelCell {
     public int getColor() {
         return color;
     }
+
 }

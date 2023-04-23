@@ -5,15 +5,24 @@
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="dark_red">#FF920000</color>
     <color name="light_blue">#FFB3DDFF</color>
-    <color name="blue">#FF0000FF</color>
-    <color name="red">#FFFF0000</color>
-    <color name="green">#FF00FF00</color>
-    <color name="yellow">#FFFFFF00</color>
-    <color name="orange">#FFFFA500</color>
-    <color name="purple">#FFA020F0</color>
-    <color name="brown">#FF964B00</color>
+    <color name="flamingo">#e1634f</color>
+
+    <color name="black">#FF000000</color> <!-- -16777216 -->
+    <color name="blue">#FF0000FF</color> <!-- -16776961 -->
+    <color name="red">#FFFF0000</color> <!-- -65536 -->
+    <color name="green">#FF00FF00</color> <!-- -16711936 -->
+    <color name="yellow">#FFFFFF00</color> <!-- -256 -->
+    <color name="orange">#FFFFA500</color> <!-- -23296 -->
+    <color name="purple">#FFA020F0</color> <!-- -6283024 -->
+    <color name="brown">#FF964B00</color> <!-- -6927616 -->
+    <color name="cheese">#FFF0E198</color> <!-- -990824 -->
+    <color name="maple">#FFD8A374</color> <!-- -2579596 -->
+    <color name="nature_green">#FF55AE58</color> <!-- -11162024 -->
+    <color name="fruit_orange">#FB8022</color> <!-- -294878 -->
+
+    <color name="danger_red">#A71609</color>
+    <color name="dark_orange">#CC5801</color>
 </resources>
