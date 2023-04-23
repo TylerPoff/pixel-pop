@@ -132,7 +132,7 @@ public class FruitsAdventureActivity extends AdventureActivity {
 
     public void musicPlay() {
         if (player == null) {
-            player = MediaPlayer.create(this, R.raw.tranquility);
+            player = MediaPlayer.create(this, R.raw.sanity);
         }
         player.start();
         player.setLooping(true);
