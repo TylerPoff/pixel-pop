@@ -11,82 +11,167 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/pixel_pop_level_select_background" />
+        android:src="@drawable/pixel_pop_level_select_background3" />
+
+<!--    <View-->
+<!--        android:id="@+id/blurView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#1AFFFFFF"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintStart_toStartOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintTop_toTopOf="@id/backgroundImageView" />-->
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
-        android:text="1"
         android:enabled="false"
+        android:text="1"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintHorizontal_bias="0.285"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.732" />
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.727" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
-        android:text="2"
         android:enabled="false"
+        android:text="2"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintHorizontal_bias="0.545"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.609" />
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.593" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
-        android:text="3"
         android:enabled="false"
+        android:text="3"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.884"
+        app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.384"/>
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.401" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
-        android:text="4"
         android:enabled="false"
+        android:text="4"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.377"
+        app:layout_constraintHorizontal_bias="0.662"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.583"/>
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.23" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button5"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
-        android:text="5"
         android:enabled="false"
+        android:text="5"
         android:textColor="@color/black"
         app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
         app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
-        app:layout_constraintHorizontal_bias="0.336"
+        app:layout_constraintHorizontal_bias="0.124"
         app:layout_constraintStart_toStartOf="@id/backgroundImageView"
-        app:layout_constraintTop_toTopOf="@id/backgroundImageView"
-        app:layout_constraintVertical_bias="0.301" />
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.104" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/marioflowerteethpixel"
+        app:layout_constraintStart_toEndOf="@+id/button1"
+        app:layout_constraintTop_toTopOf="@+id/button1"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/papermariopixel"
+        app:layout_constraintStart_toEndOf="@+id/button2"
+        app:layout_constraintTop_toTopOf="@+id/button2"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/marioquestionblockpixel"
+        app:layout_constraintStart_toEndOf="@+id/button3"
+        app:layout_constraintTop_toTopOf="@+id/button3"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+
+    <ImageView
+        android:id="@+id/image3_1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/marioquestionblockpixel"
+        app:layout_constraintStart_toEndOf="@+id/image3"
+        app:layout_constraintTop_toTopOf="@+id/image3"
+        android:layout_marginStart="8dp" />
+
+
+    <ImageView
+        android:id="@+id/image3_2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="8dp"
+        android:src="@drawable/marioquestionblockpixel"
+        app:layout_constraintStart_toEndOf="@+id/image3_1"
+        app:layout_constraintTop_toTopOf="@+id/image3_1"/>
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/bulletbillpixel"
+        app:layout_constraintStart_toEndOf="@+id/button4"
+        app:layout_constraintTop_toTopOf="@+id/button4"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+
+    <ImageView
+        android:id="@+id/image5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/koopatroopapixel"
+        app:layout_constraintStart_toEndOf="@+id/button5"
+        app:layout_constraintTop_toTopOf="@+id/button5"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
 
     <TextView
         android:id="@+id/gameIdTV"
