@@ -89,13 +89,13 @@ public class DrawView extends View {
         if (playMode != null && playMode.equalsIgnoreCase("MULTI")) {
             if (playerNum != null && playerNum.equalsIgnoreCase("p1")) {
                 for (PixelCell c : pixelCells) {
-                    if (c.getColNum() <= 8) {
+                    if (c.getColNum() < 8) {
                         c.reset();
                     }
                 }
             } else if (playerNum != null && playerNum.equalsIgnoreCase("p2")) {
                 for (PixelCell c : pixelCells) {
-                    if (c.getColNum() > 8) {
+                    if (c.getColNum() >= 8) {
                         c.reset();
                     }
                 }
