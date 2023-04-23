@@ -1,0 +1,330 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#E8E4D6">
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/quitBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/danger_button_custom"
+        android:text="@string/quit_level"
+        android:gravity="center"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/pauseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/danger_button_custom"
+        android:text="@string/pause_level"
+        android:drawableEnd="@drawable/pause_icon"
+        android:gravity="center"
+        android:padding="8dp"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--
+    <Button
+        android:id="@+id/logBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="150dp"
+        android:text="Log"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/quitBtn"
+        app:layout_constraintTop_toTopOf="parent" />
+    -->
+
+    <com.google.android.material.switchmaterial.SwitchMaterial
+        android:id="@+id/switchShakeErase"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="0dp"
+        android:paddingVertical="0dp"
+        android:text="@string/shake_to_erase"
+        android:textColor="#5A5A5A"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/secondary_button_custom"
+        android:text="@string/skip_timer"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:padding="5dp"
+        android:drawableEnd="@drawable/skip_next"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
+
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="pauseBtn, switchShakeErase" />
+
+    <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
+        android:id="@+id/drawView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_margin="10dp"
+        app:layout_constraintWidth_percent="0.9"
+        app:layout_constraintBottom_toTopOf="@+id/drawPalette"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1TV"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/drawPalette"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn1"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/colorBtn6"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn2"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn2"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/colorBtn7"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn3"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn1"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn3"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/colorBtn8"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn4"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn2"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn4"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/whiteColorBtn"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn5"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn3"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn5"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/eraserBtn"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn4"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn6"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/barrier1"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn7"
+            app:layout_constraintStart_toStartOf="parent"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn7"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/barrier1"
+            app:layout_constraintEnd_toStartOf="@+id/colorBtn8"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn6"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/colorBtn8"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/barrier1"
+            app:layout_constraintEnd_toStartOf="@+id/whiteColorBtn"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn7"
+            app:strokeWidth="1dp" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/whiteColorBtn"
+            style="@style/MaterialButtonCustom"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="10dp"
+            app:layout_constraintBottom_toTopOf="@+id/barrier1"
+            app:layout_constraintEnd_toStartOf="@+id/eraserBtn"
+            app:layout_constraintStart_toEndOf="@+id/colorBtn8"
+            app:strokeWidth="1dp" />
+
+        <ImageButton
+            android:id="@+id/eraserBtn"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="10dp"
+            android:background="@drawable/eraser_button_custom"
+            android:contentDescription="@string/eraser"
+            android:padding="0dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/eraser"
+            app:layout_constraintBottom_toTopOf="@+id/barrier1"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/whiteColorBtn" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/resetBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/danger_button_custom"
+            android:paddingVertical="20dp"
+            android:text="@string/reset"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/doneBtn"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/doneBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginVertical="20dp"
+            android:background="@drawable/primary_button_custom"
+            android:paddingVertical="20dp"
+            android:text="@string/done"
+            android:textSize="25sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/resetBtn" />
+
+        <androidx.constraintlayout.widget.Barrier
+            android:id="@+id/barrier1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:barrierDirection="top"
+            app:constraint_referenced_ids="resetBtn, doneBtn" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/memorizeTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/memorize"
+        android:textSize="80sp"
+        android:fontFamily="@font/arcade"
+        android:textColor="#066466"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/drawPalette" />
+
+    <TextView
+        android:id="@+id/waitingTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/waiting_for_host_to_be_done"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#066466"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/drawPalette" />
+
+    <TextView
+        android:id="@+id/displayTimer"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:fontFamily="@font/arcade"
+        android:gravity="center"
+        android:textColor="@color/black"
+        android:textSize="75dp"
+        app:layout_constraintBottom_toBottomOf="@+id/pauseBtn"
+        app:layout_constraintEnd_toStartOf="@+id/switchShakeErase"
+        app:layout_constraintStart_toEndOf="@+id/pauseBtn"
+        app:layout_constraintTop_toTopOf="@+id/pauseBtn" />
+
+    <TextView
+        android:id="@+id/p1TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p1"
+        android:padding="10dp"
+        android:background="@drawable/round_green_background"
+        android:fontFamily="@font/press_start_2p"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toStartOf="@+id/p2TV"
+        app:layout_constraintStart_toStartOf="@+id/drawView"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+    <TextView
+        android:id="@+id/p2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p2"
+        android:padding="10dp"
+        android:background="@drawable/round_green_background"
+        android:fontFamily="@font/press_start_2p"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="@+id/drawView"
+        app:layout_constraintStart_toEndOf="@+id/p1TV"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

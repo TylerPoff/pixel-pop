@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".pixel_pop.FruitsAdventureActivity">
+
+    <ImageView
+        android:id="@+id/backgroundImageView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pixel_pop_level_select_background2" />
+
+
+<!--    <View-->
+<!--        android:id="@+id/blurView"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:background="#1AFFFFFF"-->
+<!--        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintHorizontal_bias="0.0"-->
+<!--        app:layout_constraintStart_toStartOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintTop_toTopOf="@id/backgroundImageView"-->
+<!--        app:layout_constraintVertical_bias="0.0" />-->
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fruit_button1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
+        android:enabled="false"
+        android:text="1"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.138"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.917" />
+
+    <ImageView
+        android:id="@+id/image1"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/strawberrypixel"
+        app:layout_constraintStart_toEndOf="@+id/fruit_button1"
+        app:layout_constraintTop_toTopOf="@+id/fruit_button1"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fruit_button2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
+        android:enabled="false"
+        android:text="2"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.868" />
+
+    <ImageView
+        android:id="@+id/image2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/watermelonpixel"
+        app:layout_constraintEnd_toStartOf="@+id/fruit_button2"
+        app:layout_constraintTop_toTopOf="@+id/fruit_button2"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fruit_button3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
+        android:enabled="false"
+        android:text="3"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.734"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.685" />
+
+    <ImageView
+        android:id="@+id/image3"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/orangepixel"
+        app:layout_constraintEnd_toStartOf="@+id/fruit_button3"
+        app:layout_constraintTop_toTopOf="@+id/fruit_button3"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fruit_button4"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
+        android:enabled="false"
+        android:text="5"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.34" />
+
+    <ImageView
+        android:id="@+id/image4"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/grapepixel"
+        app:layout_constraintStart_toEndOf="@+id/fruit_button4"
+        app:layout_constraintTop_toTopOf="@+id/fruit_button4"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/fruit_button5"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:background="@drawable/level_button_custom"
+        android:enabled="false"
+        android:text="4"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="@id/backgroundImageView"
+        app:layout_constraintEnd_toEndOf="@id/backgroundImageView"
+        app:layout_constraintHorizontal_bias="0.795"
+        app:layout_constraintStart_toStartOf="@id/backgroundImageView"
+        app:layout_constraintTop_toBottomOf="@id/gameIdTV"
+        app:layout_constraintVertical_bias="0.417" />
+
+    <ImageView
+        android:id="@+id/image5"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:src="@drawable/applepixel"
+        app:layout_constraintEnd_toStartOf="@+id/fruit_button5"
+        app:layout_constraintTop_toTopOf="@+id/fruit_button5"
+        android:layout_marginEnd="8dp"
+        android:background="@drawable/blur_background_dark"/>
+
+    <TextView
+        android:id="@+id/gameIdTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/blur_background"
+        android:fontFamily="@font/press_start_2p"
+        android:padding="10dp"
+        android:layout_margin="10dp"
+        android:text="@string/game_id"
+        android:textColor="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/backgroundImageView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

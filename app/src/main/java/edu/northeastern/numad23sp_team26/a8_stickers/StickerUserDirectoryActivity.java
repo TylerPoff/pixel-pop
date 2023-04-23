@@ -12,6 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -46,7 +48,8 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sticker_directory);
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseApp stickers = FirebaseApp.getInstance("stickers");
+        mDatabase = FirebaseDatabase.getInstance(stickers).getReference();
 
         if (getIntent().getExtras() != null) {
             Bundle bundle = getIntent().getExtras();
@@ -184,7 +187,8 @@ public class StickerUserDirectoryActivity extends AppCompatActivity {
 
     private void updateSticker() {
         ImageView stickerDirectoryIV = findViewById(R.id.stickerDirectoryIV);
-        stickerDirectoryIV.setImageResource(currentSticker.getImageResource());
+        int imageResource = getResources().getIdentifier(currentSticker.getFileName(), "drawable", getPackageName());
+        stickerDirectoryIV.setImageResource(imageResource);
     }
 
     private void loadUsers() {

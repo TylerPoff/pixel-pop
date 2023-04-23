@@ -10,6 +10,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.FirebaseOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -43,7 +45,8 @@ public class RegisterActivity extends AppCompatActivity {
         TextView loginNavBtnTV = findViewById(R.id.loginNavBtnTV);
         loginNavBtnTV.setOnClickListener(v -> openActivityLogin());
 
-        mDatabase = FirebaseDatabase.getInstance().getReference();
+        FirebaseApp stickers = FirebaseApp.getInstance("stickers");
+        mDatabase = FirebaseDatabase.getInstance(stickers).getReference();
 
         buttonReg.setOnClickListener(v -> {
             registerErrorTV.setText("");

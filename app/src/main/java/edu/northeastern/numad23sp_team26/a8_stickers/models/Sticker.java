@@ -9,22 +9,18 @@ public class Sticker implements Parcelable {
 
     private String name;
     private String fileName;
-    private int imageResource;
 
     public Sticker() {
-        // Default constructor required for calls to DataSnapshot.getValue(StickerSent.class)
+        // Default constructor required for calls to DataSnapshot.getValue(Sticker.class)
     }
 
-    public Sticker(String name, String fileName, int imageResource) {
+    public Sticker(String name, String fileName) {
         this.name = name;
-        this.fileName = fileName;
-        this.imageResource = imageResource;
     }
 
     private Sticker(Parcel in) {
         name = in.readString();
         fileName = in.readString();
-        imageResource = in.readInt();
     }
 
     public String getName() {
@@ -33,10 +29,6 @@ public class Sticker implements Parcelable {
 
     public String getFileName() {
         return this.fileName;
-    }
-
-    public int getImageResource() {
-        return this.imageResource;
     }
 
     @Override
@@ -48,7 +40,6 @@ public class Sticker implements Parcelable {
     public void writeToParcel(@NonNull Parcel dest, int flags) {
         dest.writeString(name);
         dest.writeString(fileName);
-        dest.writeInt(imageResource);
     }
 
     public static final Parcelable.Creator<Sticker> CREATOR = new Parcelable.Creator<Sticker>() {

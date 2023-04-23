@@ -16,7 +16,7 @@ public class StickerReceived implements Parcelable {
     public int isNotified;
 
     public StickerReceived() {
-        // Default constructor required for calls to DataSnapshot.getValue(StickerSent.class)
+        // Default constructor required for calls to DataSnapshot.getValue(StickerReceived.class)
     }
 
     public StickerReceived(Sticker sticker, User from, String timeStamp, int isNotified) {
