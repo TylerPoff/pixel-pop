@@ -67,6 +67,8 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     private String gameID;
     private String otherPlayerID;
     private boolean isDone = false;
+    private boolean isOpenPauseMenu;
+    private AlertDialog pauseDialog;
     private ChildEventListener multiPlayGamesDoneChildListener = new ChildEventListener() {
         @Override
         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -243,6 +245,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
     @Override
     protected void onResume() {
         super.onResume();
+        isOpenPauseMenu = true;
         musicPlay();
         if (shouldShake) {
             shakeDetector = new ShakeDetector(this);
@@ -263,7 +266,12 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
             if (displayTimerThread != null) {
                 displayTimerThread.pauseTimer();
             }
-            createPauseAlertDialog();
+
+            if (isOpenPauseMenu) {
+                if (pauseDialog == null || !pauseDialog.isShowing()) {
+                    createPauseAlertDialog();
+                }
+            }
         }
         isPlaying = isDone;
         super.onPause();
@@ -418,6 +426,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
         extras.putString("otherPlayerID", otherPlayerID);
         intent.putExtras(extras);
 
+        isOpenPauseMenu = false;
         startActivity(intent);
         finish();
     }
@@ -495,6 +504,7 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
         quitBtn.setOnClickListener(v -> {
             dialog.dismiss();
             isPlaying = false;
+            isOpenPauseMenu = false;
             finish();
         });
     }
@@ -505,21 +515,22 @@ public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetect
         Button resumeBtn = PausePopupView.findViewById(R.id.pause_menu_resume_btn);
         Button quitBtn = PausePopupView.findViewById(R.id.pause_menu_quit_btn);
         dialogBuilder.setView(PausePopupView);
-        AlertDialog dialog = dialogBuilder.create();
-        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-        dialog.setOnDismissListener(dialogInterface -> {
+        pauseDialog = dialogBuilder.create();
+        pauseDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        pauseDialog.setOnDismissListener(dialogInterface -> {
             if (paused) {
                 displayTimerThread.resumeTimer();
             }
         });
-        dialog.show();
+        pauseDialog.show();
         displayTimerThread.pauseTimer();
         resumeBtn.setOnClickListener(v -> {
             displayTimerThread.resumeTimer();
-            dialog.dismiss();
+            pauseDialog.dismiss();
         });
         quitBtn.setOnClickListener(v -> {
-            dialog.dismiss();
+            pauseDialog.dismiss();
+            isOpenPauseMenu = false;
             finish();
         });
     }
