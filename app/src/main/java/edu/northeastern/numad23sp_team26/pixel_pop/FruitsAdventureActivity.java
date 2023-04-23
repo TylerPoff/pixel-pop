@@ -10,10 +10,10 @@ import java.util.List;
 
 import edu.northeastern.numad23sp_team26.R;
 
-public class AnimalsAdventureActivity extends AdventureActivity {
+public class FruitsAdventureActivity extends AdventureActivity {
 
-    private Button animals_pixel_drawing_1_button, animals_pixel_drawing_2_button, animals_pixel_drawing_3_button, animals_pixel_drawing_4_button, animals_pixel_drawing_5_button;
-    private final String ADVENTURE_TYPE = "animals";
+    private Button fruit_button1, fruit_button2, fruit_button3, fruit_button4, fruit_button5;
+    private final String ADVENTURE_TYPE = "fruits";
     private final int MAX_LEVELS = 5;
 
     MediaPlayer player;
@@ -21,12 +21,12 @@ public class AnimalsAdventureActivity extends AdventureActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_animals_adventure);
+        setContentView(R.layout.activity_fruits_adventure);
 
         musicPlay();
 
-        animals_pixel_drawing_1_button = findViewById(R.id.animals_pixel_drawing_1_button);
-        animals_pixel_drawing_1_button.setOnClickListener(v -> {
+        fruit_button1 = findViewById(R.id.fruit_button1);
+        fruit_button1.setOnClickListener(v -> {
             if (multiPlayGameID.isEmpty()) {
                 createAlertDialog(1, ADVENTURE_TYPE);
             } else {
@@ -34,8 +34,8 @@ public class AnimalsAdventureActivity extends AdventureActivity {
             }
         });
 
-        animals_pixel_drawing_2_button = findViewById(R.id.animals_pixel_drawing_2_button);
-        animals_pixel_drawing_2_button.setOnClickListener(v -> {
+        fruit_button2 = findViewById(R.id.fruit_button2);
+        fruit_button2.setOnClickListener(v -> {
             if (multiPlayGameID.isEmpty()) {
                 createAlertDialog(2, ADVENTURE_TYPE);
             } else {
@@ -43,8 +43,8 @@ public class AnimalsAdventureActivity extends AdventureActivity {
             }
         });
 
-        animals_pixel_drawing_3_button = findViewById(R.id.animals_pixel_drawing_3_button);
-        animals_pixel_drawing_3_button.setOnClickListener(v -> {
+        fruit_button3 = findViewById(R.id.fruit_button3);
+        fruit_button3.setOnClickListener(v -> {
             if (multiPlayGameID.isEmpty()) {
                 createAlertDialog(3, ADVENTURE_TYPE);
             } else {
@@ -52,8 +52,8 @@ public class AnimalsAdventureActivity extends AdventureActivity {
             }
         });
 
-        animals_pixel_drawing_4_button = findViewById(R.id.animals_pixel_drawing_4_button);
-        animals_pixel_drawing_4_button.setOnClickListener(v -> {
+        fruit_button4 = findViewById(R.id.fruit_button4);
+        fruit_button4.setOnClickListener(v -> {
             if (multiPlayGameID.isEmpty()) {
                 createAlertDialog(4, ADVENTURE_TYPE);
             } else {
@@ -61,8 +61,8 @@ public class AnimalsAdventureActivity extends AdventureActivity {
             }
         });
 
-        animals_pixel_drawing_5_button = findViewById(R.id.animals_pixel_drawing_5_button);
-        animals_pixel_drawing_5_button.setOnClickListener(v -> {
+        fruit_button5 = findViewById(R.id.fruit_button5);
+        fruit_button5.setOnClickListener(v -> {
             if (multiPlayGameID.isEmpty()) {
                 createAlertDialog(5, ADVENTURE_TYPE);
             } else {
@@ -84,16 +84,15 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         musicStop();
     }
 
-    @Override
     public void openActivityPixelDraw(int levelNum) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
         colorList.add(getColor(R.color.nature_green));
-        colorList.add(getColor(R.color.maple));
+        colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
-        colorList.add(getColor(R.color.orange));
-        colorList.add(getColor(R.color.cheese));
+        colorList.add(getColor(R.color.fruit_orange));
+        colorList.add(getColor(R.color.purple_500));
         colorList.add(getColor(R.color.brown));
 
         Intent intent = new Intent(this, DrawActivity.class);
@@ -113,19 +112,19 @@ public class AnimalsAdventureActivity extends AdventureActivity {
         for (int l : unlockLevels) {
             switch (l) {
                 case 1:
-                    animals_pixel_drawing_1_button.setEnabled(true);
+                    fruit_button1.setEnabled(true);
                     break;
                 case 2:
-                    animals_pixel_drawing_2_button.setEnabled(true);
+                    fruit_button2.setEnabled(true);
                     break;
                 case 3:
-                    animals_pixel_drawing_3_button.setEnabled(true);
+                    fruit_button3.setEnabled(true);
                     break;
                 case 4:
-                    animals_pixel_drawing_4_button.setEnabled(true);
+                    fruit_button4.setEnabled(true);
                     break;
                 case 5:
-                    animals_pixel_drawing_5_button.setEnabled(true);
+                    fruit_button5.setEnabled(true);
                     break;
             }
         }

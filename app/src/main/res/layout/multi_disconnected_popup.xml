@@ -9,69 +9,54 @@
         android:id="@+id/titleTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="20dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="@string/shake_to_erase"
-        android:textAllCaps="true"
+        android:text="@string/online_session_ended"
+        android:gravity="center"
         android:textColor="@color/dark_orange"
-        android:textSize="16sp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:textSize="15sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/msgTV"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="32dp"
+        android:layout_marginHorizontal="10dp"
         android:layout_marginVertical="20dp"
         android:fontFamily="@font/press_start_2p"
-        android:text="@string/reset_msg"
+        android:text="@string/other_player_disconnected"
+        android:gravity="center"
         android:textColor="@color/danger_red"
-        android:textSize="15sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/titleTV" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/noBtn"
-        android:layout_width="0dp"
+        android:id="@+id/okBtn"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="20dp"
-        android:background="@drawable/secondary_button_custom"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/primary_button_custom"
         android:paddingVertical="20dp"
-        android:text="@string/no"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/yesBtn"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/yesBtn"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginVertical="20dp"
-        android:background="@drawable/danger_button_custom"
-        android:paddingVertical="20dp"
-        android:text="@string/yes"
+        android:text="@string/ok"
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/noBtn" />
+        app:layout_constraintTop_toBottomOf="@+id/msgTV"
+        app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="top"
-        app:constraint_referenced_ids="noBtn, yesBtn" />
+        app:constraint_referenced_ids="okBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

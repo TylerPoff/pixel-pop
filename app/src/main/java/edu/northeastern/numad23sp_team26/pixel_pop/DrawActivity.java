@@ -50,6 +50,9 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private boolean shouldShake = false;
     private ShakeDetector shakeDetector;
     private int noCount = 0;
+    private Button skipBtn;
+    private DisplayTimerThread displayTimerThread;
+    private boolean paused = false;
     MediaPlayer player;
 
     @Override
@@ -63,6 +66,13 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         displayTimer = findViewById(R.id.displayTimer);
         memorizeTV = findViewById(R.id.memorizeTV);
         drawPalette = findViewById(R.id.drawPalette);
+
+        skipBtn = findViewById(R.id.skipBtn);
+        skipBtn.setOnClickListener(v -> {
+            if (displayTimerThread != null) {
+                displayTimerThread.interrupt();
+            }
+        });
 
         shakeToEraseSwitch = findViewById(R.id.switchShakeErase);
         shakeToEraseSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -80,8 +90,11 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             }
         });
 
-        Button quitBtn = findViewById(R.id.quitBtn);
-        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+//        Button quitBtn = findViewById(R.id.quitBtn);
+//        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+
+        Button pauseBtn = findViewById(R.id.pauseBtn);
+        pauseBtn.setOnClickListener(v -> createPauseAlertDialog());
 
         Button whiteColorBtn = findViewById(R.id.whiteColorBtn);
         whiteColorBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
@@ -90,7 +103,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         eraserBtn.setOnClickListener(v -> drawView.changeFillColor(getColor(R.color.white)));
 
         Button resetBtn = findViewById(R.id.resetBtn);
-        resetBtn.setOnClickListener(v -> drawView.resetFills());
+        resetBtn.setOnClickListener(v -> createResetAlertDialog());
 
         Button doneBtn = findViewById(R.id.doneBtn);
         doneBtn.setOnClickListener(v -> handleDone());
@@ -109,7 +122,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             /*
             Button logBtn = findViewById(R.id.logBtn);
             logBtn.setOnClickListener(v -> {
-                PixelImage currentImage = new PixelImage(adventure, levelNum, 600, 600, drawView.getPixelCellsDisplay());
+                PixelImage currentImage = new PixelImage(adventure, levelNum, 30, 600, drawView.getPixelCellsDisplay());
                 String jsonToLog =  gson.toJson(currentImage);
                 int chunkCount = jsonToLog.length() / 4000;
                 for (int i = 0; i <= chunkCount; i++) {
@@ -143,6 +156,10 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         if (shakeDetector != null) {
             shakeDetector.stop();
         }
+        if (displayTimerThread != null) {
+            displayTimerThread.pauseTimer();
+        }
+        createPauseAlertDialog();
     }
 
     @Override
@@ -156,7 +173,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                     sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
                     shakeDetector.start(sensorManager, SensorManager.SENSOR_DELAY_GAME);
                 });
-        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.shake_reset_popup, null);
+        final View ShakeResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
         Button noBtn = ShakeResetPopupView.findViewById(R.id.noBtn);
         Button yesBtn = ShakeResetPopupView.findViewById(R.id.yesBtn);
         dialogBuilder.setView(ShakeResetPopupView);
@@ -206,6 +223,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         dialog.show();
         okBtn.setOnClickListener(v -> dialog.dismiss());
     }
+
     @Override
     public void onBackPressed() {
         createQuitAlertDialog();
@@ -242,15 +260,32 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         List<PixelImage> pixelImages = loadPixelImagesFromFile("pixelImages.json");
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
-            runOnUiThread(() -> shakeToEraseSwitch.setVisibility(View.INVISIBLE));
+            shakeToEraseSwitch.setVisibility(View.INVISIBLE);
+            skipBtn.setVisibility(View.VISIBLE);
             memorizeTV.setVisibility(View.VISIBLE);
             drawPalette.setVisibility(View.INVISIBLE);
             drawView.setIsEditable(false);
             drawView.setPixelCellsDisplay(imageToDisplay.getPixelCellsDisplay());
             displayTimer.setText("" + imageToDisplay.getDisplaySecondsTimer());
-            DisplayTimerThread displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
+            displayTimerThread = new DisplayTimerThread(imageToDisplay.getDisplaySecondsTimer());
             displayTimerThread.start();
         }
+    }
+
+    private void createResetAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View ResetPopupView = getLayoutInflater().inflate(R.layout.reset_popup, null);
+        Button noBtn = ResetPopupView.findViewById(R.id.noBtn);
+        Button yesBtn = ResetPopupView.findViewById(R.id.yesBtn);
+        dialogBuilder.setView(ResetPopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.show();
+        noBtn.setOnClickListener(v -> dialog.dismiss());
+        yesBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            drawView.resetFills();
+        });
     }
 
     private void handleDone() {
@@ -311,8 +346,35 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         });
     }
 
+    private void createPauseAlertDialog() {
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(this);
+        final View PausePopupView = getLayoutInflater().inflate(R.layout.pause_menu_popup, null);
+        Button resumeBtn = PausePopupView.findViewById(R.id.pause_menu_resume_btn);
+        Button quitBtn = PausePopupView.findViewById(R.id.pause_menu_quit_btn);
+        dialogBuilder.setView(PausePopupView);
+        AlertDialog dialog = dialogBuilder.create();
+        dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+        dialog.setOnDismissListener(dialogInterface -> {
+            if (paused) {
+                displayTimerThread.resumeTimer();
+            }
+        });
+        dialog.show();
+        displayTimerThread.pauseTimer();
+        resumeBtn.setOnClickListener(v -> {
+            displayTimerThread.resumeTimer();
+            dialog.dismiss();
+        });
+        quitBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            finish();
+        });
+    }
+
     private class DisplayTimerThread extends Thread {
+
         private int displaySecondsTimer;
+        private final Object lock = new Object();
 
         public DisplayTimerThread(int displaySecondsTimer) {
             this.displaySecondsTimer = displaySecondsTimer;
@@ -320,9 +382,14 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
         @Override
         public void run() {
-            for (int i = 0; i < displaySecondsTimer; i++) {
-                try {
+            try {
+                for (int i = 0; i < displaySecondsTimer; i++) {
                     Thread.sleep(1000);
+                    if (paused) {
+                        synchronized (lock) {
+                            lock.wait();
+                        }
+                    }
                     int currentTime = displaySecondsTimer - i - 1;
                     handler.post(() -> {
                         if (currentTime <= 10) {
@@ -338,17 +405,50 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
                         handler.post(() -> {
                             displayTimer.setTextColor(Color.BLACK);
                             displayTimer.setText("Draw");
+                            skipBtn.setVisibility(View.INVISIBLE);
                             memorizeTV.setVisibility(View.INVISIBLE);
                             drawPalette.setVisibility(View.VISIBLE);
                             shakeToEraseSwitch.setVisibility(View.VISIBLE);
                         });
                     }
-                } catch (InterruptedException e) {
-                    Log.e(TAG, "InterruptedException");
                 }
+            } catch (InterruptedException e) {
+                // Interrupted
+            }
+        }
+
+        public void pauseTimer() {
+            paused = true;
+        }
+
+        public void resumeTimer() {
+            synchronized (lock) {
+                paused = false;
+                lock.notify();
+            }
+        }
+
+        @Override
+        public void interrupt() {
+            try {
+                // Change to draw mode
+                drawView.resetFills();
+                drawView.setIsEditable(true);
+                handler.post(() -> {
+                    displayTimer.setTextColor(Color.BLACK);
+                    displayTimer.setText("Draw");
+                    skipBtn.setVisibility(View.INVISIBLE);
+                    memorizeTV.setVisibility(View.INVISIBLE);
+                    drawPalette.setVisibility(View.VISIBLE);
+                    shakeToEraseSwitch.setVisibility(View.VISIBLE);
+                });
+            }
+            finally {
+                super.interrupt();
             }
         }
     }
+
     public void musicPlay() {
         if (player == null) {
             player = MediaPlayer.create(this, R.raw.puzzler);

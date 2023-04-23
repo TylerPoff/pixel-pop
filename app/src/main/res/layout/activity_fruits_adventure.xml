@@ -4,17 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".pixel_pop.VideoGameAdventureActivity">
+    tools:context=".pixel_pop.FruitsAdventureActivity">
 
     <ImageView
         android:id="@+id/backgroundImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/pixel_pop_level_select_background" />
+        android:src="@drawable/pixel_pop_level_select_background2" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button1"
+        android:id="@+id/fruit_button1"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
@@ -29,7 +29,7 @@
         app:layout_constraintVertical_bias="0.732" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button2"
+        android:id="@+id/fruit_button2"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
@@ -44,7 +44,7 @@
         app:layout_constraintVertical_bias="0.609" />
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button3"
+        android:id="@+id/fruit_button3"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
@@ -59,7 +59,7 @@
         app:layout_constraintVertical_bias="0.384"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button4"
+        android:id="@+id/fruit_button4"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"
@@ -74,7 +74,7 @@
         app:layout_constraintVertical_bias="0.583"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/button5"
+        android:id="@+id/fruit_button5"
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:background="@drawable/level_button_custom"

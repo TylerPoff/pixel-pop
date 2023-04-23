@@ -15,6 +15,14 @@
         android:theme="@style/Theme.NUMAD23Sp_Team26"
         tools:targetApi="31">
         <activity
+            android:name=".pixel_pop.WaitJoinMultiplayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pixel_pop.JoinMultiplayerActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".pixel_pop.ResultsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
@@ -24,6 +32,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".pixel_pop.VideoGameAdventureActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".pixel_pop.FruitsAdventureActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

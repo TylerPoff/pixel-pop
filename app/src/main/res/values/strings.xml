@@ -47,8 +47,8 @@
     <string name="sign_up">Sign Up</string>
     <string name="email">Email</string>
     <string name="password">Password</string>
-    <string name="already_have_an_account_login">Already have an account? Login</string>
-    <string name="dont_have_an_account">Don\'t have an account? Sign up</string>
+    <string name="already_have_an_account_login">Already have an account? Click here to login.</string>
+    <string name="dont_have_an_account">Don\'t have an account? Click here to sign up.</string>
 
     <string name="select_adventure">Select Adventure</string>
     <string name="_1">1</string>
@@ -58,6 +58,7 @@
     <string name="_5">5</string>
 
     <string name="quit_level">Quit level</string>
+    <string name="pause_level">Pause</string>
     <string name="reset">Reset</string>
     <string name="done">Done</string>
     <string name="eraser">Eraser</string>
@@ -74,10 +75,12 @@
     <string name="start">Start</string>
     <string name="cancel">Cancel</string>
     <string name="quit">Quit</string>
+    <string name="resume">Resume</string>
+    <string name="pause_menu">Paused</string>
     <string name="shake_to_erase">Shake to reset</string>
     <string name="singleplayer">Singleplayer</string>
-    <string name="host_multiplayer">Host multiplayer</string>
-    <string name="join_multiplayer">Join multiplayer</string>
+    <string name="host_multiplayer">Host online co-op</string>
+    <string name="join_multiplayer">Join online co-op</string>
     <string name="your_top_scores">Your top scores:</string>
     <string name="no_top_score">No top score available.\nCreate one now!</string>
     <string name="reset_msg">Are you sure you want to reset your drawing?</string>
@@ -85,4 +88,14 @@
     <string name="yes">Yes</string>
     <string name="shake_disabled_msg">Shake To Erase has been turned off! Re-toggle to turn it back on.</string>
     <string name="ok">Ok</string>
+    <string name="skip_timer">Skip timer</string>
+    <string name="game_id">Game ID: %1$s</string>
+    <string name="waiting_for_player_two_to_join">Waiting for player two to join…</string>
+    <string name="stay_on_this_page">Please stay on this page</string>
+    <string name="provide_game_id_msg">Please provide the game ID to player two</string>
+    <string name="game_id_hint">Game ID</string>
+    <string name="join">Join</string>
+    <string name="waiting_for_host">Waiting for host to start game…</string>
+    <string name="online_session_ended">Online session ended</string>
+    <string name="other_player_disconnected">Other player disconnected</string>
 </resources>

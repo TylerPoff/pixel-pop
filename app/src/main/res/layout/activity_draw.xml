@@ -12,7 +12,23 @@
         android:layout_margin="10dp"
         android:background="@drawable/danger_button_custom"
         android:text="@string/quit_level"
+        android:visibility="invisible"
         android:gravity="center"
+        android:textAllCaps="false"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/pauseBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/danger_button_custom"
+        android:text="@string/pause_level"
+        android:drawableEnd="@drawable/pause_icon"
+        android:gravity="center"
+        android:padding="8dp"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,7 +39,8 @@
         android:id="@+id/logBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Log Pixel Cells"
+        android:layout_marginStart="150dp"
+        android:text="Log"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/quitBtn"
         app:layout_constraintTop_toTopOf="parent" />
@@ -41,12 +58,27 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/skipBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:background="@drawable/secondary_button_custom"
+        android:text="@string/skip_timer"
+        android:gravity="center"
+        android:textAllCaps="false"
+        android:padding="5dp"
+        android:drawableEnd="@drawable/skip_next"
+        app:layout_constraintBottom_toTopOf="@+id/barrier"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"  />
+
     <androidx.constraintlayout.widget.Barrier
         android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="quitBtn, switchShakeErase" />
+        app:constraint_referenced_ids="pauseBtn, switchShakeErase" />
 
     <edu.northeastern.numad23sp_team26.pixel_pop.DrawView
         android:id="@+id/drawView"
@@ -195,7 +227,7 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
             android:layout_marginVertical="20dp"
-            android:background="@drawable/primary_button_custom"
+            android:background="@drawable/danger_button_custom"
             android:paddingVertical="20dp"
             android:text="@string/reset"
             android:textSize="25sp"
@@ -249,9 +281,9 @@
         android:gravity="center"
         android:textColor="@color/black"
         android:textSize="75dp"
-        app:layout_constraintBottom_toBottomOf="@+id/quitBtn"
-        app:layout_constraintEnd_toStartOf="@+id/switchShakeErase"
-        app:layout_constraintStart_toEndOf="@+id/quitBtn"
-        app:layout_constraintTop_toTopOf="@+id/quitBtn" />
+        app:layout_constraintBottom_toBottomOf="@+id/pauseBtn"
+        app:layout_constraintEnd_toStartOf="@+id/skipBtn"
+        app:layout_constraintStart_toEndOf="@+id/pauseBtn"
+        app:layout_constraintTop_toTopOf="@+id/pauseBtn" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

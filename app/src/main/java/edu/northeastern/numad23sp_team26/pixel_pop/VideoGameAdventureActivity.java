@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +11,11 @@ import java.util.List;
 import edu.northeastern.numad23sp_team26.R;
 
 public class VideoGameAdventureActivity extends AdventureActivity {
-    MediaPlayer player;
 
     private Button button1, button2, button3, button4, button5;
     private final String ADVENTURE_TYPE = "video game";
+    private final int MAX_LEVELS = 5;
+    MediaPlayer player;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,26 +25,56 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         musicPlay();
 
         button1 = findViewById(R.id.button1);
-        button1.setOnClickListener(v -> createAlertDialog(1, ADVENTURE_TYPE));
+        button1.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(1, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(1, ADVENTURE_TYPE);
+            }
+        });
 
         button2 = findViewById(R.id.button2);
-        button2.setOnClickListener(v -> createAlertDialog(2, ADVENTURE_TYPE));
+        button2.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(2, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(2, ADVENTURE_TYPE);
+            }
+        });
 
         button3 = findViewById(R.id.button3);
-        button3.setOnClickListener(v -> createAlertDialog(3, ADVENTURE_TYPE));
+        button3.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(3, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(3, ADVENTURE_TYPE);
+            }
+        });
 
         button4 = findViewById(R.id.button4);
-        button4.setOnClickListener(v -> createAlertDialog(4, ADVENTURE_TYPE));
+        button4.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(4, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(4, ADVENTURE_TYPE);
+            }
+        });
 
         button5 = findViewById(R.id.button5);
-        button5.setOnClickListener(v -> createAlertDialog(5, ADVENTURE_TYPE));
+        button5.setOnClickListener(v -> {
+            if (multiPlayGameID.isEmpty()) {
+                createAlertDialog(5, ADVENTURE_TYPE);
+            } else {
+                createMultiAlertDialog(5, ADVENTURE_TYPE);
+            }
+        });
     }
 
     @Override
     protected void onResume() {
         super.onResume();
         musicPlay();
-        getUnlockedLevels("video game");
+        getUnlockedLevels(ADVENTURE_TYPE);
     }
 
     @Override public void onPause() {
@@ -57,7 +87,7 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
-        colorList.add(getColor(R.color.nature_green));
+        colorList.add(getColor(R.color.green));
         colorList.add(getColor(R.color.blue));
         colorList.add(getColor(R.color.yellow));
         colorList.add(getColor(R.color.orange));
@@ -69,7 +99,7 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         Bundle extras = new Bundle();
         extras.putString("adventure", ADVENTURE_TYPE);
         extras.putInt("levelNum", levelNum);
-        extras.putInt("maxLevels", 5);
+        extras.putInt("maxLevels", MAX_LEVELS);
         extras.putIntegerArrayList("colorList", colorList);
         intent.putExtras(extras);
 
@@ -112,7 +142,6 @@ public class VideoGameAdventureActivity extends AdventureActivity {
         if (player != null) {
             player.release();
             player = null;
-            Toast.makeText(this, "Music off", Toast.LENGTH_SHORT);
         }
     }
 }

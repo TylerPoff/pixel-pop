@@ -1,10 +1,12 @@
 package edu.northeastern.numad23sp_team26.pixel_pop;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -46,12 +48,15 @@ public class PixelPopLoginActivity extends AppCompatActivity {
         // Log in and case handling
         loginButton.setOnClickListener(v -> {
             loginErrorTV.setText("");
+            loginErrorTV.setVisibility(View.INVISIBLE);
             email = emailEditText.getText().toString().trim();
             password = passwordEditText.getText().toString().trim();
             if (email.isEmpty()) {
                 loginErrorTV.setText("Please enter your email.");
+                loginErrorTV.setVisibility(View.VISIBLE);
             } else if (password.isEmpty()) {
                 loginErrorTV.setText("Please enter your password.");
+                loginErrorTV.setVisibility(View.VISIBLE);
             } else {
                 logIn();
             }
@@ -87,14 +92,14 @@ public class PixelPopLoginActivity extends AppCompatActivity {
                     if (task.isSuccessful()) {
                         // Sign in success, update UI with the signed-in user's information
                         FirebaseUser user = mAuth.getCurrentUser();
-                        Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, "Authentication successful.", Toast.LENGTH_LONG).show();
                         // Redirect to main activity or another relevant activity
                         redirectToSelectAdventureActivity();
                     } else {
                         // If sign in fails, display a message to the user.
                         Exception exception = task.getException();
                         String errorMessage = exception != null ? exception.getMessage() : "Registration failed.";
-                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(PixelPopLoginActivity.this, errorMessage, Toast.LENGTH_LONG).show();
                     }
                 }).addOnFailureListener(this, e -> {
                     Log.e("PixelPopLogin", "Error: " + e.getMessage());
