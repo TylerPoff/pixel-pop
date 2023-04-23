@@ -98,4 +98,9 @@
     <string name="waiting_for_host">Waiting for host to start game…</string>
     <string name="online_session_ended">Online session ended</string>
     <string name="other_player_disconnected">Other player disconnected</string>
+    <string name="p1">P1</string>
+    <string name="p2">P2</string>
+    <string name="online_co_op">Online co-op</string>
+    <string name="waiting_for_host_to_be_done">Waiting for host to be done…</string>
+    <string name="leave_co_op_session">Leave co-op session</string>
 </resources>

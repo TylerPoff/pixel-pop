@@ -10,15 +10,22 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.google.android.material.switchmaterial.SwitchMaterial;
+import com.google.firebase.database.ChildEventListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.squareup.seismic.ShakeDetector;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelImage;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiGame;
 
 import android.util.Log;
 import android.widget.ImageButton;
@@ -33,7 +40,7 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DrawActivity extends AppCompatActivity implements ShakeDetector.Listener {
+public class DrawActivity extends MultiPlayCommonActivity implements ShakeDetector.Listener {
 
     private static final String TAG = "pixel_pop.DrawActivity";
     private DrawView drawView;
@@ -54,7 +61,51 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private Button skipBtn;
     private DisplayTimerThread displayTimerThread;
     private boolean paused = false;
-    private boolean quit = false;
+    private String playMode;
+    private String playerNum;
+    private String gameID;
+    private boolean isDone = false;
+    private ChildEventListener multiPlayGamesDoneChildListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
+            if (multiGame != null && multiGame.gameID.equalsIgnoreCase(multiPlayGameID)) {
+                if (multiGame.isPlayerOneDone == 1) {
+                    if (playerNum.equalsIgnoreCase("p2")) {
+                        handleDone();
+                    }
+                } else if (multiGame.isPlayerTwoDone == 1) {
+                    if (playerNum.equalsIgnoreCase("p1")) {
+                        Button doneBtn = findViewById(R.id.doneBtn);
+                        doneBtn.setEnabled(true);
+                    }
+                }
+            }
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
+            if (multiGame != null && multiGame.gameID.equalsIgnoreCase(multiPlayGameID)) {
+                createDisconnectedAlertDialog();
+            }
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +140,8 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             }
         });
 
-//        Button quitBtn = findViewById(R.id.quitBtn);
-//        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
+        Button quitBtn = findViewById(R.id.quitBtn);
+        quitBtn.setOnClickListener(v -> createQuitAlertDialog());
 
         Button pauseBtn = findViewById(R.id.pauseBtn);
         pauseBtn.setOnClickListener(v -> createPauseAlertDialog());
@@ -104,8 +155,32 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         Button resetBtn = findViewById(R.id.resetBtn);
         resetBtn.setOnClickListener(v -> createResetAlertDialog());
 
+        TextView waitingTV = findViewById(R.id.waitingTV);
+
         Button doneBtn = findViewById(R.id.doneBtn);
-        doneBtn.setOnClickListener(v -> handleDone());
+        doneBtn.setOnClickListener(v -> {
+            if (playMode.equalsIgnoreCase("MULTI")) {
+                if (playerNum.equalsIgnoreCase("p1")) {
+                    notifyDone(1);
+                    handleDone();
+                } else {
+                    notifyDone(2);
+                    shakeToEraseSwitch.setVisibility(View.INVISIBLE);
+                    shakeToEraseSwitch.setEnabled(false);
+                    skipBtn.setVisibility(View.INVISIBLE);
+                    skipBtn.setEnabled(false);
+                    memorizeTV.setVisibility(View.INVISIBLE);
+                    drawPalette.setVisibility(View.INVISIBLE);
+                    drawView.setIsEditable(false);
+                    resetBtn.setEnabled(false);
+                    doneBtn.setEnabled(false);
+                    waitingTV.setVisibility(View.VISIBLE);
+                }
+            }
+        });
+
+        TextView p1TV = findViewById(R.id.p1TV);
+        TextView p2TV = findViewById(R.id.p2TV);
 
         gson = new Gson();
 
@@ -115,6 +190,29 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
             levelNum = extras.getInt("levelNum");
             maxLevels = extras.getInt("maxLevels");
             colorList = extras.getIntegerArrayList("colorList");
+            playMode = extras.getString("playMode");
+            playerNum = extras.getString("playerNum");
+            gameID = extras.getString("gameID");
+
+            drawView.setPlayMode(playMode);
+
+            if (playMode.equalsIgnoreCase("MULTI")) {
+                drawView.setGameID(gameID);
+                pauseBtn.setVisibility(View.INVISIBLE);
+                pauseBtn.setEnabled(false);
+                if (playerNum.equalsIgnoreCase("p1")) {
+                    p2TV.setBackgroundResource(android.R.color.transparent);
+                    doneBtn.setEnabled(false);
+                } else {
+                    p1TV.setBackgroundResource(android.R.color.transparent);
+                }
+                drawView.setPlayerNum(playerNum);
+            } else {
+                quitBtn.setVisibility(View.INVISIBLE);
+                quitBtn.setEnabled(false);
+                p1TV.setVisibility(View.GONE);
+                p2TV.setVisibility(View.GONE);
+            }
 
             setPixelImageProperties();
 
@@ -140,6 +238,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     @Override
     protected void onResume() {
         super.onResume();
+
         if (shouldShake) {
             shakeDetector = new ShakeDetector(this);
             sensorManager = (SensorManager)getSystemService(Context.SENSOR_SERVICE);
@@ -149,16 +248,19 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
     @Override
     protected void onPause() {
-        super.onPause();
+        databaseRef.child("MultiplayerGames").removeEventListener(multiPlayGamesDoneChildListener);
+
         if (shakeDetector != null) {
             shakeDetector.stop();
         }
-        if (displayTimerThread != null) {
-            displayTimerThread.pauseTimer();
-        }
-        if (!quit) {
+        if (playMode.equalsIgnoreCase("SINGLE")) {
+            if (displayTimerThread != null) {
+                displayTimerThread.pauseTimer();
+            }
             createPauseAlertDialog();
         }
+        isPlaying = isDone;
+        super.onPause();
     }
 
     @Override
@@ -228,6 +330,11 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         createQuitAlertDialog();
     }
 
+    @Override
+    protected void multiPlayGamesListener() {
+        databaseRef.child("MultiplayerGames").addChildEventListener(multiPlayGamesDoneChildListener);
+    }
+
     private void setPixelImageProperties() {
         Button colorBtn1 = findViewById(R.id.colorBtn1);
         Button colorBtn2 = findViewById(R.id.colorBtn2);
@@ -260,7 +367,9 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         PixelImage imageToDisplay = pixelImages.stream().filter(pixelImage -> pixelImage.getAdventure().equalsIgnoreCase(adventure) && pixelImage.getLevelNum() == levelNum).findFirst().orElse(null);
         if (imageToDisplay != null) {
             shakeToEraseSwitch.setVisibility(View.INVISIBLE);
+            shakeToEraseSwitch.setEnabled(false);
             skipBtn.setVisibility(View.VISIBLE);
+            skipBtn.setEnabled(true);
             memorizeTV.setVisibility(View.VISIBLE);
             drawPalette.setVisibility(View.INVISIBLE);
             drawView.setIsEditable(false);
@@ -288,6 +397,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     }
 
     private void handleDone() {
+        isDone = true;
         Intent intent = new Intent (getApplicationContext(), ResultsActivity.class);
 
         Bundle extras = new Bundle();
@@ -297,10 +407,39 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         extras.putIntegerArrayList("colorList", colorList);
         extras.putParcelableArrayList("originalPixels", new ArrayList<>(drawView.getPixelCellsDisplay()));
         extras.putParcelableArrayList("drawnPixels", new ArrayList<>(drawView.getPixelCellsState()));
+        extras.putString("gameID", multiPlayGameID);
         intent.putExtras(extras);
 
         startActivity(intent);
         finish();
+    }
+
+    private void notifyDone(int playerNum) {
+        databaseRef.child("MultiplayerGames").child(gameID).runTransaction(new Transaction.Handler() {
+
+            @NonNull
+            @Override
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                PixelMultiGame multiGame = currentData.getValue(PixelMultiGame.class);
+                if (multiGame == null) {
+                    return Transaction.success(currentData);
+                }
+
+                if (playerNum == 1) {
+                    multiGame.isPlayerOneDone = 1;
+                } else if (playerNum == 2) {
+                    multiGame.isPlayerTwoDone = 1;
+                }
+                currentData.setValue(multiGame);
+
+                return Transaction.success(currentData);
+            }
+
+            @Override
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
+
+            }
+        });
     }
 
     private List<PixelImage> loadPixelImagesFromFile(String fileName) {
@@ -340,11 +479,10 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         dialog.show();
         cancelBtn.setOnClickListener(v -> {
             dialog.dismiss();
-            quit = false;
         });
         quitBtn.setOnClickListener(v -> {
             dialog.dismiss();
-            quit = true;
+            isPlaying = false;
             finish();
         });
     }
@@ -403,15 +541,19 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
 
                     // Change to draw mode
                     if (currentTime == 0) {
-                        drawView.resetFills();
+                        drawView.resetAll();
                         drawView.setIsEditable(true);
+                        drawView.listenMultiplayerGameDrawOnce();
+                        drawView.listenMultiplayerGameDraw();
                         handler.post(() -> {
                             displayTimer.setTextColor(Color.BLACK);
                             displayTimer.setText("Draw");
                             skipBtn.setVisibility(View.INVISIBLE);
+                            skipBtn.setEnabled(false);
                             memorizeTV.setVisibility(View.INVISIBLE);
                             drawPalette.setVisibility(View.VISIBLE);
                             shakeToEraseSwitch.setVisibility(View.VISIBLE);
+                            shakeToEraseSwitch.setEnabled(true);
                         });
                     }
                 }
@@ -435,15 +577,19 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         public void interrupt() {
             try {
                 // Change to draw mode
-                drawView.resetFills();
+                drawView.resetAll();
                 drawView.setIsEditable(true);
+                drawView.listenMultiplayerGameDrawOnce();
+                drawView.listenMultiplayerGameDraw();
                 handler.post(() -> {
                     displayTimer.setTextColor(Color.BLACK);
                     displayTimer.setText("Draw");
                     skipBtn.setVisibility(View.INVISIBLE);
+                    skipBtn.setEnabled(false);
                     memorizeTV.setVisibility(View.INVISIBLE);
                     drawPalette.setVisibility(View.VISIBLE);
                     shakeToEraseSwitch.setVisibility(View.VISIBLE);
+                    shakeToEraseSwitch.setEnabled(true);
                 });
             }
             finally {

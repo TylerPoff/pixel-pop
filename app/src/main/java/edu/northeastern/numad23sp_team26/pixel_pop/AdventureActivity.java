@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import edu.northeastern.numad23sp_team26.R;
+import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiGame;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiScore;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelPopUser;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelScore;
@@ -38,6 +39,62 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
     private Button multiPlayStartBtn;
     private FirebaseAuth mAuth;
     private AlertDialog gameIdDialog, adventureDialog, multiAdventureDialog;
+    protected enum PlayMode {
+        SINGLE,
+        MULTI
+    }
+    private ChildEventListener playerTwoJoinChildListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+            if (snapshot.getKey() != null && !snapshot.getKey().equalsIgnoreCase("playerTwoID")) {
+                return;
+            }
+            String playerTwoID = snapshot.getValue(String.class);
+            if (playerTwoID != null && !playerTwoID.isEmpty()) {
+                databaseRef.child("Users").child(playerTwoID).addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        PixelPopUser u = snapshot.getValue(PixelPopUser.class);
+                        if (u != null) {
+                            playerTwoEmail = u.email;
+                            Toast.makeText(AdventureActivity.this, "Player two (" + playerTwoEmail.split("@")[0] + ") joined", Toast.LENGTH_SHORT).show();
+
+                            if (MultiAdventurePopupView != null) {
+                                playTwoTxt.setText("Player Two: " + playerTwoEmail.split("@")[0]);
+                                progressBar.setVisibility(View.INVISIBLE);
+                                multiPlayStartBtn.setEnabled(true);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+                        // onCancelled
+                    }
+                });
+            }
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -48,42 +105,59 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
 
     @Override
     protected void onResume() {
-        super.onResume();
+        isPlaying = false;
 
         TextView gameIdTV = findViewById(R.id.gameIdTV);
         if (multiPlayGameID.isEmpty()) {
             gameIdTV.setVisibility(View.INVISIBLE);
         } else {
+            databaseRef.child("MultiplayerGames").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                    boolean foundGame = false;
+                    if (!snapshot.hasChildren()) {
+                        dismissAllDialogs();
+                        finish();
+                    }
+                    for (DataSnapshot statusSnapshot: snapshot.getChildren()) {
+                        PixelMultiGame status = statusSnapshot.getValue(PixelMultiGame.class);
+                        if (status != null && status.gameID.equalsIgnoreCase(multiPlayGameID)) {
+                            foundGame = true;
+                            break;
+                        }
+                    }
+                    if (!foundGame) {
+                        dismissAllDialogs();
+                        finish();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            });
+
             gameIdTV.setText(getString(R.string.game_id, multiPlayGameID));
             createGameIdDialog(multiPlayGameID);
-            listenPlayerTwoJoin(multiPlayGameID);
+            databaseRef.child("MultiplayerGames").child(multiPlayGameID).addChildEventListener(playerTwoJoinChildListener);
         }
+        super.onResume();
     }
 
     @Override
-    protected void onStop() {
+    protected void onPause() {
         if (!multiPlayGameID.isEmpty()) {
-            if (gameIdDialog != null) {
-                gameIdDialog.dismiss();
-            }
-
-            if (adventureDialog != null) {
-                adventureDialog.dismiss();
-            }
-
-            if (multiAdventureDialog != null) {
-                multiAdventureDialog.dismiss();
-            }
+            databaseRef.child("MultiplayerGames").child(multiPlayGameID).removeEventListener(playerTwoJoinChildListener);
+            dismissAllDialogs();
         }
-
-        super.onStop();
+        super.onPause();
     }
 
-    public abstract void openActivityPixelDraw(int levelNum);
+    public abstract void openActivityPixelDraw(int levelNum, PlayMode playMode);
 
     public abstract void updateUnlockLevels(List<Integer> unlockLevels);
 
-    // TODO: get unlocked for multiplayer
     public void getUnlockedLevels(String adventure) {
         String uid = mAuth.getCurrentUser().getUid();
 
@@ -113,6 +187,16 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
             }
             updateUnlockLevels(unlockedLevels);
         });
+    }
+
+    protected void getMultiPlayUnlockedLevels(String adventure) {
+        List<Integer> unlockedLevels = new ArrayList<>();
+        unlockedLevels.add(1);
+        unlockedLevels.add(2);
+        unlockedLevels.add(3);
+        unlockedLevels.add(4);
+        unlockedLevels.add(5);
+        updateUnlockLevels(unlockedLevels);
     }
 
     public void createGameIdDialog(String gameID) {
@@ -174,62 +258,7 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
         back_btn.setOnClickListener(v -> adventureDialog.dismiss());
         start_btn.setOnClickListener(v -> {
             adventureDialog.dismiss();
-            openActivityPixelDraw(levelNum);
-        });
-    }
-
-    public void listenPlayerTwoJoin(String gameID) {
-        databaseRef.child("MultiplayerGames").child(gameID).addChildEventListener(new ChildEventListener() {
-            @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                if (snapshot.getKey() != null && !snapshot.getKey().equalsIgnoreCase("playerTwoID")) {
-                    return;
-                }
-                String playerTwoID = snapshot.getValue(String.class);
-                if (playerTwoID != null && !playerTwoID.isEmpty()) {
-                    databaseRef.child("Users").child(playerTwoID).addValueEventListener(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            PixelPopUser u = snapshot.getValue(PixelPopUser.class);
-                            if (u != null) {
-                                playerTwoEmail = u.email;
-                                Toast.makeText(AdventureActivity.this, "Player two (" + playerTwoEmail.split("@")[0] + ") joined", Toast.LENGTH_SHORT).show();
-
-                                if (MultiAdventurePopupView != null) {
-                                    playTwoTxt.setText("Player Two: " + playerTwoEmail.split("@")[0]);
-                                    progressBar.setVisibility(View.INVISIBLE);
-                                    multiPlayStartBtn.setEnabled(true);
-                                }
-                            }
-                        }
-
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-                            // onCancelled
-                        }
-                    });
-                }
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-
-            }
-
-            @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
+            openActivityPixelDraw(levelNum, PlayMode.SINGLE);
         });
     }
 
@@ -291,7 +320,22 @@ public abstract class AdventureActivity extends MultiPlayCommonActivity {
         back_btn.setOnClickListener(v -> multiAdventureDialog.dismiss());
         multiPlayStartBtn.setOnClickListener(v -> {
             multiAdventureDialog.dismiss();
-            openActivityPixelDraw(levelNum);
+            startMultiplayerGame(adventure, levelNum);
+            openActivityPixelDraw(levelNum, PlayMode.MULTI);
         });
+    }
+
+    private void dismissAllDialogs() {
+        if (gameIdDialog != null) {
+            gameIdDialog.dismiss();
+        }
+
+        if (adventureDialog != null) {
+            adventureDialog.dismiss();
+        }
+
+        if (multiAdventureDialog != null) {
+            multiAdventureDialog.dismiss();
+        }
     }
 }

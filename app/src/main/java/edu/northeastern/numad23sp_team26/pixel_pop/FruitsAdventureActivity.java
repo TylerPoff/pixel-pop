@@ -69,10 +69,15 @@ public class FruitsAdventureActivity extends AdventureActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        getUnlockedLevels(ADVENTURE_TYPE);
+        if (multiPlayGameID.isEmpty()) {
+            getUnlockedLevels(ADVENTURE_TYPE);
+        } else {
+            getMultiPlayUnlockedLevels(ADVENTURE_TYPE);
+        }
     }
 
-    public void openActivityPixelDraw(int levelNum) {
+    @Override
+    public void openActivityPixelDraw(int levelNum, PlayMode playMode) {
         ArrayList<Integer> colorList = new ArrayList<>();
         colorList.add(getColor(R.color.black));
         colorList.add(getColor(R.color.red));
@@ -90,6 +95,9 @@ public class FruitsAdventureActivity extends AdventureActivity {
         extras.putInt("levelNum", levelNum);
         extras.putInt("maxLevels", MAX_LEVELS);
         extras.putIntegerArrayList("colorList", colorList);
+        extras.putString("playMode", playMode.toString());
+        extras.putString("playerNum", "p1");
+        extras.putString("gameID", multiPlayGameID);
         intent.putExtras(extras);
 
         startActivity(intent);

@@ -14,8 +14,8 @@ public class PixelMultiGame implements Parcelable {
     public String playerTwoID;
     public String adventure;
     public int levelNum;
-    public PixelPopUserActions playerOneActions;
-    public PixelPopUserActions playTwoActions;
+    public int isPlayerOneDone;
+    public int isPlayerTwoDone;
     public List<PixelCellDisplay> pixelCellsState;
 
     public PixelMultiGame() {
@@ -28,8 +28,8 @@ public class PixelMultiGame implements Parcelable {
         this.playerTwoID = "";
         this.adventure = "";
         this.levelNum = 0;
-        this.playerOneActions = new PixelPopUserActions();
-        this.playTwoActions = new PixelPopUserActions();
+        this.isPlayerOneDone = 0;
+        this.isPlayerTwoDone = 0;
     }
 
     private PixelMultiGame(Parcel in) {
@@ -38,25 +38,8 @@ public class PixelMultiGame implements Parcelable {
         playerTwoID = in.readString();
         adventure = in.readString();
         levelNum = in.readInt();
-        playerOneActions = in.readParcelable(PixelPopUserActions.class.getClassLoader());
-        playTwoActions = in.readParcelable(PixelPopUserActions.class.getClassLoader());
-    }
-
-    public void setAdventure(String adventure) {
-        this.adventure = adventure;
-    }
-
-    public void setLevelNum(int levelNum) {
-        this.levelNum = levelNum;
-    }
-
-    public void addPlayerTwo(String playerTwoID) {
-        this.playerTwoID = playerTwoID;
-    }
-
-    public void setPixelCellsState(List<PixelCellDisplay> pixelCellsState) {
-        // TODO: make this parcelable
-        this.pixelCellsState = pixelCellsState;
+        isPlayerOneDone = in.readInt();
+        isPlayerTwoDone = in.readInt();
     }
 
     @Override
@@ -69,6 +52,10 @@ public class PixelMultiGame implements Parcelable {
         dest.writeString(gameID);
         dest.writeString(playerOneID);
         dest.writeString(playerTwoID);
+        dest.writeString(adventure);
+        dest.writeInt(levelNum);
+        dest.writeInt(isPlayerOneDone);
+        dest.writeInt(isPlayerTwoDone);
     }
 
     public static final Parcelable.Creator<PixelMultiGame> CREATOR = new Parcelable.Creator<PixelMultiGame>() {

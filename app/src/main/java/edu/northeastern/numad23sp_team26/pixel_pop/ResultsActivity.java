@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -45,6 +46,7 @@ public class ResultsActivity extends AppCompatActivity {
     private Button levelMenuBtn;
     private FirebaseAuth mAuth;
     private DatabaseReference databaseRef;
+    private String gameID;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,6 +77,20 @@ public class ResultsActivity extends AppCompatActivity {
             colorList = extras.getIntegerArrayList("colorList");
             originalPixels = extras.getParcelableArrayList("originalPixels");
             drawnPixels = extras.getParcelableArrayList("drawnPixels");
+            gameID = extras.getString("gameID");
+
+            if (gameID != null) {
+                levelMenuBtn.setVisibility(View.INVISIBLE);
+                levelMenuBtn.setEnabled(false);
+                retryBtn.setVisibility(View.INVISIBLE);
+                retryBtn.setEnabled(false);
+                nextLevelBtn.setVisibility(View.INVISIBLE);
+                nextLevelBtn.setEnabled(false);
+
+                Button endMultiSessionBtn = findViewById(R.id.endMultiSessionBtn);
+                endMultiSessionBtn.setVisibility(View.VISIBLE);
+                endMultiSessionBtn.setEnabled(true);
+            }
 
             levelName.setText(getString(R.string.level_num, levelNum));
             originalDrawView.setPixelCellsDisplay(originalPixels);
@@ -104,6 +120,15 @@ public class ResultsActivity extends AppCompatActivity {
             }
 
             retryBtn.setOnClickListener(v -> handleRetry());
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+
+        if (gameID != null) {
+            databaseRef.child("MultiplayerGames").child(gameID).removeValue();
         }
     }
 

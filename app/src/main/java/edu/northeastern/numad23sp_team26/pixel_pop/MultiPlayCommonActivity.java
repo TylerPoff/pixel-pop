@@ -14,6 +14,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 
 import edu.northeastern.numad23sp_team26.R;
 import edu.northeastern.numad23sp_team26.pixel_pop.models.PixelMultiGame;
@@ -22,6 +24,36 @@ public class MultiPlayCommonActivity extends AppCompatActivity {
 
     protected DatabaseReference databaseRef;
     protected String multiPlayGameID;
+    protected static boolean isPlaying;
+    private ChildEventListener multiPlayGamesChildListener = new ChildEventListener() {
+        @Override
+        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onChildRemoved(@NonNull DataSnapshot snapshot) {
+            PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
+            if (multiGame != null && multiGame.gameID.equalsIgnoreCase(multiPlayGameID)) {
+                createDisconnectedAlertDialog();
+            }
+        }
+
+        @Override
+        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+
+        }
+
+        @Override
+        public void onCancelled(@NonNull DatabaseError error) {
+
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,14 +70,24 @@ public class MultiPlayCommonActivity extends AppCompatActivity {
     }
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onResume() {
+        super.onResume();
+    }
 
-        if (!multiPlayGameID.isEmpty()) {
+    @Override
+    protected void onPause() {
+        super.onPause();
+        databaseRef.child("MultiplayerGames").removeEventListener(multiPlayGamesChildListener);
+
+        if (!multiPlayGameID.isEmpty() && !isPlaying) {
             databaseRef.child("MultiplayerGames").child(multiPlayGameID).removeValue();
             multiPlayGameID = "";
             finish();
         }
+    }
+
+    protected void multiPlayGamesListener() {
+        databaseRef.child("MultiplayerGames").addChildEventListener(multiPlayGamesChildListener);
     }
 
     protected void createDisconnectedAlertDialog() {
@@ -62,35 +104,27 @@ public class MultiPlayCommonActivity extends AppCompatActivity {
         });
     }
 
-    private void multiPlayGamesListener() {
-        databaseRef.child("MultiplayerGames").addChildEventListener(new ChildEventListener() {
+    protected void startMultiplayerGame(String adventure, int levelNum) {
+        databaseRef.child("MultiplayerGames").child(multiPlayGameID).runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onChildRemoved(@NonNull DataSnapshot snapshot) {
-                PixelMultiGame multiGame = snapshot.getValue(PixelMultiGame.class);
-                if (multiGame != null) {
-                    if (multiGame.gameID.equalsIgnoreCase(multiPlayGameID)) {
-                        createDisconnectedAlertDialog();
-                    }
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                PixelMultiGame multiGame = currentData.getValue(PixelMultiGame.class);
+                if (multiGame == null) {
+                    return Transaction.success(currentData);
                 }
+
+                multiGame.adventure = adventure;
+                multiGame.levelNum = levelNum;
+                currentData.setValue(multiGame);
+
+                isPlaying = true;
+
+                return Transaction.success(currentData);
             }
 
             @Override
-            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
+            public void onComplete(@Nullable DatabaseError error, boolean committed, @Nullable DataSnapshot currentData) {
 
             }
         });

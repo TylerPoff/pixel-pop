@@ -8,6 +8,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="dark_red">#FF920000</color>
     <color name="light_blue">#FFB3DDFF</color>
+    <color name="flamingo">#e1634f</color>
 
     <color name="black">#FF000000</color> <!-- -16777216 -->
     <color name="blue">#FF0000FF</color> <!-- -16776961 -->

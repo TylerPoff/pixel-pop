@@ -12,7 +12,6 @@
         android:layout_margin="10dp"
         android:background="@drawable/danger_button_custom"
         android:text="@string/quit_level"
-        android:visibility="invisible"
         android:gravity="center"
         android:textAllCaps="false"
         app:layout_constraintBottom_toTopOf="@+id/barrier"
@@ -89,7 +88,7 @@
         app:layout_constraintBottom_toTopOf="@+id/drawPalette"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/barrier"
+        app:layout_constraintTop_toBottomOf="@+id/p1TV"
         app:layout_constraintVertical_bias="0.0" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -274,6 +273,22 @@
         app:layout_constraintTop_toTopOf="@+id/drawPalette" />
 
     <TextView
+        android:id="@+id/waitingTV"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/press_start_2p"
+        android:text="@string/waiting_for_host_to_be_done"
+        android:layout_margin="20dp"
+        android:gravity="center"
+        android:textSize="20sp"
+        android:textColor="#066466"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/drawPalette" />
+
+    <TextView
         android:id="@+id/displayTimer"
         android:layout_width="0dp"
         android:layout_height="0dp"
@@ -282,8 +297,34 @@
         android:textColor="@color/black"
         android:textSize="75dp"
         app:layout_constraintBottom_toBottomOf="@+id/pauseBtn"
-        app:layout_constraintEnd_toStartOf="@+id/skipBtn"
+        app:layout_constraintEnd_toStartOf="@+id/switchShakeErase"
         app:layout_constraintStart_toEndOf="@+id/pauseBtn"
         app:layout_constraintTop_toTopOf="@+id/pauseBtn" />
+
+    <TextView
+        android:id="@+id/p1TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p1"
+        android:padding="10dp"
+        android:background="@drawable/round_green_background"
+        android:fontFamily="@font/press_start_2p"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toStartOf="@+id/p2TV"
+        app:layout_constraintStart_toStartOf="@+id/drawView"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
+
+    <TextView
+        android:id="@+id/p2TV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/p2"
+        android:padding="10dp"
+        android:background="@drawable/round_green_background"
+        android:fontFamily="@font/press_start_2p"
+        android:textColor="@color/purple_200"
+        app:layout_constraintEnd_toEndOf="@+id/drawView"
+        app:layout_constraintStart_toEndOf="@+id/p1TV"
+        app:layout_constraintTop_toBottomOf="@+id/barrier" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

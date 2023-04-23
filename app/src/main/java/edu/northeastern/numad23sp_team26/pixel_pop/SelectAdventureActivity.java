@@ -45,7 +45,7 @@ public class SelectAdventureActivity extends AppCompatActivity {
     private Button joinMultiplayerBtn;
     private List<String> multiPlayGameIDList = new ArrayList<>();
 
-    enum PlayMode {
+    private enum PlayMode {
         SINGLE,
         MULTI
     }
