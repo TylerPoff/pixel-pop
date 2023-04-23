@@ -54,6 +54,7 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
     private Button skipBtn;
     private DisplayTimerThread displayTimerThread;
     private boolean paused = false;
+    private boolean quit = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -155,7 +156,9 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         if (displayTimerThread != null) {
             displayTimerThread.pauseTimer();
         }
-        createPauseAlertDialog();
+        if (!quit) {
+            createPauseAlertDialog();
+        }
     }
 
     @Override
@@ -335,9 +338,13 @@ public class DrawActivity extends AppCompatActivity implements ShakeDetector.Lis
         AlertDialog dialog = dialogBuilder.create();
         dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
         dialog.show();
-        cancelBtn.setOnClickListener(v -> dialog.dismiss());
+        cancelBtn.setOnClickListener(v -> {
+            dialog.dismiss();
+            quit = false;
+        });
         quitBtn.setOnClickListener(v -> {
             dialog.dismiss();
+            quit = true;
             finish();
         });
     }
