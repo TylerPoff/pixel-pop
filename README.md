@@ -1,4 +1,4 @@
-# NUMAD23Sp_Team26
+# Pixel_Pop
 
 ## Development
 1. Copy `apikey.blank.properties` to the same directory and rename `apikey.properties`
